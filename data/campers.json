@@ -1,0 +1,53 @@
+{
+  "campers": [
+    { "id": 1,  "name": "Jeff" },
+    { "id": 2,  "name": "Justin" },
+    { "id": 3,  "name": "Jess G" },
+    { "id": 4,  "name": "Madison" },
+    { "id": 5,  "name": "Danny" },
+    { "id": 6,  "name": "LT" },
+    { "id": 7,  "name": "Maja" },
+    { "id": 8,  "name": "Tripp" },
+    { "id": 9,  "name": "Nela" },
+    { "id": 10, "name": "Ryan N" },
+    { "id": 11, "name": "Varun" },
+    { "id": 12, "name": "Lindsey" },
+    { "id": 13, "name": "Ali" },
+    { "id": 14, "name": "Mike M" },
+    { "id": 15, "name": "Becca" },
+    { "id": 16, "name": "Sully" }
+  ],
+  "camps": [
+    {
+      "name": "Camp Chido",
+      "year": 2024,
+      "location": "Mexico",
+      "teams": [
+        {
+          "name": "Hand Job Rangers",
+          "points": 3455,
+          "won": false,
+          "campers": [1, 2, 3, 4]
+        },
+        {
+          "name": "Green Guzzlers",
+          "points": 2762,
+          "won": false,
+          "campers": [5, 6, 7, 8]
+        },
+        {
+          "name": "Mad Hatters",
+          "points": 2016,
+          "won": false,
+          "campers": [9, 10, 11, 12]
+        },
+        {
+          "name": "Salty Rims",
+          "points": 3696,
+          "won": true,
+          "campers": [13, 14, 15, 16]
+        }
+      ]
+    }
+  ]
+}
