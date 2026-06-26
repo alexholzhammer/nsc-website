@@ -15,7 +15,31 @@
     { "id": 13, "name": "Ali" },
     { "id": 14, "name": "Mike M" },
     { "id": 15, "name": "Becca" },
-    { "id": 16, "name": "Sully" }
+    { "id": 16, "name": "Sully" },
+    { "id": 17, "name": "Heather" },
+    { "id": 18, "name": "Thierry" },
+    { "id": 19, "name": "Julie" },
+    { "id": 20, "name": "Dragos" },
+    { "id": 21, "name": "Nicole" },
+    { "id": 22, "name": "AnnaMarie" },
+    { "id": 23, "name": "Julio" },
+    { "id": 24, "name": "Lisa" },
+    { "id": 25, "name": "James" },
+    { "id": 26, "name": "Jenna" },
+    { "id": 27, "name": "Casey" },
+    { "id": 28, "name": "Monica" },
+    { "id": 29, "name": "Ephan" },
+    { "id": 30, "name": "Bee" },
+    { "id": 31, "name": "Peter" },
+    { "id": 32, "name": "Keela" },
+    { "id": 33, "name": "Will" },
+    { "id": 34, "name": "Rachel" },
+    { "id": 35, "name": "Quinn" },
+    { "id": 36, "name": "Ryan L" },
+    { "id": 37, "name": "Lauren M" },
+    { "id": 38, "name": "Matty W" },
+    { "id": 39, "name": "Emily" },
+    { "id": 40, "name": "Nikki" }
   ],
   "camps": [
     {
@@ -46,6 +70,37 @@
           "points": 3696,
           "won": true,
           "campers": [13, 14, 15, 16]
+        }
+      ]
+    },
+    {
+      "name": "Camp Jandala",
+      "year": 2024,
+      "location": "Novi Sad, Serbia",
+      "teams": [
+        {
+          "name": "Unicorns",
+          "points": 3005,
+          "won": true,
+          "campers": [17, 18, 19, 20, 21, 22]
+        },
+        {
+          "name": "Mowdown Dragons",
+          "points": 2400,
+          "won": false,
+          "campers": [23, 24, 25, 26, 27, 28]
+        },
+        {
+          "name": "Pirates",
+          "points": 1944,
+          "won": false,
+          "campers": [29, 30, 31, 32, 33, 34]
+        },
+        {
+          "name": "Supreme Cream Dream Team",
+          "points": 2025,
+          "won": false,
+          "campers": [35, 36, 37, 38, 39, 40]
         }
       ]
     }
