@@ -39,7 +39,8 @@
     { "id": 37, "name": "Lauren M" },
     { "id": 38, "name": "Matty W" },
     { "id": 39, "name": "Emily" },
-    { "id": 40, "name": "Nikki" }
+    { "id": 40, "name": "Nikki" },
+    { "id": 41, "name": "Zain" }
   ],
   "camps": [
     {
@@ -101,6 +102,37 @@
           "points": 2025,
           "won": false,
           "campers": [35, 36, 37, 38, 39, 40]
+        }
+      ]
+    },
+    {
+      "name": "Camp Chateau",
+      "year": 2025,
+      "location": "Normandy, France",
+      "teams": [
+        {
+          "name": "Wizards",
+          "points": 2773,
+          "won": false,
+          "campers": [23, 25, 34, 38, 19]
+        },
+        {
+          "name": "Knights",
+          "points": 1988,
+          "won": false,
+          "campers": [18, 32, 36, 40, 24]
+        },
+        {
+          "name": "Witches",
+          "points": 2409,
+          "won": false,
+          "campers": [30, 26, 27, 33, 1]
+        },
+        {
+          "name": "Dragons",
+          "points": 2805,
+          "won": true,
+          "campers": [17, 29, 28, 41, 20]
         }
       ]
     }
