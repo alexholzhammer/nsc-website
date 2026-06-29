@@ -40,9 +40,43 @@
     { "id": 38, "name": "Matty W" },
     { "id": 39, "name": "Emily" },
     { "id": 40, "name": "Nikki" },
-    { "id": 41, "name": "Zain" }
+    { "id": 41, "name": "Zain" },
+    { "id": 42, "name": "Caitlin" },
+    { "id": 43, "name": "Scott" },
+    { "id": 44, "name": "Lucy" }
   ],
   "camps": [
+    {
+      "name": "Camp Bädäss",
+      "year": 2023,
+      "location": "Bad Aussee, Austria",
+      "teams": [
+        {
+          "name": "Jause",
+          "points": 2196,
+          "won": false,
+          "campers": [38, 39, 18, 40, 42]
+        },
+        {
+          "name": "Bees",
+          "points": 2752,
+          "won": true,
+          "campers": [24, 37, 29, 30]
+        },
+        {
+          "name": "Agavelays",
+          "points": 1630,
+          "won": false,
+          "campers": [13, 23, 28, 22]
+        },
+        {
+          "name": "Unamas",
+          "points": 1538,
+          "won": false,
+          "campers": [17, 43, 44, 41, 31]
+        }
+      ]
+    },
     {
       "name": "Camp Chido",
       "year": 2024,
