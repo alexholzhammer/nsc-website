@@ -203,6 +203,37 @@
           "campers": [17, 29, 28, 41, 20]
         }
       ]
+    },
+    {
+      "name": "Camp Big Daddy",
+      "year": 2026,
+      "location": "Cape Town, South Africa",
+      "teams": [
+        {
+          "name": "Gorillas",
+          "points": 1450,
+          "won": false,
+          "campers": [19, 3, 24, 12, 45, 46, 33, 47, 48, 49, 50, 51]
+        },
+        {
+          "name": "Penguins",
+          "points": 1100,
+          "won": false,
+          "campers": [52, 53, 54, 55, 6, 56, 38, 57, 58, 59, 60, 61, 37]
+        },
+        {
+          "name": "Crocs",
+          "points": 1525,
+          "won": true,
+          "campers": [62, 63, 64, 65, 32, 34, 29, 66, 67, 68, 2, 69]
+        },
+        {
+          "name": "Snakes",
+          "points": 1450,
+          "won": false,
+          "campers": [70, 71, 72, 40, 73, 17, 74, 75, 76, 77, 16, 78, 25]
+        }
+      ]
     }
   ]
 }
