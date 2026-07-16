@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rankings | Nomad Summer Camp</title>
+
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caprasimo&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-WB3WKB2G');</script>
+    <!-- End Google Tag Manager -->
+
+    <style>
+        body {
+            background-color: #111827;
+            color: #F3F4F6;
+            font-family: 'Inter', sans-serif;
+        }
+        .font-display {
+            font-family: 'Caprasimo', cursive;
+        }
+        .font-bebas {
+            font-family: 'Bebas Neue', sans-serif;
+        }
+        .rank-1 { color: #FBBF24; }
+        .rank-2 { color: #9CA3AF; }
+        .rank-3 { color: #D97706; }
+
+        .badge-tip {
+            position: relative;
+            display: inline-block;
+            cursor: default;
+        }
+        .badge-tip::after {
+            content: attr(data-tip);
+            position: absolute;
+            bottom: calc(100% + 6px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1F2937;
+            color: #F9FAFB;
+            font-size: 11px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            white-space: nowrap;
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid #374151;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.15s;
+            z-index: 20;
+        }
+        .badge-tip:hover::after,
+        .badge-tip.tip-active::after {
+            opacity: 1;
+        }
+    </style>
+    <script src="/components.js" defer></script>
+</head>
+<body class="antialiased">
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WB3WKB2G"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+    <div id="nav-placeholder"></div>
+
+    <main>
+
+        <!-- HERO -->
+        <section class="pt-24 pb-12 md:pt-36 md:pb-16 px-4 text-center">
+            <div class="max-w-3xl mx-auto">
+                <p class="text-yellow-500 font-semibold text-sm uppercase tracking-widest mb-3">All-time leaderboard</p>
+                <h1 class="font-display text-5xl md:text-7xl text-white tracking-wide leading-tight">Camper<br>Rankings</h1>
+                <p class="mt-6 text-lg md:text-xl text-gray-400 leading-relaxed">
+                    Who's racked up the most points across every Nomad Summer Camp? Find out below.
+                </p>
+            </div>
+        </section>
+
+        <!-- RANKINGS TABLE -->
+        <section class="px-4 pb-24 md:pb-36">
+            <div class="max-w-3xl mx-auto">
+
+                <!-- Legend -->
+                <div class="flex items-center gap-5 mb-8 flex-wrap">
+                    <span class="text-xs font-semibold uppercase tracking-widest text-gray-500">Badges</span>
+                    <div class="flex items-center gap-1.5">
+                        <img src="/badges/badge-duck-foot.avif" alt="Duck foot" class="w-5 h-5 object-contain">
+                        <span class="text-xs text-gray-400">3+ Camps</span>
+                    </div>
+                    <div class="flex items-center gap-1.5">
+                        <img src="/badges/badge-bear-paw.avif" alt="Bear paw" class="w-5 h-5 object-contain">
+                        <span class="text-xs text-gray-400">5+ Camps</span>
+                    </div>
+                    <div class="flex items-center gap-1.5">
+                        <img src="/badges/badge-bonfire.avif" alt="Bonfire" class="w-5 h-5 object-contain">
+                        <span class="text-xs text-gray-400">3+ Wins</span>
+                    </div>
+                </div>
+
+                <!-- Loading state -->
+                <div id="rankings-loading" class="text-center py-16 text-gray-500">Loading rankings…</div>
+
+                <!-- Error state -->
+                <div id="rankings-error" class="hidden text-center py-16 text-gray-500">Could not load rankings data.</div>
+
+                <!-- Table -->
+                <div id="rankings-table" class="hidden">
+
+                    <!-- Header row -->
+                    <div class="grid grid-cols-[2rem_1fr_repeat(3,_6rem)] gap-4 px-4 pb-3 text-xs font-semibold uppercase tracking-widest text-gray-500">
+                        <div></div>
+                        <div>Camper</div>
+                        <div class="text-right">Camps</div>
+                        <div class="text-right">Wins</div>
+                        <div class="text-right">Points</div>
+                    </div>
+
+                    <div id="rankings-rows" class="space-y-2"></div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script>
+        (function () {
+            const MEDALS = ['🥇', '🥈', '🥉'];
+
+            function rankLabel(i) {
+                if (i < 3) return MEDALS[i];
+                return String(i + 1);
+            }
+
+            function rankClass(i) {
+                if (i === 0) return 'rank-1';
+                if (i === 1) return 'rank-2';
+                if (i === 2) return 'rank-3';
+                return 'text-gray-400';
+            }
+
+            function rowBg(i) {
+                if (i === 0) return 'bg-yellow-500/10 border border-yellow-500/20';
+                return 'bg-gray-800/60 border border-white/5';
+            }
+
+            fetch('/data/campers.json')
+                .then(function (res) {
+                    if (!res.ok) throw new Error('fetch failed');
+                    return res.json();
+                })
+                .then(function (data) {
+                    const camperMap = {};
+                    data.campers.forEach(function (c) {
+                        camperMap[c.id] = { name: c.name, camps: 0, wins: 0, points: 0 };
+                    });
+
+                    data.camps.forEach(function (camp) {
+                        camp.teams.forEach(function (team) {
+                            team.campers.forEach(function (id) {
+                                if (!camperMap[id]) return;
+                                camperMap[id].camps += 1;
+                                camperMap[id].points += team.points;
+                                if (team.won) camperMap[id].wins += 1;
+                            });
+                        });
+                    });
+
+                    const sorted = Object.values(camperMap).sort(function (a, b) {
+                        if (b.points !== a.points) return b.points - a.points;
+                        if (b.wins !== a.wins) return b.wins - a.wins;
+                        return b.camps - a.camps;
+                    });
+
+                    const container = document.getElementById('rankings-rows');
+                    sorted.forEach(function (camper, i) {
+                        const row = document.createElement('div');
+                        row.className = 'grid grid-cols-[2rem_1fr_repeat(3,_6rem)] gap-4 items-center px-4 py-4 rounded-2xl ' + rowBg(i);
+                        row.innerHTML =
+                            '<div class="font-bebas text-2xl ' + rankClass(i) + ' text-center leading-none">' + rankLabel(i) + '</div>' +
+                            '<div class="font-semibold text-white text-lg leading-tight flex items-center gap-2">' + escapeHtml(camper.name) + '<span class="flex items-center gap-1">' + buildBadges(camper) + '</span></div>' +
+                            '<div class="text-right font-bebas text-2xl text-gray-300">' + camper.camps + '</div>' +
+                            '<div class="text-right font-bebas text-2xl text-gray-300">' + camper.wins + '</div>' +
+                            '<div class="text-right font-bebas text-2xl text-yellow-400">' + camper.points.toLocaleString() + '</div>';
+                        container.appendChild(row);
+                    });
+
+                    document.getElementById('rankings-loading').classList.add('hidden');
+                    document.getElementById('rankings-table').classList.remove('hidden');
+                })
+                .catch(function () {
+                    document.getElementById('rankings-loading').classList.add('hidden');
+                    document.getElementById('rankings-error').classList.remove('hidden');
+                });
+
+            function escapeHtml(str) {
+                return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            }
+
+            function buildBadges(camper) {
+                var badges = [];
+                if (camper.camps >= 3) badges.push({ src: '/badges/badge-duck-foot.avif', tip: 'Went to 3 or more Camps' });
+                if (camper.camps >= 5) badges.push({ src: '/badges/badge-bear-paw.avif', tip: 'Went to 5 or more Camps' });
+                if (camper.wins >= 3) badges.push({ src: '/badges/badge-bonfire.avif', tip: 'Won 3 or more Camps' });
+                return badges.map(function (b) {
+                    return '<span class="badge-tip" data-tip="' + b.tip + '"><img src="' + b.src + '" alt="' + b.tip + '" class="inline-block w-6 h-6 object-contain" loading="lazy"></span>';
+                }).join('');
+            }
+
+            document.addEventListener('click', function (e) {
+                var tip = e.target.closest('.badge-tip');
+                document.querySelectorAll('.badge-tip.tip-active').forEach(function (el) {
+                    if (el !== tip) el.classList.remove('tip-active');
+                });
+                if (tip) tip.classList.toggle('tip-active');
+            });
+        })();
+    </script>
+
+</body>
+</html>
