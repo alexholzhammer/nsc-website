@@ -1,186 +1,133 @@
+/* ============================================================
+   Shared page components — header and footer.
+
+   Each page carries an empty placeholder div and loads this
+   script. The fragments (/nav.html, /footer.html) are fetched
+   and swapped in, so the markup lives in exactly one file.
+
+   Same pattern as the main nomadsummercamp.com site.
+
+   Note: the header is `position: sticky`, not `fixed`, so it
+   occupies normal layout space and needs no spacer or height
+   measurement. CSS reserves the placeholder's height, so the
+   swap causes no layout shift.
+   ============================================================ */
 (function () {
-    function initNav() {
-        var nav = document.getElementById('main-nav');
-        var navSpacer = document.getElementById('nav-spacer');
-        var hamburgerBtn = document.getElementById('hamburger-btn');
-        var mobileMenu = document.getElementById('mobile-menu');
-        var hamburgerIcon = document.getElementById('hamburger-icon');
-        var closeIcon = document.getElementById('close-icon');
 
-        // Hamburger toggle
-        hamburgerBtn.addEventListener('click', function () {
-            var isOpen = !mobileMenu.classList.contains('hidden');
-            mobileMenu.classList.toggle('hidden');
-            hamburgerIcon.classList.toggle('hidden', !isOpen);
-            closeIcon.classList.toggle('hidden', isOpen);
-        });
+  /* Fetch a fragment and replace its placeholder with the markup.
+     `always` runs once the attempt settles (injected, skipped, or
+     failed) so callers can wait for every fragment to be in the DOM. */
+  function inject(placeholderId, url, onDone, always) {
+    var placeholder = document.getElementById(placeholderId);
+    if (!placeholder) { if (always) always(); return; }
 
-        // Close mobile menu when a link is clicked
-        mobileMenu.querySelectorAll('a').forEach(function (link) {
-            link.addEventListener('click', function () {
-                mobileMenu.classList.add('hidden');
-                hamburgerIcon.classList.remove('hidden');
-                closeIcon.classList.add('hidden');
-            });
-        });
+    fetch(url)
+      .then(function (res) {
+        if (!res.ok) throw new Error(url + ' returned ' + res.status);
+        return res.text();
+      })
+      .then(function (html) {
+        var tmp = document.createElement('div');
+        tmp.innerHTML = html;
+        placeholder.replaceWith.apply(placeholder, Array.from(tmp.childNodes));
+        if (onDone) onDone();
+      })
+      .catch(function (err) {
+        console.error('[components] could not load', url, err);
+      })
+      .finally(function () {
+        if (always) always();
+      });
+  }
 
-        // Keep nav spacer in sync with nav height.
-        // We defer the first call with two rAFs so Tailwind CDN has time to
-        // apply CSS classes (h-16/h-20 on the logo) before we measure.
-        // Without this, offsetHeight reflects the logo's natural image size
-        // (often 400px+) and creates a massive gap under the nav.
-        function syncSpacer() {
-            navSpacer.style.height = nav.offsetHeight + 'px';
-        }
-        requestAnimationFrame(function () {
-            requestAnimationFrame(function () {
-                syncSpacer();
-                // Re-sync once the logo image has fully loaded, just in case
-                var logoImg = nav.querySelector('img');
-                if (logoImg && !logoImg.complete) {
-                    logoImg.addEventListener('load', syncSpacer);
-                    logoImg.addEventListener('error', syncSpacer);
-                }
-            });
-        });
-        window.addEventListener('resize', syncSpacer);
+  /* "/about/index.html", "/about/" and "/about" all mean the same page. */
+  function normalize(path) {
+    return path.replace(/index\.html$/, '').replace(/\/+$/, '') || '/';
+  }
 
-        // Scroll-hide on mobile, always visible on desktop
-        var lastScrollY = window.scrollY;
-        window.addEventListener('scroll', function () {
-            if (window.innerWidth >= 768) { nav.style.transform = ''; return; }
-            var y = window.scrollY;
-            if (y > lastScrollY && y > nav.offsetHeight) {
-                nav.style.transform = 'translateY(-100%)';
-            } else {
-                nav.style.transform = 'translateY(0)';
-            }
-            lastScrollY = y;
-        }, { passive: true });
+  function initNav() {
+    var here = normalize(window.location.pathname);
 
-        // Highlight the active nav link based on current path
-        var path = window.location.pathname.replace(/\/$/, '') || '/';
-        nav.querySelectorAll('a.nav-link').forEach(function (link) {
-            var href = (link.getAttribute('href') || '').replace(/\/$/, '') || '/';
-            if (href === path) {
-                link.classList.remove('text-gray-300');
-                link.classList.add('text-white', 'font-semibold');
-            }
-        });
+    document.querySelectorAll('.site-header__link').forEach(function (link) {
+      if (normalize(link.getAttribute('href') || '') === here) {
+        link.classList.add('site-header__link--active');
+        link.setAttribute('aria-current', 'page');
+      }
+    });
 
-        // Re-init Tally embeds for the dynamically-injected buttons
-        if (window.Tally) {
-            window.Tally.loadEmbeds();
-        }
+    /* Tally scanned the document before this markup existed, so the
+       header's CTA has to be registered by hand. */
+    if (window.Tally) window.Tally.loadEmbeds();
+
+    /* Desktop: collapse the 80px bar to 50px once the page is
+       scrolled. The height + transition live in style.css; this
+       just toggles the class. */
+    var header = document.getElementById('site-header');
+    if (header) {
+      var syncScrolled = function () {
+        header.classList.toggle('site-header--scrolled', window.scrollY > 0);
+      };
+      syncScrolled();
+      window.addEventListener('scroll', syncScrolled, { passive: true });
+    }
+  }
+
+  function initFooter() {
+    /* Tally scanned the document before this markup existed, so the
+       footer's CTA has to be registered by hand — same as the header. */
+    if (window.Tally) window.Tally.loadEmbeds();
+  }
+
+  /* Newsletter popup.
+
+     The triggers (.js-beehiiv-newsletter) live in both fragments and the
+     #nsc-newsletter-overlay lives in the footer fragment, so this must run
+     once *both* fragments are in the DOM.
+
+     The overlay's beehiiv embed iframe is in the markup from the start, so
+     opening the popup is just a class toggle — instant. (The previous
+     approach, beehiiv's v3/loader.js, *built* the popup on click, which
+     took ~1s, and its click handler was single-use so it only ever opened
+     once.) beehiiv's embed.js just watches the iframe and resizes it. */
+  var fragmentsPending = 2;
+
+  function initNewsletter() {
+    var overlay = document.getElementById('nsc-newsletter-overlay');
+    if (!overlay) return;
+
+    if (!document.querySelector('script[src*="subscribe-forms.beehiiv.com/embed.js"]')) {
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://subscribe-forms.beehiiv.com/embed.js';
+      document.body.appendChild(s);
     }
 
-    var navPlaceholder = document.getElementById('nav-placeholder');
-    var footerPlaceholder = document.getElementById('footer-placeholder');
+    var open = function (e) {
+      if (e) e.preventDefault();
+      overlay.classList.add('nsc-nl-overlay--open');
+      document.documentElement.style.overflow = 'hidden';
+    };
+    var close = function () {
+      overlay.classList.remove('nsc-nl-overlay--open');
+      document.documentElement.style.overflow = '';
+    };
 
-    if (navPlaceholder) {
-        fetch('/nav.html')
-            .then(function (r) { return r.text(); })
-            .then(function (html) {
-                var tmp = document.createElement('div');
-                tmp.innerHTML = html;
-                navPlaceholder.replaceWith.apply(navPlaceholder, Array.from(tmp.childNodes));
-                initNav();
-            });
-    }
+    document.querySelectorAll('.js-beehiiv-newsletter').forEach(function (el) {
+      el.addEventListener('click', open);
+    });
+    overlay.querySelector('.nsc-nl-overlay__close').addEventListener('click', close);
+    overlay.addEventListener('click', function (e) { if (e.target === overlay) close(); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && overlay.classList.contains('nsc-nl-overlay--open')) close();
+    });
+  }
 
-    if (footerPlaceholder) {
-        fetch('/footer.html')
-            .then(function (r) { return r.text(); })
-            .then(function (html) {
-                var tmp = document.createElement('div');
-                tmp.innerHTML = html;
-                footerPlaceholder.replaceWith.apply(footerPlaceholder, Array.from(tmp.childNodes));
-            });
-    }
+  function fragmentSettled() {
+    fragmentsPending -= 1;
+    if (fragmentsPending === 0) initNewsletter();
+  }
 
-    // Newsletter bottom bar + overlay
-    (function () {
-        if (sessionStorage.getItem('nsc-newsletter-dismissed')) return;
+  inject('nav-placeholder', '/nav.html', initNav, fragmentSettled);
+  inject('footer-placeholder', '/footer.html', initFooter, fragmentSettled);
 
-        // Load beehiiv embed script
-        var beeScript = document.createElement('script');
-        beeScript.async = true;
-        beeScript.src = 'https://subscribe-forms.beehiiv.com/embed.js';
-        document.head.appendChild(beeScript);
-
-        // Bottom bar responsive styles
-        var nlStyle = document.createElement('style');
-        nlStyle.textContent =
-            '#nl-center{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;flex:1;min-width:0}' +
-            '@media(min-width:768px){#nl-center{flex-direction:row;gap:16px}}';
-        document.head.appendChild(nlStyle);
-
-        // Bottom bar
-        var bar = document.createElement('div');
-        bar.id = 'newsletter-bar';
-        bar.style.cssText = 'position:fixed;bottom:0;left:0;right:0;z-index:40;transform:translateY(100%);transition:transform 0.4s cubic-bezier(0.16,1,0.3,1)';
-        bar.innerHTML =
-            '<div style="background:#111827;border-top:1px solid rgba(255,255,255,0.08);padding:14px 20px;display:flex;align-items:center;position:relative;box-shadow:0 -4px 24px rgba(0,0,0,0.4)">' +
-                '<div id="nl-center">' +
-                    '<p style="color:#fff;font-weight:500;margin:0;font-size:15px;text-align:center">Never miss a Camp update again!</p>' +
-                    '<button id="nl-open" style="background:#EAB308;color:#111827;font-weight:600;font-size:14px;padding:8px 20px;border-radius:9999px;border:none;cursor:pointer;white-space:nowrap;flex-shrink:0">Sign up for Camp newsletter</button>' +
-                '</div>' +
-                '<button id="nl-close" aria-label="Close" style="position:absolute;right:16px;top:50%;transform:translateY(-50%);background:none;border:none;color:#9CA3AF;font-size:24px;line-height:1;cursor:pointer;padding:4px">&times;</button>' +
-            '</div>';
-        document.body.appendChild(bar);
-
-        // Slide in after a short delay
-        requestAnimationFrame(function () {
-            requestAnimationFrame(function () {
-                bar.style.transform = 'translateY(0)';
-            });
-        });
-
-        // Fix mobile Chrome: position: fixed is relative to the layout viewport,
-        // not the visual viewport, so the bar drifts when browser UI shows/hides.
-        // Adjust `bottom` to match the visual viewport offset.
-        if (window.visualViewport) {
-            function syncBarPosition() {
-                var vv = window.visualViewport;
-                var offset = window.innerHeight - vv.height - vv.offsetTop;
-                bar.style.bottom = Math.max(0, offset) + 'px';
-            }
-            window.visualViewport.addEventListener('resize', syncBarPosition);
-            window.visualViewport.addEventListener('scroll', syncBarPosition);
-        }
-
-        // Overlay
-        var overlay = document.createElement('div');
-        overlay.id = 'newsletter-overlay';
-        overlay.style.cssText = 'position:fixed;inset:0;z-index:50;display:none;align-items:flex-start;justify-content:center;background:rgba(0,0,0,0.8);padding:60px 16px 16px;overflow-y:auto';
-        overlay.innerHTML =
-            '<div style="position:relative;width:100%;max-width:580px;margin:0 auto">' +
-                '<button id="nl-overlay-close" aria-label="Close" style="position:absolute;top:-40px;right:0;background:none;border:none;color:rgba(255,255,255,0.7);font-size:32px;line-height:1;cursor:pointer">&times;</button>' +
-                '<iframe src="https://subscribe-forms.beehiiv.com/113948f3-d7ae-48e5-b5d3-c490cb43e535" class="beehiiv-embed" data-test-id="beehiiv-embed" frameborder="0" scrolling="no" style="width:100%;height:480px;border-radius:10px;background-color:transparent;display:block;max-width:100%"></iframe>' +
-            '</div>';
-        document.body.appendChild(overlay);
-
-        function openOverlay() {
-            overlay.style.display = 'flex';
-        }
-        function closeOverlay() {
-            overlay.style.display = 'none';
-        }
-
-        document.getElementById('nl-open').addEventListener('click', openOverlay);
-
-        document.getElementById('nl-close').addEventListener('click', function () {
-            bar.style.transform = 'translateY(100%)';
-            setTimeout(function () { bar.remove(); }, 400);
-            sessionStorage.setItem('nsc-newsletter-dismissed', '1');
-        });
-
-        document.getElementById('nl-overlay-close').addEventListener('click', closeOverlay);
-        overlay.addEventListener('click', function (e) {
-            if (e.target === overlay) closeOverlay();
-        });
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape') closeOverlay();
-        });
-    })();
 })();

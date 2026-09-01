@@ -1,14 +1,78 @@
-<footer class="bg-gray-900 border-t border-white/10 py-10 px-4">
-    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-gray-400 text-sm">
-        <div class="flex items-center gap-3">
-            <img src="/nsc-logo-white.png" alt="Nomad Summer Camp" class="h-8 w-8 opacity-70">
-            <span>© 2025 Nomad Summer Camp. All rights reserved.</span>
+<!-- Shared site footer. Injected into #footer-placeholder by /components.js.
+     This is a fragment on purpose — no <html>, <head> or <body>.
+     Edit the footer here and every page picks it up.
+     The newsletter links (.js-beehiiv-newsletter, in this file and nav.html)
+     open the #nsc-newsletter-overlay defined at the bottom of this fragment —
+     see components.js. -->
+<footer class="site-footer">
+  <div class="site-footer__inner">
+
+    <!-- Main row: CTA stack · address · socials -->
+    <div class="site-footer__main">
+
+      <div class="site-footer__actions">
+        <button class="btn-primary site-footer__cta"
+                data-tally-open="zxDW8M" data-tally-layout="modal" data-tally-width="800"
+                data-tally-emoji-text="🥳" data-tally-emoji-animation="none"
+                data-tally-form-events-forwarding="1">Sign up for Camp Big Daddy 2027</button>
+
+        <div class="site-footer__newsletter-wrap">
+          <a class="site-footer__newsletter js-beehiiv-newsletter" href="#">Sign up for our newsletter</a>
+          <span class="site-footer__newsletter-sub">Never miss a Camp announcement again</span>
         </div>
-        <div class="flex items-center gap-6">
-            <a href="/" class="hover:text-white transition-colors">Home</a>
-            <a href="/about" class="hover:text-white transition-colors">About</a>
-            <a href="/past-camps" class="hover:text-white transition-colors">Past Camps</a>
-            <a href="https://www.instagram.com/nomad.summercamp/" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Instagram</a>
+      </div>
+
+      <div class="site-footer__contact">
+        <h2 class="site-footer__heading">Nomad Summer Camp LLC</h2>
+        <address class="site-footer__address">
+          24730 Alamosa Falls<br>
+          San Antonio, TX 78255
+        </address>
+        <a class="site-footer__link" href="mailto:counselor@nomadsummercamp.com">counselor@nomadsummercamp.com</a>
+      </div>
+
+      <div class="site-footer__follow">
+        <h2 class="site-footer__heading">Follow along</h2>
+        <div class="site-footer__socials">
+          <a class="site-footer__social" href="https://www.instagram.com/nomad.summercamp"
+             target="_blank" rel="noopener" aria-label="Nomad Summer Camp on Instagram">
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
+              <path fill="currentColor" d="M12 4.16c2.56 0 2.87.01 3.88.06.94.04 1.44.2 1.78.33.45.17.77.38 1.1.71.34.34.55.66.72 1.1.13.35.29.85.33 1.79.05 1.01.06 1.32.06 3.88s-.01 2.87-.06 3.88c-.04.94-.2 1.44-.33 1.78-.17.45-.38.77-.71 1.1-.34.34-.66.55-1.1.72-.35.13-.85.29-1.79.33-1.01.05-1.32.06-3.88.06s-2.87-.01-3.88-.06c-.94-.04-1.44-.2-1.78-.33a2.96 2.96 0 0 1-1.1-.71 2.96 2.96 0 0 1-.72-1.1c-.13-.35-.29-.85-.33-1.79-.05-1.01-.06-1.32-.06-3.88s.01-2.87.06-3.88c.04-.94.2-1.44.33-1.78.17-.45.38-.77.71-1.1.34-.34.66-.55 1.1-.72.35-.13.85-.29 1.79-.33 1.01-.05 1.32-.06 3.88-.06M12 2.44c-2.6 0-2.93.01-3.95.06-1.02.05-1.72.21-2.33.45-.63.24-1.16.57-1.7 1.1-.53.54-.86 1.07-1.1 1.7-.24.61-.4 1.31-.45 2.33-.05 1.02-.06 1.35-.06 3.95s.01 2.93.06 3.95c.05 1.02.21 1.72.45 2.33.24.63.57 1.16 1.1 1.7.54.53 1.07.86 1.7 1.1.61.24 1.31.4 2.33.45 1.02.05 1.35.06 3.95.06s2.93-.01 3.95-.06c1.02-.05 1.72-.21 2.33-.45a4.7 4.7 0 0 0 1.7-1.1c.53-.54.86-1.07 1.1-1.7.24-.61.4-1.31.45-2.33.05-1.02.06-1.35.06-3.95s-.01-2.93-.06-3.95c-.05-1.02-.21-1.72-.45-2.33a4.7 4.7 0 0 0-1.1-1.7 4.7 4.7 0 0 0-1.7-1.1c-.61-.24-1.31-.4-2.33-.45-1.02-.05-1.35-.06-3.95-.06Zm0 4.65a4.91 4.91 0 1 0 0 9.82 4.91 4.91 0 0 0 0-9.82Zm0 8.1a3.19 3.19 0 1 1 0-6.38 3.19 3.19 0 0 1 0 6.38Zm6.25-8.29a1.15 1.15 0 1 1-2.3 0 1.15 1.15 0 0 1 2.3 0Z"/>
+            </svg>
+          </a>
+          <a class="site-footer__social" href="https://www.youtube.com/@nomadsummercamp"
+             target="_blank" rel="noopener" aria-label="Nomad Summer Camp on YouTube">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false">
+              <path fill="currentColor" d="M23.5 6.51a3 3 0 0 0-2.11-2.12C19.5 3.88 12 3.88 12 3.88s-7.5 0-9.39.51A3 3 0 0 0 .5 6.51 31.2 31.2 0 0 0 0 12a31.2 31.2 0 0 0 .5 5.49 3 3 0 0 0 2.11 2.12c1.89.51 9.39.51 9.39.51s7.5 0 9.39-.51a3 3 0 0 0 2.11-2.12A31.2 31.2 0 0 0 24 12a31.2 31.2 0 0 0-.5-5.49ZM9.6 15.6V8.4l6.25 3.6L9.6 15.6Z"/>
+            </svg>
+          </a>
         </div>
+      </div>
     </div>
+
+    <!-- Bottom: copyright + legal -->
+    <div class="site-footer__legal">
+      <p class="site-footer__copy">© 2027 Nomad Summer Camp LLC</p>
+      <nav class="site-footer__legal-links" aria-label="Legal">
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/terms">Terms</a>
+        <a href="/imprint">Imprint</a>
+      </nav>
+    </div>
+
+  </div>
+
+  <!-- Newsletter popup. The beehiiv embed iframe is loaded up-front and just
+       shown/hidden — building it on click (the old v3/loader.js popup) added
+       a ~1s delay. subscribe-forms.beehiiv.com/embed.js (appended by
+       components.js) sizes the iframe. Same pattern as nomadsummercamp.com. -->
+  <div id="nsc-newsletter-overlay" class="nsc-nl-overlay">
+    <div class="nsc-nl-overlay__box">
+      <button type="button" class="nsc-nl-overlay__close" aria-label="Close">&times;</button>
+      <iframe src="https://subscribe-forms.beehiiv.com/113948f3-d7ae-48e5-b5d3-c490cb43e535"
+              class="beehiiv-embed" data-test-id="beehiiv-embed" frameborder="0" scrolling="no"
+              title="Sign up for the Nomad Summer Camp newsletter"
+              style="width:5000px;height:2000px;border-radius:10px;background-color:transparent;display:block;max-width:100%;"></iframe>
+    </div>
+  </div>
 </footer>

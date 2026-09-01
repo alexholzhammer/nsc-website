@@ -1,0 +1,2832 @@
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+:root {
+  /* Palette */
+  --color-cream:    #fff7ed;
+  --color-pink:     #f43f5e;
+  --color-teal:     #14b8a6;
+  --color-orange:   #f97316;
+  --color-yellow:   #facc15;
+  --color-dark:     #1b1533;
+  --color-white:    #ffffff;
+  --color-gray-mid: #d4d4d4;
+
+  /* Section washes — a breath of palette colour behind a section,
+     never a colour field. See "Section backgrounds" note below. */
+  --wash-blush: #fdeef1;
+  --wash-peach: #fdeee0;
+  --wash-mint:  #ecf7f4;
+
+  /* RGB channels for alpha variants (e.g. rgba(var(--color-dark-rgb), 0.15)) */
+  --color-dark-rgb:   27, 21, 51;
+  --color-yellow-rgb: 250, 204, 21;
+
+  /* Hard offset shadows (no blur — flat sticker style) */
+  --shadow-sm:  3px 3px 0 var(--color-dark);
+  --shadow-md:  6px 6px 0 var(--color-dark);
+  --shadow-lg:  7px 7px 0 var(--color-dark);
+  --shadow-xl:  9px 9px 0 var(--color-dark);
+
+  /* Inset outlines (drawn inside the element's own bounds) */
+  --outline-thick: 4px solid var(--color-dark);
+  --outline-thin:  2.5px solid var(--color-dark);
+
+  /* Typography */
+  --font-display:     'Bungee', sans-serif;
+  --font-body:        'Archivo Black', sans-serif;
+  --font-handwritten: 'Kalam', cursive;
+
+  /* Radii */
+  --radius-sticker: 16px;
+  --radius-pill:    999px;
+
+  /* Layout gutters */
+  --gutter-left:  155px;
+  --gutter-right:  80px;
+}
+
+
+/* ============================================================
+   SECTION BACKGROUNDS
+   The page is a stack of sheets, not one beige field. Balance
+   rule: a section gets EITHER a soft wash OR a light pattern —
+   never both. Exactly two sections carry a full colour field
+   with a pattern on top, and the page is paced around them.
+   No dark fields.
+
+     Hero .................. cream + its own halftone overlay
+     Julie quote ........... TEAL FIELD + barber stripes  <- accent
+     What is NSC ........... cream, flat
+     Camper quotes ......... cream + faint pink halftone
+     A day at Camp ......... soft peach, flat
+     Everything's Included . TEAL FIELD + ledger grid      <- accent
+     Camp Grounds Tour ..... cream + faint teal contours
+     Where You'll Stay ..... soft mint, flat
+     Camper testimonials .. cream + faint orange halftone
+
+   Every pattern uses hard colour stops, never a soft gradient —
+   same reason the shadows have no blur.
+   ============================================================ */
+
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html { font-size: 16px; }
+
+body {
+  background: var(--color-cream);
+  color: var(--color-dark);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a { text-decoration: none; }
+
+h1 { font-size: inherit; font-weight: inherit; }
+
+
+/* ============================================================
+   COMPONENT — STICKER HEADLINE
+   Each line is its own puffy sticker:
+   rounded pill shape, inset border outline, hard shadow.
+   ============================================================ */
+.sticker {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: var(--radius-sticker);
+  outline: var(--outline-thick);
+  outline-offset: -4px;
+  box-shadow: var(--shadow-md);
+  font-family: var(--font-display);
+  font-size: 3rem;
+  line-height: 1.1;
+  color: var(--color-white);
+  white-space: nowrap;
+}
+
+.sticker--pink   { background: var(--color-pink); }
+.sticker--teal   { background: var(--color-teal); }
+.sticker--orange { background: var(--color-orange); }
+.sticker--yellow { background: var(--color-yellow); color: var(--color-dark); }
+
+
+/* ============================================================
+   COMPONENT — BADGE
+   Small pill badge (e.g. "30% sold out")
+   ============================================================ */
+.badge {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: var(--color-white);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.badge--pill {
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  outline: var(--outline-thin);
+  outline-offset: -2.5px;
+  box-shadow: var(--shadow-sm);
+}
+
+.badge--orange { background: var(--color-orange); }
+
+
+/* ============================================================
+   COMPONENT — INFO TAG
+   Small rectangular tags for location / date / duration.
+   No shadow; uses inset outline only.
+   ============================================================ */
+.info-tag {
+  display: inline-block;
+  padding: 8px 16px;
+  outline: var(--outline-thin);
+  outline-offset: -2.5px;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: var(--color-white);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.info-tag--pink   { background: var(--color-pink); }
+.info-tag--teal   { background: var(--color-teal); }
+.info-tag--orange { background: var(--color-orange); }
+
+
+/* ============================================================
+   COMPONENT — PRIMARY CTA BUTTON
+   Yellow, chunky, pressable sticker-button.
+   Shadow tightens + translates on hover to feel tactile.
+   ============================================================ */
+.btn-primary {
+  display: inline-block;
+  padding: 16px 36px;
+  background: var(--color-yellow);
+  outline: var(--outline-thick);
+  outline-offset: -4px;
+  box-shadow: var(--shadow-lg);
+  font-family: var(--font-display);
+  font-size: 1rem;
+  color: var(--color-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: box-shadow 80ms ease, transform 80ms ease;
+}
+
+.btn-primary:hover {
+  box-shadow: 3px 3px 0 var(--color-dark);
+  transform: translate(4px, 4px);
+}
+
+/* Compact variant — header bar */
+.btn-primary--sm {
+  padding: 10px 20px;
+  font-size: 0.78rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary--sm:hover {
+  box-shadow: 1px 1px 0 var(--color-dark);
+  transform: translate(2px, 2px);
+}
+
+
+/* Reserves the header's height before /components.js swaps the real
+   markup in, so the injection causes no layout shift. Keep in sync
+   with .site-header's rendered height. */
+#nav-placeholder {
+  height: 71px;
+}
+
+/* Desktop pins the header to a fixed height that shrinks on scroll
+   (see .site-header rules below), so the reserved space must match. */
+@media (min-width: 1101px) {
+  #nav-placeholder {
+    height: 80px;
+  }
+}
+
+/* Rough reserve for the footer so its injection doesn't jump the
+   page's scroll height. It sits below all content, so an exact
+   match matters less than the header's — a ballpark is fine. */
+#footer-placeholder {
+  min-height: 340px;
+}
+
+
+/* ============================================================
+   COMPONENT — SITE HEADER
+   Sticky bar shared by every page.
+
+   It is the top edge of the paper, not an object sitting on top
+   of it, so it carries a hard bottom rule and NO shadow — a
+   shadow here would drag across all nine sections on scroll.
+
+   Exactly two things in the bar have weight: the wordmark and
+   the yellow CTA. The nav links are plain text on purpose. Made
+   into tags or stickers they would turn the bar into a sticker
+   sheet competing with the hero, and yellow would stop being
+   the one colour that means "click this".
+   ============================================================ */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--color-cream);
+  border-bottom: 3px solid var(--color-dark);
+}
+
+/* Desktop only: fixed 80px bar that collapses to 50px once the page
+   is scrolled. components.js toggles .site-header--scrolled from a
+   scroll listener. Tablet/mobile keep their natural height. */
+@media (min-width: 1101px) {
+  .site-header {
+    height: 80px;
+    transition: height 200ms ease;
+  }
+  .site-header__inner {
+    height: 100%;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  .site-header__logo-img {
+    height: 56px;
+    transition: height 200ms ease;
+  }
+  .site-header--scrolled {
+    height: 50px;
+  }
+  .site-header--scrolled .site-header__logo-img {
+    height: 34px;
+  }
+}
+
+.site-header__inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 14px var(--gutter-right) 14px var(--gutter-left);
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.site-header__logo {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--color-dark);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.site-header__logo-img {
+  height: 75px;
+  width: auto;
+  display: block;
+}
+
+.site-header__nav {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+}
+
+.site-header__link {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-dark);
+  opacity: 0.45;
+  white-space: nowrap;
+  border-bottom: 3px solid transparent;
+  padding-bottom: 2px;
+  transition: opacity 120ms ease;
+}
+
+.site-header__link:hover { opacity: 1; }
+
+/* Current page — full ink and a hard orange rule under it */
+.site-header__link--active {
+  opacity: 1;
+  border-bottom-color: var(--color-orange);
+}
+
+.site-header__cta {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+@media (max-width: 1100px) {
+  .site-header__inner {
+    padding-left: 60px;
+    padding-right: 48px;
+    gap: 24px;
+  }
+  .site-header__nav { gap: 18px; }
+}
+
+@media (max-width: 768px) {
+  .site-header__inner {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+  /* Wordmark + CTA only. Four links do not warrant a drawer. */
+  .site-header__nav { display: none; }
+}
+
+
+/* ============================================================
+   COMPONENT — SITE FOOTER
+   Shared by every page, injected into #footer-placeholder by
+   /components.js — same mechanism as the header.
+
+   The counterpart to the header. Where the header is the top
+   edge of the paper — hard 3px rule, no shadow — the footer is
+   the bottom edge, and the page's one loud send-off: a full
+   teal colour field with the same 45° stripe as the quote
+   sections, so it reads as a deliberate end cap rather than a
+   new kind of object. Hard 3px rule on top, no shadow.
+   ============================================================ */
+.site-footer {
+  background-color: var(--color-teal);
+  background-image: repeating-linear-gradient(45deg,
+    rgba(255, 255, 255, 0.14) 0 22px,
+    transparent 22px 44px);
+  border-top: 3px solid var(--color-dark);
+  color: var(--color-white);
+}
+
+.site-footer__inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  /* Symmetric gutters on purpose. The page's default gutters are
+     unequal (155 left / 80 right); with the row's space-between
+     that pushed the socials block hard against the right edge
+     while the CTA sat far in from the left. Matching the two
+     removes the lopsidedness — same fix as .hero__inner. */
+  padding: 64px var(--gutter-right) 40px;
+}
+
+/* --- Main row: CTA stack · address · socials --- */
+.site-footer__main {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 40px;
+  padding-bottom: 44px;
+}
+
+/* Newsletter button sits directly under the primary CTA. */
+.site-footer__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+}
+
+.site-footer__newsletter-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.site-footer__contact,
+.site-footer__follow {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+/* Ghost twin of .btn-primary: same chunky shape and hard shadow,
+   outlined instead of filled so it stays clearly secondary and
+   yellow keeps meaning "the one button". */
+.site-footer__newsletter {
+  display: inline-block;
+  padding: 15px 30px;
+  background: transparent;
+  outline: 3px solid var(--color-white);
+  outline-offset: -3px;
+  box-shadow: var(--shadow-md);
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  color: var(--color-white);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  transition: box-shadow 80ms ease, transform 80ms ease;
+}
+
+.site-footer__newsletter:hover {
+  box-shadow: 2px 2px 0 var(--color-dark);
+  transform: translate(4px, 4px);
+}
+
+.site-footer__newsletter-sub {
+  font-family: var(--font-handwritten);
+  font-size: 1rem;
+  line-height: 1.35;
+}
+
+.site-footer__heading {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 4px;
+}
+
+.site-footer__link {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--color-white);
+  text-decoration: none;
+}
+
+.site-footer__link:hover {
+  text-decoration: underline;
+}
+
+.site-footer__address {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-style: normal;
+  line-height: 1.7;
+}
+
+.site-footer__socials {
+  display: flex;
+  gap: 14px;
+  margin-top: 6px;
+}
+
+.site-footer__social {
+  width: 46px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-white);
+  color: var(--color-dark);
+  border-radius: 50%;
+  outline: var(--outline-thin);
+  outline-offset: -2.5px;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 80ms ease, transform 80ms ease;
+}
+
+.site-footer__social:hover {
+  box-shadow: 1px 1px 0 var(--color-dark);
+  transform: translate(2px, 2px);
+}
+
+/* --- Bottom: copyright + legal stubs --- */
+.site-footer__legal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 24px;
+  padding-top: 30px;
+  border-top: 2px solid rgba(255, 255, 255, 0.25);
+}
+
+.site-footer__copy {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.site-footer__legal-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.site-footer__legal-links a {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-white);
+  text-decoration: none;
+}
+
+.site-footer__legal-links a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 1100px) {
+  .site-footer__inner {
+    padding-left: 48px;
+    padding-right: 48px;
+  }
+}
+
+@media (max-width: 768px) {
+  .site-footer__inner {
+    padding: 48px 24px 32px;
+  }
+  .site-footer__main {
+    flex-direction: column;
+    gap: 32px;
+    padding-bottom: 36px;
+  }
+  .site-footer__cta,
+  .site-footer__newsletter-wrap,
+  .site-footer__newsletter {
+    width: 100%;
+  }
+  .site-footer__cta,
+  .site-footer__newsletter {
+    text-align: center;
+  }
+  .site-footer__legal {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+
+/* ============================================================
+   COMPONENT — NEWSLETTER POPUP
+   A pre-loaded beehiiv embed iframe (in footer.html) that we
+   just show/hide. Toggled by components.js via --open.
+   ============================================================ */
+.nsc-nl-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: none;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 72px 16px 24px;
+  overflow-y: auto;
+  background: rgba(var(--color-dark-rgb), 0.82);
+}
+
+.nsc-nl-overlay--open {
+  display: flex;
+}
+
+.nsc-nl-overlay__box {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  margin: auto 0;
+}
+
+.nsc-nl-overlay__box .beehiiv-embed {
+  width: 100%;
+}
+
+.nsc-nl-overlay__close {
+  position: absolute;
+  top: -46px;
+  right: 0;
+  padding: 0 6px;
+  background: none;
+  border: none;
+  font-family: var(--font-display);
+  font-size: 2rem;
+  line-height: 1;
+  color: var(--color-white);
+  cursor: pointer;
+}
+
+.nsc-nl-overlay__close:hover {
+  color: var(--color-yellow);
+}
+
+@media (max-width: 768px) {
+  .nsc-nl-overlay {
+    padding: 56px 12px 16px;
+  }
+}
+
+
+/* ============================================================
+   COMPONENT — POLAROID
+   White-bordered photo frame with hard offset shadow.
+   Apply --hero or --sm modifier for sizing.
+   ============================================================ */
+.polaroid {
+  display: inline-block;
+  background: var(--color-white);
+  padding: 20px 20px 80px;
+  outline: var(--outline-thick);
+  outline-offset: -4px;
+  box-shadow: var(--shadow-xl);
+}
+
+.polaroid__frame {
+  overflow: hidden;
+  background: var(--color-gray-mid);
+  position: relative;
+}
+
+.polaroid__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.polaroid__caption {
+  font-family: var(--font-handwritten);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #2d52c8; /* handwritten-ink blue, warmer than --color-dark */
+  text-align: center;
+  margin-top: 12px;
+  line-height: 1.3;
+}
+
+/* Hero polaroid — large, rotated 4° */
+.polaroid--hero {
+  transform: rotate(4deg);
+}
+
+.polaroid--hero .polaroid__frame {
+  width: 360px;
+  height: 420px;
+}
+
+/* Strip polaroids — smaller square frames */
+.polaroid--sm .polaroid__frame {
+  width: 192px;
+  height: 192px;
+}
+
+
+/* ============================================================
+   HERO SECTION
+   ============================================================ */
+.hero {
+  position: relative;
+  background: var(--color-cream);
+  overflow: hidden;
+}
+
+/* --- Background blobs --- */
+.hero__blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.25;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero__blob--teal {
+  width: 600px;
+  height: 600px;
+  background: var(--color-teal);
+  top: -180px;
+  left: -180px;
+}
+
+.hero__blob--pink {
+  width: 600px;
+  height: 600px;
+  background: var(--color-pink);
+  bottom: -100px;
+  right: -200px;
+}
+
+/* --- Halftone texture overlay --- */
+.hero__halftone {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, var(--color-dark) 1.5px, transparent 1.5px);
+  background-size: 20px 20px;
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* --- Two-column layout: content left, polaroid right --- */
+.hero__inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 40px var(--gutter-right) 40px var(--gutter-left);
+  display: grid;
+  grid-template-columns: 500px 1fr;
+  gap: 60px;
+  align-items: center;
+  min-height: 480px;
+}
+
+/* Above tablet only: the right column's 1fr soaks up all leftover
+   width on a wide window, and since the video never grows past its
+   own 420px, that leftover sits empty on the right — content reads
+   as pushed left. Scoped to desktop so tablet/mobile are untouched. */
+@media (min-width: 1101px) {
+  .hero__inner {
+    /* gutter-left (155) and gutter-right (80) are unequal, so
+       centering the content within this box still left it biased
+       right. Matching left to right removes that bias. */
+    padding-left: var(--gutter-right);
+    grid-template-columns: 500px auto;
+    justify-content: center;
+  }
+  .hero__visual {
+    justify-content: center;
+  }
+}
+
+/* --- Left: content column --- */
+.hero__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0; /* grid/flex items default to a content-sized min-width,
+                   which let long copy push the column past its track */
+}
+
+.hero__content .badge {
+  margin-bottom: 20px;
+}
+
+.headline-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.hero__sub {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  line-height: 1.5;
+  color: var(--color-dark);
+  opacity: 0.75;
+  max-width: 440px;
+  margin-bottom: 18px;
+}
+
+.info-strips {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.cta-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.fine-print {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: var(--color-dark);
+}
+
+/* --- Right: polaroid column --- */
+.hero__visual {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 20px;
+  min-width: 0;
+}
+
+.hero__video {
+  width: 420px;
+  max-width: 100%;
+  display: block;
+  border-radius: 16px;
+  transform: rotate(4deg);
+  box-shadow: var(--shadow-xl) var(--color-dark);
+}
+
+
+/* ============================================================
+   POLAROID STRIP
+   Full-width row of 5 photos, each slightly tilted / offset.
+   ============================================================ */
+.polaroid-strip {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  padding: 0 0 60px;
+  margin: 0 -80px;
+}
+
+.polaroid-strip__track {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  width: max-content;
+  cursor: grab;
+  user-select: none;
+}
+
+.polaroid-strip__track.is-dragging {
+  cursor: grabbing;
+}
+
+/* Individual rotations + vertical nudges (repeats mod 15) */
+.polaroid-strip__track .polaroid:nth-child(15n+1)  { transform: rotate(-1deg);   margin-top: 16px; }
+.polaroid-strip__track .polaroid:nth-child(15n+2)  { transform: rotate(2deg);    margin-top:  8px; }
+.polaroid-strip__track .polaroid:nth-child(15n+3)  { transform: rotate(-0.5deg); margin-top: 24px; }
+.polaroid-strip__track .polaroid:nth-child(15n+4)  { transform: rotate(1.5deg);  margin-top: 12px; }
+.polaroid-strip__track .polaroid:nth-child(15n+5)  { transform: rotate(-2deg);   margin-top:  3px; }
+.polaroid-strip__track .polaroid:nth-child(15n+6)  { transform: rotate(0.8deg);  margin-top: 20px; }
+.polaroid-strip__track .polaroid:nth-child(15n+7)  { transform: rotate(-1.5deg); margin-top:  6px; }
+.polaroid-strip__track .polaroid:nth-child(15n+8)  { transform: rotate(2.5deg);  margin-top: 14px; }
+.polaroid-strip__track .polaroid:nth-child(15n+9)  { transform: rotate(-0.3deg); margin-top: 28px; }
+.polaroid-strip__track .polaroid:nth-child(15n+10) { transform: rotate(1deg);    margin-top:  4px; }
+.polaroid-strip__track .polaroid:nth-child(15n+11) { transform: rotate(-1.8deg); margin-top: 18px; }
+.polaroid-strip__track .polaroid:nth-child(15n+12) { transform: rotate(0.5deg);  margin-top:  9px; }
+.polaroid-strip__track .polaroid:nth-child(15n+13) { transform: rotate(-2.5deg); margin-top: 22px; }
+.polaroid-strip__track .polaroid:nth-child(15n+14) { transform: rotate(1.2deg);  margin-top:  5px; }
+.polaroid-strip__track .polaroid:nth-child(15n+15) { transform: rotate(-0.8deg); margin-top: 30px; }
+
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+/* Tablet */
+@media (max-width: 1100px) {
+  .hero__inner {
+    padding: 18px 48px 60px 60px;
+    grid-template-columns: 420px 1fr;
+    gap: 40px;
+    min-height: auto;
+  }
+
+  .sticker {
+    font-size: 2.25rem;
+  }
+
+  .polaroid--hero .polaroid__frame {
+    width: 300px;
+    height: 340px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .hero__inner {
+    padding: 14px 24px 60px;
+    grid-template-columns: 1fr;
+    gap: 48px;
+    min-height: auto;
+  }
+
+  .hero__content {
+    order: 1;
+  }
+
+  .hero__visual {
+    order: 2;
+    justify-content: center;
+    padding-left: 0;
+  }
+
+  /* Rotated elements paint outside their own layout box. At 420px the
+     video's rotated corners were spilling past the viewport even though
+     max-width:100% capped its layout width — cap tighter and rotate less
+     on the narrowest screens. */
+  .hero__video {
+    width: min(320px, 100%);
+    transform: rotate(2deg);
+  }
+
+  .sticker {
+    font-size: 1.75rem;
+    /* Single-line multi-word stickers ("Rooms & Pricing", "A day at
+       camp", "Camp Grounds Tour") are wider than a narrow phone even
+       at this size — nowrap let them run off the right edge. Let a
+       sticker that doesn't fit wrap to two lines instead; one that
+       does fit is unaffected. */
+    white-space: normal;
+    text-align: center;
+    max-width: calc(100vw - 48px);
+  }
+
+  .polaroid--hero .polaroid__frame {
+    width: 260px;
+    height: 300px;
+  }
+
+  /* Strip scrolls horizontally on mobile */
+  .polaroid-strip {
+    overflow-x: auto;
+    justify-content: flex-start;
+    gap: 12px;
+    padding-bottom: 40px;
+    padding-left: 24px;
+    scrollbar-width: none;
+  }
+
+  .polaroid-strip::-webkit-scrollbar {
+    display: none;
+  }
+
+  .polaroid-strip .polaroid {
+    flex-shrink: 0;
+  }
+}
+
+
+/* ============================================================
+   QUOTE SECTION  — shared layout
+   ============================================================ */
+.quote-section {
+  position: relative;
+  /* ACCENT — one of two full colour fields on the page */
+  background-color: var(--color-teal);
+  background-image: repeating-linear-gradient(45deg,
+    rgba(255, 255, 255, 0.14) 0 22px,
+    transparent 22px 44px);
+  padding: 72px 0 96px;
+}
+
+.quote-section__inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 var(--gutter-right) 0 var(--gutter-left);
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 64px;
+  align-items: center;
+}
+
+/* Camper polaroid */
+.polaroid--camper {
+  transform: rotate(-3deg);
+}
+
+.polaroid__frame--camper {
+  width: 260px;
+  height: 320px;
+}
+
+
+/* ============================================================
+   QUOTE CARD — TORN NOTEBOOK PAPER
+   ============================================================ */
+.quote-card--paper {
+  position: relative;
+  display: inline-block;
+  transform: rotate(1deg);
+  /* drop-shadow follows the irregular torn-paper silhouette */
+  filter: drop-shadow(6px 6px 0px rgba(var(--color-dark-rgb), 0.22));
+  max-width: 680px;
+  width: 100%;
+}
+
+.quote-card__paper {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.quote-card__content {
+  position: absolute;
+  /* inset respects the paper margins: generous right gap for hole-punches */
+  top: 12%;
+  left: 7%;
+  right: 18%;
+  bottom: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+}
+
+/* shared quote typography */
+.quote-text {
+  font-family: var(--font-handwritten);
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: #1e3a6e;  /* dark-blue ink, feels natural on lined paper */
+  font-style: normal;
+}
+
+/* Julie's quote runs as two paragraphs; the tight 1.1 line-height
+   needs an explicit gap between them to read as a break. */
+.quote-text__p + .quote-text__p {
+  margin-top: 0.7em;
+}
+
+.quote-author {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--color-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-style: normal;
+}
+
+
+/* ============================================================
+   QUOTE SECTION — RESPONSIVE
+   ============================================================ */
+@media (max-width: 1100px) {
+  .quote-section__inner {
+    padding: 0 48px 0 60px;
+    gap: 40px;
+    grid-template-columns: 260px 1fr;
+  }
+
+  .quotes-lr__grid {
+    padding: 0 48px;
+  }
+}
+
+@media (max-width: 768px) {
+  .version-label {
+    padding: 0 24px;
+  }
+
+  .quote-section__inner {
+    padding: 0 24px;
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .quote-section__polaroid {
+    display: flex;
+    justify-content: center;
+  }
+
+  .quote-card--paper {
+    max-width: 100%;
+  }
+}
+
+
+/* ============================================================
+   WHAT IS NSC — shared
+   ============================================================ */
+.what-nsc {
+  position: relative;
+  background: var(--color-cream);
+  padding: 80px 0 96px;
+}
+
+.what-nsc__copy {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--color-dark);
+  max-width: 460px;
+}
+
+/* Play button (shared across video placeholders) */
+.play-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  background: var(--color-yellow);
+  border-radius: 50%;
+  font-size: 1.25rem;
+  color: var(--color-dark);
+  outline: 3px solid var(--color-dark);
+  flex-shrink: 0;
+}
+
+
+/* ============================================================
+   CONCEPT A — Manifesto Strip
+   Content column left, video polaroid right (formerly the Last
+   Year's Camp section's video — merged in here).
+   ============================================================ */
+.what-a__inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 var(--gutter-right) 0 var(--gutter-left);
+  display: grid;
+  /* Both columns size to their own content, not "content stretches
+     to fill remaining space, video sits after" (1fr auto) — that
+     pinned the video to the far right edge regardless of how
+     narrow the text actually was. Content hugs the video with a
+     72px gap; the sticker (not the copy) sets the column's width,
+     since it's the wider of the two. */
+  grid-template-columns: auto auto;
+  gap: 72px;
+  align-items: center;
+  /* Grid stretches items to fill their column by default. Harmless
+     for the text column (its children are left-aligned with no
+     visible box), but it silently widened the polaroid's own white
+     card past its photo — that's the blank strip bug. Both items
+     size to their actual content instead. */
+  justify-items: start;
+}
+
+.what-a__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 28px;
+}
+
+.what-a__stickers {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.what-a__video {
+  /* .polaroid is inline-block with no width of its own — it always
+     shrink-wraps to its content, same as every other polaroid on
+     the page. The other variants never need to cap it because they
+     sit in narrow containers already. This one sits in a roomy grid
+     column, so without a cap a long caption stretches the whole
+     card past the photo instead of wrapping.
+     Value = frame width + .polaroid's own 20px+20px side padding —
+     NOT just the frame width, or the frame (a fixed size) pokes out
+     past a card capped too small to actually contain it. */
+  max-width: 420px; /* 380px frame + 40px padding */
+  transform: rotate(-2deg);
+  flex-shrink: 0;
+}
+
+.what-a__video-frame {
+  width: 380px;
+  height: 280px;
+  background: var(--color-dark) !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* ============================================================
+   WHAT IS NSC — RESPONSIVE
+   ============================================================ */
+@media (max-width: 1100px) {
+  .what-a__inner { padding: 0 48px 0 60px; gap: 48px; }
+  .what-a__video { max-width: 340px; } /* 300px frame + 40px padding */
+  .what-a__video-frame { width: 300px; height: 220px; }
+}
+
+@media (max-width: 768px) {
+  .what-a__inner {
+    padding: 0 24px;
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .what-a__video { max-width: 100%; }
+  .what-a__video-frame { width: 100%; height: 240px; }
+}
+
+
+/* ============================================================
+   SCHEDULE SECTIONS — shared base
+   ============================================================ */
+.schedule {
+  position: relative;
+  background: var(--color-cream);
+  padding: 80px 0 96px;
+}
+
+.sched__sub {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--color-dark);
+  opacity: 0.55;
+  margin-top: 16px;
+  font-style: italic;
+  letter-spacing: 0.02em;
+}
+
+/* ============================================================
+   SCHEDULE B2 — HORIZONTAL TIMELINE
+   ============================================================ */
+/* Overrides the shared cream on .schedule. */
+.sched-b2 {
+  /* Same diagonal stripe field as the Julie quote section, in pink —
+     with a cream wash on top to mute the saturation. */
+  background-color: var(--color-pink);
+  background-image:
+    repeating-linear-gradient(45deg,
+      rgba(255, 255, 255, 0.14) 0 22px,
+      transparent 22px 44px),
+    linear-gradient(rgba(255, 247, 237, 0.4), rgba(255, 247, 237, 0.4));
+}
+
+.sched-b2__inner {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.sched-b2__head {
+  margin-bottom: 48px;
+  padding: 0 var(--gutter-right) 0 var(--gutter-left);
+}
+
+.sched-b2__head-row {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.sched-b2__nav {
+  display: flex;
+  gap: 8px;
+}
+
+.sched-b2__btn {
+  width: 44px;
+  height: 44px;
+  background: var(--color-yellow);
+  border: none;
+  outline: var(--outline-thick);
+  outline-offset: -4px;
+  box-shadow: var(--shadow-sm);
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--color-dark);
+  cursor: pointer;
+  transition: box-shadow 80ms ease, transform 80ms ease;
+}
+
+.sched-b2__btn:hover {
+  box-shadow: 1px 1px 0 var(--color-dark);
+  transform: translate(2px, 2px);
+}
+
+.sched-b2__scroll {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-top: 8px;
+  padding-bottom: 40px;
+  padding-right: 80px;
+  padding-left: var(--gutter-left);
+}
+
+.sched-b2__scroll::-webkit-scrollbar { display: none; }
+
+.sched-b2__item {
+  flex: 0 0 auto;
+  width: 344px;   /* 320px card + 12px padding each side, matching .accom-a__card */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  padding: 0 12px;
+}
+
+.sched-b2__pin {
+  width: 28px;
+  height: auto;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 2;
+  margin-bottom: -16px;
+  filter: drop-shadow(2px 3px 3px rgba(0,0,0,0.25));
+}
+
+.sched-b2__card {
+  background: var(--color-white);
+  outline: var(--outline-thick);
+  outline-offset: -4px;
+  box-shadow: var(--shadow-sm);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.sched-b2__photo {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  background: var(--color-gray-mid);
+}
+
+.sched-b2__photo-media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.sched-b2__photo--dark {
+  background: var(--color-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sched-b2__time {
+  font-family: var(--font-body);
+  font-size: 0.75rem; /* was 0.7rem (11.2px) — under the legibility floor */
+  /* was white — 2.5:1 on teal, fails WCAG AA. Ink-navy on teal holds
+     well above 4.5:1 and keeps the chip's colour role unchanged. */
+  color: var(--color-dark);
+  background: var(--color-teal);
+  padding: 3px 8px;
+  display: inline-block;
+  margin: 16px 18px 0;
+  align-self: flex-start;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.sched-b2__name {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  color: var(--color-dark);
+  line-height: 1.1;
+  padding: 8px 18px 0;
+}
+
+.sched-b2__desc {
+  font-family: var(--font-body);
+  font-size: 0.8rem; /* was 0.7rem (11.2px) — under the legibility floor */
+  color: var(--color-dark);
+  opacity: 0.6;
+  line-height: 1.5;
+  padding: 6px 18px 18px;
+}
+
+@media (max-width: 1100px) {
+  .sched-b2__head { padding-right: 48px; padding-left: 60px; }
+  .sched-b2__scroll { padding-right: 48px; padding-left: 60px; }
+}
+
+@media (max-width: 768px) {
+  .sched-b2__head { padding-right: 24px; padding-left: 24px; }
+  .sched-b2__scroll { padding-right: 24px; padding-left: 24px; }
+  .sched-b2__item { width: 300px; }
+}
+
+
+/* ============================================================
+   WHAT'S INCLUDED — clipboard section
+   ============================================================ */
+.included {
+  position: relative;
+  /* ACCENT — the second full colour field, and the page's payoff */
+  background-color: var(--color-teal);
+  background-image:
+    repeating-linear-gradient(to right,
+      rgba(255, 255, 255, 0.16) 0 2px, transparent 2px 48px),
+    repeating-linear-gradient(to bottom,
+      rgba(255, 255, 255, 0.16) 0 2px, transparent 2px 48px);
+  padding: 80px 0 96px;
+}
+
+.included__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 80px;
+  display: flex;
+  gap: 80px;
+  align-items: center;
+}
+
+.included__content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.included__sub {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--color-white);
+  max-width: 400px;
+}
+
+.included__clipboard-wrap {
+  flex-shrink: 0;
+}
+
+.included__clipboard {
+  position: relative;
+  width: 350px;
+  transform: rotate(2deg);
+  filter: drop-shadow(7px 7px 0px rgba(var(--color-dark-rgb), 0.2));
+}
+
+.included__clipboard-img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.included__checklist {
+  position: absolute;
+  top: 22%;
+  left: 14%;
+  right: 8%;
+  bottom: 4%;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.included__item {
+  font-family: var(--font-handwritten);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--color-dark);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  line-height: 1.2;
+}
+
+.included__check {
+  font-family: var(--font-handwritten);
+  font-weight: 700;
+  color: var(--color-teal);
+  font-size: 1.6rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+/* --- Second block: the six things spelled out --- */
+.included__detail {
+  max-width: 1100px;
+  margin: 76px auto 0;
+  padding: 0 80px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 40px 36px;
+}
+
+/* Each one sits in a white card — same treatment as the Heather /
+   Matt quote boxes: hard 4px inset outline, flat offset shadow. */
+.included__feature {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  background: var(--color-white);
+  padding: 28px 26px;
+  outline: var(--outline-thick);
+  outline-offset: -4px;
+  box-shadow: var(--shadow-md);
+}
+
+/* Cut-out badge — teal disc, white icon, hard outline + offset
+   shadow so it still reads as an object on the white card.
+   Icons are Lucide (ISC). */
+.included__icon {
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-teal);
+  color: var(--color-white);
+  border-radius: 50%;
+  outline: var(--outline-thin);
+  outline-offset: -2.5px;
+  box-shadow: var(--shadow-sm);
+}
+
+.included__icon svg {
+  width: 26px;
+  height: 26px;
+  display: block;
+}
+
+.included__feature-title {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.2;
+  color: var(--color-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.included__feature-note {
+  display: block;
+  margin-top: 3px;
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: rgba(var(--color-dark-rgb), 0.6);
+}
+
+.included__feature-text {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--color-dark);
+}
+
+@media (max-width: 1100px) {
+  .included__detail {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 0 48px;
+    gap: 44px 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .included__inner {
+    padding: 0 24px;
+    flex-direction: column;
+    gap: 48px;
+  }
+  .included__clipboard {
+    width: 300px;
+    margin: 0 auto;
+  }
+  .included__detail {
+    grid-template-columns: 1fr;
+    padding: 0 24px;
+    gap: 40px;
+    margin-top: 56px;
+  }
+}
+
+
+/* ============================================================
+   VENUE SECTIONS — Shared photo placeholders
+   ============================================================ */
+.venue {
+  overflow: hidden;
+  background-color: var(--color-cream);
+  background-image: repeating-linear-gradient(to bottom,
+    rgba(20, 184, 166, 0.14) 0 2px, transparent 2px 30px);
+}
+
+.venue__ph {
+  position: relative;
+  background: #c8c2b8;
+}
+.venue__ph--aerial     { background: #9fc4c0; }
+.venue__ph--lake       { background: #a4c0cc; }
+.venue__ph--barn       { background: #c8a882; }
+.venue__ph--games      { background: #a4b898; }
+.venue__ph--volleyball { background: #d4c478; }
+.venue__ph--villa      { background: #b8a8c8; }
+.venue__ph--hottub     { background: #c8a0b0; }
+.venue__ph--airstream  { background: #b0b0b0; }
+
+/* ============================================================
+   VENUE C2 — Horizontal Tour (With Info Panel)
+   ============================================================ */
+.venue-c2__counter {
+  font-family: var(--font-handwritten);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-white);
+  min-width: 48px;
+  text-align: center;
+}
+.venue-c2 {
+  position: relative;
+  height: 90vh;
+}
+
+.venue-c2__track {
+  display: flex;
+  height: 100%;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+.venue-c2__track::-webkit-scrollbar { display: none; }
+
+.venue-c2__slide {
+  flex: 0 0 100%;
+  height: 100%;
+  scroll-snap-align: start;
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  overflow: hidden;
+}
+
+.venue-c2__img {
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.venue-c2__info {
+  background: var(--color-dark);
+  padding: 80px 56px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 0;
+}
+
+.venue-c2__info .sticker {
+  box-shadow: 4px 4px 0 rgba(255, 255, 255, 0.15);
+  margin-bottom: 28px;
+}
+
+.venue-c2__info .info-tag {
+  outline-color: rgba(255, 255, 255, 0.25);
+  margin-bottom: 20px;
+}
+
+.venue-c2__name {
+  font-family: var(--font-display);
+  font-size: 2.8rem;
+  color: var(--color-white);
+  line-height: 1.05;
+  margin-bottom: 12px;
+}
+
+.venue-c2__desc {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.7);
+  max-width: 340px;
+}
+
+.venue-c2__ui {
+  position: absolute;
+  bottom: 48px;
+  right: 80px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* ============================================================
+   CAMPER QUOTES — Duo
+   ============================================================ */
+.quotes-duo__card,
+.quotes-lr__card {
+  background: var(--color-white);
+  padding: 36px 32px 28px;
+  outline: var(--outline-thick);
+  outline-offset: -4px;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.quotes-duo__text {
+  font-family: var(--font-handwritten);
+  font-size: 1.35rem;
+  line-height: 1.3;
+  color: var(--color-dark);
+}
+
+.quotes-duo__author {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-dark);
+  opacity: 0.45;
+  font-style: normal;
+}
+
+/* ── Quotes with photos — left-right alternating ─────────── */
+.quotes-lr {
+  background-color: var(--color-cream);
+  background-image: radial-gradient(circle,
+    rgba(244, 63, 94, 0.13) 0 3px, transparent 3.5px);
+  background-size: 30px 30px;
+  padding: 64px 0 80px;
+}
+
+.quotes-lr__grid {
+  max-width: 960px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 40px;
+  row-gap: 48px;
+  align-items: center;
+}
+
+.quotes-lr__img--heather {
+  overflow: visible;
+}
+
+.quotes-lr__img--heather img {
+  width: 500px;
+  max-width: none;
+  display: block;
+  transform: rotate(-4deg);
+}
+
+.quotes-lr__card--heather { transform: rotate(1.5deg); }
+.quotes-lr__card--matt    { transform: rotate(-1.2deg); }
+
+.quotes-lr__polaroid {
+  background: var(--color-white);
+  padding: 20px 20px 80px;
+  outline: var(--outline-thick);
+  outline-offset: -4px;
+  box-shadow: var(--shadow-xl);
+  transform: rotate(2.8deg);
+}
+
+.quotes-lr__polaroid img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.highlight {
+  background: rgba(var(--color-yellow-rgb), 0.55);
+  /* <mark> defaults to black text; the marker should only add
+     colour behind the ink, never change the ink itself. */
+  color: inherit;
+  padding: 0 3px 1px;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+
+/* ============================================================
+   CAMPER QUOTES — RESPONSIVE
+   Had no mobile handling at all: the grid stayed two-column and
+   Heather's photo (a fixed 500px, `overflow: visible` on its own
+   frame) bled straight past the viewport. This is the dominant
+   source of the mobile horizontal-scroll bug.
+   ============================================================ */
+@media (max-width: 768px) {
+  .quotes-lr__grid {
+    grid-template-columns: 1fr;
+    padding: 0 24px;
+    row-gap: 32px;
+  }
+
+  .quotes-lr__img--heather {
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+  }
+
+  .quotes-lr__img--heather img {
+    width: 100%;
+    max-width: 320px;
+    transform: rotate(-2deg);
+  }
+
+  .quotes-lr__img--matt {
+    display: flex;
+    justify-content: center;
+  }
+
+  .quotes-lr__card--heather,
+  .quotes-lr__card--matt {
+    transform: none;
+  }
+
+  .quotes-lr__polaroid {
+    transform: rotate(-1.5deg);
+  }
+}
+
+
+/* ============================================================
+   ACCOMMODATION — Shared tokens
+   ============================================================ */
+.accom { background: var(--wash-mint); }
+
+.accom__ph { background: #c8c2b8; }
+.accom__ph--airstream   { background: #b4b4b4; }
+.accom__ph--tinyhome    { background: #8db89a; }
+.accom__ph--apple-grove { background: #7ab0c8; }
+.accom__ph--schoolhouse { background: #d4c890; }
+.accom__ph--daddys      { background: #b09ab8; }
+.accom__ph--dorm        { background: #c8b8a0; }
+.accom__ph--tent        { background: #9ab890; }
+
+.accom__pros {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.accom__pros li {
+  font-family: var(--font-handwritten);
+  font-size: 1.05rem;
+  color: var(--color-dark);
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  line-height: 1.4;
+}
+
+.accom__pros li::before {
+  content: '✓';
+  color: var(--color-teal);
+  flex-shrink: 0;
+  line-height: 1.3;
+}
+
+.accom__note {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: var(--color-dark);
+  background: var(--color-yellow);
+  padding: 6px 10px;
+  border: 2px solid var(--color-dark);
+  box-shadow: 2px 2px 0 var(--color-dark);
+}
+
+.accom__name {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  color: var(--color-dark);
+  line-height: 1.1;
+}
+
+.accom__rooms {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  color: var(--color-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  opacity: 0.5;
+}
+
+.accom-a__price {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--color-dark);
+  margin-top: 4px;
+}
+
+.accom-a__price-note {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.55;
+  /* Own line, so the private upcharge always sits under the price
+     instead of wrapping differently card to card. */
+  display: block;
+}
+
+/* The base rate is the shared rate — said next to the number itself. */
+.accom-a__price-note--shared {
+  display: inline;
+  opacity: 0.75;
+  margin-left: 2px;
+}
+
+
+/* ============================================================
+   ACCOMMODATION A — Horizontal Card Scroll
+   ============================================================ */
+.accom-a {
+  padding: 80px 0 96px;
+}
+
+.accom-a__head {
+  padding: 0 var(--gutter-right) 44px var(--gutter-left);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.accom-a__sub {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--color-dark);
+  max-width: 460px;
+}
+
+/* The highlighted "prices include everything" reminder is a callout,
+   not measure-constrained body copy — the 460px cap was forcing the
+   <mark> onto a wrap point that made its clone-decorated background
+   spill past its own line. */
+.accom-a__sub--callout {
+  max-width: 620px;
+}
+
+/* Repeated on every card's price (was stated once, above the scroller,
+   and had to be held in memory across all 8 cards). Ink text — teal-on-
+   mint is unreadable — with a teal border carrying the colour role. */
+.accom-a__all-inc {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 3px 8px;
+  background: var(--wash-mint);
+  color: var(--color-dark);
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: 1.5px solid var(--color-teal);
+}
+
+/* "X of 8" position readout for the accommodation scroller — same
+   role as .venue-c2__counter, tuned for a light card-scroller bar
+   instead of the dark venue-tour panel. */
+.accom-a__counter {
+  font-family: var(--font-handwritten);
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--color-dark);
+  opacity: 0.6;
+  min-width: 40px;
+}
+
+/* Pros lists longer than 4 collapse behind a native disclosure so the
+   card doesn't have to be held in full to compare against the others. */
+.accom__pros-more {
+  margin-top: 2px;
+}
+
+.accom__pros-more > summary {
+  list-style: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-dark);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--color-teal);
+  text-decoration-thickness: 2px;
+}
+
+.accom__pros-more > summary::-webkit-details-marker { display: none; }
+
+.accom__pros-more > summary::before {
+  content: '+ ';
+}
+
+.accom__pros-more[open] > summary::before {
+  content: '\2212 '; /* − */
+}
+
+.accom__pros-more[open] > summary {
+  margin-bottom: 5px;
+}
+
+.accom__pros-more .accom__pros {
+  padding-left: 2px;
+}
+
+.accom-a__head-row {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.accom-a__nav {
+  display: flex;
+  gap: 8px;
+}
+
+.accom-a__scroll {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 8px var(--gutter-right) 48px var(--gutter-left);
+  align-items: stretch;
+}
+.accom-a__scroll::-webkit-scrollbar { display: none; }
+
+.accom-a__card {
+  flex: 0 0 320px;
+  background: var(--color-white);
+  border: 3px solid var(--color-dark);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+}
+
+.accom-a__photo {
+  width: 100%;
+  aspect-ratio: 3/2;
+  object-fit: cover;
+  display: block;
+}
+
+.accom-a__body {
+  padding: 18px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+
+.accom-a__card-top {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.accom-a__subtypes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  border-top: 2px dashed rgba(var(--color-dark-rgb), 0.15);
+  padding-top: 12px;
+}
+
+.accom-a__subtype-label {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--color-dark);
+  opacity: 0.45;
+  margin-bottom: 6px;
+}
+
+/* Tier tag — subdued, outline-only */
+.accom-a__tier {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.72rem; /* was 0.65rem (10.4px) — under the functional-text floor */
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 3px 8px;
+  border: 1.5px solid currentColor;
+  align-self: flex-start;
+}
+.accom-a__tier--standard { color: var(--color-teal); opacity: 0.65; }
+.accom-a__tier--premium  { color: var(--color-orange); opacity: 0.75; }
+.accom-a__tier--budget   { color: var(--color-pink); opacity: 0.7; }
+
+/* Subdued note for card context */
+.accom-a__note {
+  font-family: var(--font-body);
+  font-size: 0.8rem; /* was 0.72rem (11.52px) — under the legibility floor */
+  line-height: 1.4;
+  color: rgba(var(--color-dark-rgb), 0.5);
+  border-top: 1.5px solid rgba(var(--color-dark-rgb), 0.12);
+  padding-top: 10px;
+  margin-top: auto;
+}
+
+/* Pros use body font in card context */
+.accom-a .accom__pros li {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+}
+
+.accom-a__lede {
+  font-family: var(--font-body);
+  font-size: 0.8rem; /* was 0.72rem (11.52px) — under the legibility floor */
+  line-height: 1.45;
+  color: rgba(var(--color-dark-rgb), 0.5);
+  border-top: 1.5px solid rgba(var(--color-dark-rgb), 0.12);
+  padding-top: 10px;
+}
+
+
+/* ============================================================
+   ACCOMMODATION A — RESPONSIVE
+   Unlike every sibling section (schedule, testimonials, venue),
+   this one never got a narrower-viewport gutter override — the
+   155px --gutter-left ran at every breakpoint, so on mobile the
+   sticker clipped off the right edge of the screen and the whole
+   section sat shifted right. Same pattern as .sched-b2__head /
+   .sched-b2__scroll.
+   ============================================================ */
+@media (max-width: 1100px) {
+  .accom-a__head { padding-right: 48px; padding-left: 60px; }
+  .accom-a__scroll { padding-right: 48px; padding-left: 60px; }
+}
+
+@media (max-width: 768px) {
+  .accom-a__head { padding-right: 24px; padding-left: 24px; }
+  .accom-a__scroll { padding-right: 24px; padding-left: 24px; }
+}
+
+
+/* ============================================================
+   CAMPER TESTIMONIALS — Pinned mosaic
+   A wall of small "polaroid + note" cards, each pinned and
+   hand-rotated. CSS multi-column keeps the varied quote lengths
+   tiling tightly instead of stacking into one tall column.
+   Distinct from the Heather/Matt "Camper quotes" section — this
+   is the crowd, that is the two headline pull-quotes.
+   ============================================================ */
+.testimonials {
+  background-color: var(--color-cream);
+  background-image: radial-gradient(circle,
+    rgba(249, 115, 22, 0.11) 0 3px, transparent 3.5px);
+  background-size: 30px 30px;
+  padding: 80px 0 96px;
+}
+
+.testimonials__inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 var(--gutter-right);
+}
+
+.testimonials__head {
+  margin-bottom: 44px;
+}
+
+/* headline-stack already carries margin-bottom: 28px */
+.testimonials__sticker:nth-child(1) { transform: rotate(-2deg); }
+.testimonials__sticker:nth-child(2) { transform: rotate(1.4deg); }
+
+.testimonials__sub {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--color-dark);
+  opacity: 0.55;
+  font-style: italic;
+  letter-spacing: 0.02em;
+  max-width: 460px;
+}
+
+.testimonials__wall {
+  column-count: 3;
+  column-gap: 32px;
+  padding-top: 18px;   /* headroom for the top row's pins */
+}
+
+.tmonial {
+  break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+  margin: 0 0 42px;
+  background: var(--color-white);
+  outline: var(--outline-thick);
+  outline-offset: -4px;
+  box-shadow: var(--shadow-md);
+  padding: 14px 14px 18px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Pin stays in normal flow (an absolutely-positioned child here
+   stops the multi-column layout from fragmenting). It sits above
+   the card and a negative bottom margin pulls the photo up under
+   it — same trick as .sched-b2__pin. */
+.tmonial__pin {
+  position: relative;
+  z-index: 2;
+  width: 26px;
+  height: auto;
+  align-self: center;
+  margin: -26px 0 -20px;
+  transform: rotate(7deg);
+  filter: drop-shadow(2px 3px 3px rgba(0, 0, 0, 0.25));
+  pointer-events: none;
+}
+.tmonial:nth-child(2n) .tmonial__pin { transform: rotate(-8deg); }
+
+.tmonial__photo {
+  aspect-ratio: 3 / 2;
+  background: var(--color-gray-mid);
+  overflow: hidden;
+}
+
+.tmonial__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.tmonial__quote {
+  font-family: var(--font-handwritten);
+  font-size: 1.15rem;
+  line-height: 1.3;
+  color: var(--color-dark);
+  margin-top: 16px;
+}
+
+.tmonial__author {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-dark);
+  opacity: 0.45;
+  font-style: normal;
+  margin-top: 12px;
+}
+
+/* Hand-placed tilt — only where cards sit side by side. Repeats
+   every 5 so the pattern keeps working as testimonials are added. */
+@media (min-width: 769px) {
+  .tmonial:nth-child(5n+1) { transform: rotate(-1.6deg); }
+  .tmonial:nth-child(5n+2) { transform: rotate(1.1deg); }
+  .tmonial:nth-child(5n+3) { transform: rotate(-0.6deg); }
+  .tmonial:nth-child(5n+4) { transform: rotate(1.8deg); }
+  .tmonial:nth-child(5n+5) { transform: rotate(-1.1deg); }
+}
+
+@media (max-width: 1100px) {
+  .testimonials__wall { column-count: 2; }
+}
+
+@media (max-width: 768px) {
+  .testimonials { padding: 56px 0 64px; }
+  .testimonials__inner { padding: 0 24px; }
+  .testimonials__wall { column-count: 1; column-gap: 0; padding-top: 14px; }
+  .tmonial { margin-bottom: 36px; }
+  .tmonial__quote { font-size: 1.2rem; }
+}
+
+
+/* ============================================================
+   PLACEHOLDER PAGE
+   Used by about.html and past-camps.html until those pages are
+   built. Delete this block once both have real content.
+   ============================================================ */
+.stub {
+  background: var(--color-cream);
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+}
+
+.stub__inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 80px var(--gutter-right) 96px var(--gutter-left);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.stub__note {
+  font-family: var(--font-handwritten);
+  font-size: 1.15rem;
+  line-height: 1.4;
+  color: var(--color-dark);
+  opacity: 0.55;
+}
+
+.stub__back {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-dark);
+  opacity: 0.45;
+  transition: opacity 120ms ease;
+}
+
+.stub__back:hover { opacity: 1; }
+
+@media (max-width: 1100px) {
+  .stub__inner { padding-left: 60px; padding-right: 48px; }
+}
+
+@media (max-width: 768px) {
+  .stub__inner { padding-left: 24px; padding-right: 24px; }
+}
+
+
+/* ==========================================================
+   LEGAL PAGES  (/imprint, /privacy)
+   Plain reading column on cream — left-aligned to the page
+   gutter like every other section. No colour field, no
+   pattern: these are the quiet pages.
+   ========================================================== */
+.legal {
+  background: var(--color-cream);
+  padding: 72px 0 96px;
+}
+
+.legal__inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 var(--gutter-right) 0 var(--gutter-left);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 30px;
+}
+
+.legal__meta {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: rgba(var(--color-dark-rgb), 0.5);
+  margin-top: -14px;
+}
+
+.legal__block {
+  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.legal__h {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-dark);
+}
+
+.legal__body {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-style: normal;
+  line-height: 1.75;
+  color: rgba(var(--color-dark-rgb), 0.8);
+}
+
+/* When a <ul> is the body copy, keep it flowing like a paragraph. */
+ul.legal__body {
+  margin: 0;
+  padding-left: 1.2em;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.legal__body strong {
+  color: var(--color-dark);
+}
+
+.legal__body a {
+  color: var(--color-dark);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+@media (max-width: 1100px) {
+  .legal__inner { padding-left: 60px; padding-right: 48px; }
+}
+
+@media (max-width: 768px) {
+  .legal__inner { padding-left: 24px; padding-right: 24px; }
+}
+
+
+/* ==========================================================
+   ABOUT PAGE  (/about)
+   Two sheets on soft washes: the Counselors' story with a
+   group polaroid and a four-card crew grid, then a compact
+   call to action. Reuses the sticker / polaroid / card
+   (hard outline + flat shadow) / info-tag / btn-primary
+   vocabulary from the rest of the site.
+   ========================================================== */
+.about-intro {
+  background: var(--wash-blush);
+  padding: 80px 0 96px;
+}
+
+.about-intro__inner,
+.about-cta__inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 var(--gutter-right) 0 var(--gutter-left);
+}
+
+/* Story column + group polaroid, side by side */
+.about-intro__top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 64px;
+  align-items: start;
+}
+
+.about-intro__text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 560px;
+}
+
+.about-intro__lead {
+  font-family: var(--font-handwritten);
+  font-size: 1.35rem;
+  line-height: 1.45;
+  color: rgba(var(--color-dark-rgb), 0.75);
+  margin-bottom: 24px;
+}
+
+.about__p {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: rgba(var(--color-dark-rgb), 0.82);
+  margin-bottom: 18px;
+}
+
+.about__p:last-child { margin-bottom: 0; }
+.about__p strong { color: var(--color-dark); }
+.about__p em { font-style: italic; }
+
+/* Pull quote — a handwritten shout under the yellow marker */
+.about-pullquote {
+  font-family: var(--font-handwritten);
+  font-size: 1.7rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--color-dark);
+  margin: 6px 0 24px;
+}
+
+.about-intro__photo {
+  flex-shrink: 0;
+}
+
+.about-intro__photo .polaroid {
+  transform: rotate(-2deg);
+}
+
+.about-intro__frame {
+  width: 320px;
+  height: 300px;
+}
+
+/* --- Crew cards --- */
+.about-crew {
+  margin-top: 72px;
+}
+
+.about-crew__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 28px;
+}
+
+.about-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-white);
+  outline: var(--outline-thick);
+  outline-offset: -4px;
+  box-shadow: var(--shadow-md);
+  padding-bottom: 22px;
+}
+
+.about-card__photo {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: var(--color-gray-mid);
+  border-bottom: 3px solid var(--color-dark);
+  overflow: hidden;
+}
+
+.about-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.about-card__name {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  line-height: 1.1;
+  color: var(--color-dark);
+  padding: 18px 20px 0;
+}
+
+.about-card__facts {
+  margin: 0;
+  padding: 0 20px;
+}
+
+.about-card__facts dt {
+  font-family: var(--font-body);
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: rgba(var(--color-dark-rgb), 0.5);
+  margin-top: 12px;
+}
+
+.about-card__facts dd {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: var(--color-dark);
+  margin: 3px 0 0;
+}
+
+/* Jeff — honorary: tag stuck to the top-left corner */
+.about-card__tag {
+  position: absolute;
+  top: -14px;
+  left: 14px;
+  box-shadow: var(--shadow-sm);
+  z-index: 1;
+}
+
+/* --- CTA sheet --- */
+.about-cta {
+  background: var(--wash-peach);
+  padding: 72px 0 88px;
+}
+
+.about-cta__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.about-cta .about__p {
+  max-width: 440px;
+}
+
+@media (max-width: 1100px) {
+  .about-intro__inner,
+  .about-cta__inner { padding-left: 60px; padding-right: 48px; }
+  .about-intro__top { gap: 44px; }
+  .about-crew__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+}
+
+@media (max-width: 768px) {
+  .about-intro__inner,
+  .about-cta__inner { padding-left: 24px; padding-right: 24px; }
+  .about-intro { padding: 56px 0 72px; }
+  .about-intro__top {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+  .about-intro__photo { align-self: center; }
+  .about-intro__frame { width: 280px; height: 260px; }
+  .about-crew { margin-top: 56px; }
+  .about-crew__grid { grid-template-columns: 1fr; }
+  .about-cta { padding: 56px 0 72px; }
+}
+
+
+/* ==========================================================
+   DRAG-TO-SWIPE
+   Applied by the inline script to the three horizontal strips:
+   camp grounds tour, a day at camp, where you'll stay.
+   Mouse only — touch already scrolls natively.
+   ========================================================== */
+
+.is-draggable {
+  cursor: grab;
+}
+
+.is-draggable.is-dragging {
+  cursor: grabbing;
+  user-select: none;
+  /* Suspended while dragging so the browser doesn't fight
+     scrollLeft mid-drag; the script re-snaps on release. */
+  scroll-snap-type: none;
+  scroll-behavior: auto;
+}
+
+
+/* ==========================================================
+   VIDEO EMBED
+   Click-to-play cover over a polaroid frame: the thumbnail and
+   the site's own yellow play button stand in for the YouTube
+   player until the visitor clicks, so no player script loads
+   on page view. The script swaps in the iframe on click.
+   ========================================================== */
+
+.video-embed {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: var(--color-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.video-embed__thumb {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Above the thumbnail, which is absolutely positioned. */
+.video-embed .play-btn {
+  position: relative;
+  z-index: 1;
+}
+
+
+/* ----------------------------------------------------------
+   The overlay the poster opens into. No blur anywhere: the
+   scrim is a flat colour and the box carries the same hard
+   offset shadow as everything else on the page.
+   ---------------------------------------------------------- */
+
+.video-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.video-modal[hidden] { display: none; }
+
+.video-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(var(--color-dark-rgb), 0.88);
+}
+
+.video-modal__box {
+  position: relative;
+  width: min(1100px, 100%);
+  background: var(--color-dark);
+  outline: var(--outline-thick);
+  outline-offset: -4px;
+  box-shadow: var(--shadow-xl);
+}
+
+.video-modal__player {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+}
+
+.video-modal__frame {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+/* Yellow, like every other control on the page. Sits on the
+   box's top-right corner, half outside it. */
+.video-modal__close {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 44px;
+  height: 44px;
+  background: var(--color-yellow);
+  border: none;
+  outline: var(--outline-thick);
+  outline-offset: -4px;
+  box-shadow: var(--shadow-sm);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--color-dark);
+  cursor: pointer;
+  transition: box-shadow 80ms ease, transform 80ms ease;
+}
+
+.video-modal__close:hover {
+  box-shadow: 1px 1px 0 var(--color-dark);
+  transform: translate(2px, 2px);
+}
+
+/* Page must not scroll behind the overlay. */
+body.has-modal { overflow: hidden; }
+
+@media (max-width: 768px) {
+  .video-modal { padding: 16px; }
+  .video-modal__close { top: -18px; right: -8px; }
+}
+
+
+/* ============================================================
+   COMPONENT — MID-PAGE CTA
+   Two of these are dropped into the page: after the accommodation
+   scroller (the one real decision point) and after the testimonial
+   wall (the emotional peak-end, which previously converted to
+   nothing). Same button, same voice — a quiet cream sheet, not a
+   third colour field.
+   ============================================================ */
+.cta-mid {
+  background: var(--color-cream);
+  padding: 56px 0 64px;
+  text-align: center;
+}
+
+.cta-mid__inner {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0 var(--gutter-right) 0 var(--gutter-left);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.cta-mid__line {
+  font-family: var(--font-handwritten);
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 1.3;
+  color: var(--color-dark);
+}
+
+@media (max-width: 1100px) {
+  .cta-mid__inner { padding: 0 48px; }
+}
+
+@media (max-width: 768px) {
+  .cta-mid { padding: 44px 0 52px; }
+  .cta-mid__inner { padding: 0 24px; }
+  .cta-mid__line { font-size: 1.3rem; }
+}
+
+
+/* ============================================================
+   COMPONENT — STICKY MOBILE BOOK BAR
+   Below 768px the hero CTA scrolls away and never comes back until
+   the footer, ~5000px of persuasion later. This keeps "Book Your
+   Spot" one thumb-reach away the whole time. Hidden once the real
+   footer CTA is on screen (see components.js) so the two don't
+   double up. Desktop/tablet already keep the header CTA fixed via
+   the sticky header, so this stays mobile-only.
+   ============================================================ */
+.sticky-book {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .sticky-book {
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 150;
+    padding: 12px 20px calc(12px + env(safe-area-inset-bottom));
+    background: var(--color-cream);
+    border-top: 3px solid var(--color-dark);
+    transition: transform 200ms ease;
+  }
+
+  .sticky-book--hidden {
+    transform: translateY(100%);
+  }
+
+  .sticky-book__btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Reserve room so the fixed bar never covers the last section's
+     content while it's visible. */
+  body {
+    padding-bottom: 76px;
+  }
+}

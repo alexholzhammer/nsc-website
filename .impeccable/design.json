@@ -1,0 +1,170 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-01",
+  "title": "Design System: Nomad Summer Camp",
+  "extensions": {
+    "colorMeta": {
+      "cream-paper":    { "role": "neutral",   "displayName": "Cream Paper",     "canonical": "#fff7ed", "tonalRamp": ["#7c2d12", "#9a3412", "#c2410c", "#ea580c", "#fb923c", "#fdba74", "#fed7aa", "#fff7ed"] },
+      "sticker-pink":   { "role": "secondary", "displayName": "Sticker Pink",    "canonical": "#f43f5e", "tonalRamp": ["#4c0519", "#881337", "#be123c", "#e11d48", "#f43f5e", "#fb7185", "#fda4af", "#ffe4e6"] },
+      "sticker-teal":   { "role": "primary",   "displayName": "Sticker Teal",    "canonical": "#14b8a6", "tonalRamp": ["#042f2e", "#134e4a", "#0f766e", "#0d9488", "#14b8a6", "#2dd4bf", "#5eead4", "#ccfbf1"] },
+      "sticker-orange": { "role": "secondary", "displayName": "Sticker Orange",  "canonical": "#f97316", "tonalRamp": ["#431407", "#7c2d12", "#c2410c", "#ea580c", "#f97316", "#fb923c", "#fdba74", "#ffedd5"] },
+      "control-yellow": { "role": "primary",   "displayName": "Control Yellow",  "canonical": "#facc15", "tonalRamp": ["#422006", "#713f12", "#a16207", "#ca8a04", "#eab308", "#facc15", "#fde047", "#fef9c3"] },
+      "ink-navy":       { "role": "neutral",   "displayName": "Ink Navy",        "canonical": "#1b1533", "tonalRamp": ["#0d0a1a", "#1b1533", "#2a2150", "#3c2f70", "#4f3f92", "#6b5bb0", "#9a8fce", "#d8d2ec"] },
+      "card-white":     { "role": "neutral",   "displayName": "Card White",      "canonical": "#ffffff", "tonalRamp": ["#404040", "#525252", "#737373", "#a3a3a3", "#d4d4d4", "#e5e5e5", "#f5f5f5", "#ffffff"] },
+      "frame-gray":     { "role": "neutral",   "displayName": "Frame Gray",      "canonical": "#d4d4d4", "tonalRamp": ["#404040", "#525252", "#737373", "#a3a3a3", "#d4d4d4", "#e5e5e5", "#f5f5f5", "#fafafa"] },
+      "wash-blush":     { "role": "neutral",   "displayName": "Wash Blush",      "canonical": "#fdeef1", "tonalRamp": ["#7f2a3a", "#a63a4e", "#cc5468", "#e0808f", "#eeb3bd", "#f7d6dd", "#fce4e9", "#fdeef1"] },
+      "wash-peach":     { "role": "neutral",   "displayName": "Wash Peach",      "canonical": "#fdeee0", "tonalRamp": ["#7c3a12", "#a3521f", "#c56f30", "#e09a60", "#eec3a0", "#f7ddc6", "#fce8d7", "#fdeee0"] },
+      "wash-mint":      { "role": "neutral",   "displayName": "Wash Mint",       "canonical": "#ecf7f4", "tonalRamp": ["#1f5148", "#2f6f63", "#438b7d", "#69b0a2", "#9cccc1", "#c6e3dc", "#dcefe9", "#ecf7f4"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display / Sticker", "purpose": "Bungee poster type. Section headline stickers and CTA labels only — always inside a sticker or a button. Also used unstickered at smaller sizes for venue/accommodation/schedule names." },
+      "body":    { "displayName": "Body",              "purpose": "Archivo Black, flat and functional. Sub-heads and short card copy. One heavy weight only; do not run long." },
+      "label":   { "displayName": "Label",             "purpose": "Archivo Black, 0.65-0.8rem, uppercase, letter-spaced. Info tags, badges, nav links, headings, time chips, attributions. Often at 0.45-0.55 opacity for secondary labels." },
+      "quote":   { "displayName": "Handwriting / Quote","purpose": "Kalam 700. Captions, pull-quotes, checklist items, testimonial quotes. Set in note-blue (#2d52c8 / #1e3a6e) when it sits on 'paper'." }
+    },
+    "shadows": [
+      { "name": "sticker-sm", "value": "3px 3px 0 #1b1533", "purpose": "Badges, small chips, social discs, tight card treatments." },
+      { "name": "sticker-md", "value": "6px 6px 0 #1b1533", "purpose": "Default for stickers, white outlined cards, feature cards." },
+      { "name": "sticker-lg", "value": "7px 7px 0 #1b1533", "purpose": "Primary CTA button at rest." },
+      { "name": "sticker-xl", "value": "9px 9px 0 #1b1533", "purpose": "Polaroids and the video modal box — the heaviest objects." },
+      { "name": "press-collapse", "value": "3px 3px 0 #1b1533", "purpose": "Hover/active state of the primary button — shadow shrinks as the button translates into it." },
+      { "name": "press-collapse-sm", "value": "1px 1px 0 #1b1533", "purpose": "Hover/active state of small controls (header CTA, scroll arrows, modal close)." },
+      { "name": "torn-paper-drop", "value": "drop-shadow(6px 6px 0 rgba(27,21,51,0.22))", "purpose": "Follows the irregular silhouette of the notebook-paper and clipboard PNGs." }
+    ],
+    "motion": [
+      { "name": "press", "value": "transform + box-shadow 80ms ease", "purpose": "The only motion in the system. On hover/active, a control translates by translate(4px,4px) (2px for small controls) while its shadow collapses to match — physically pressed into the page." },
+      { "name": "header-collapse", "value": "height 200ms ease", "purpose": "Desktop-only (>=1101px): the fixed header shrinks 80px -> 50px once the page is scrolled." },
+      { "name": "link-fade", "value": "opacity 120ms ease", "purpose": "Nav link 0.45 -> 1 opacity on hover." }
+    ],
+    "breakpoints": [
+      { "name": "tablet", "value": "1100px" },
+      { "name": "mobile", "value": "768px" },
+      { "name": "desktop-header", "value": "1101px" }
+    ],
+    "outlines": [
+      { "name": "outline-thick", "value": "4px solid #1b1533", "offset": "-4px", "purpose": "The standard object frame — stickers, buttons, white cards, polaroids. Drawn just inside the edge." },
+      { "name": "outline-thin", "value": "2.5px solid #1b1533", "offset": "-2.5px", "purpose": "Lighter frame — info tags, badge pills, icon and social discs." }
+    ],
+    "layout": {
+      "maxWidth": "1440px",
+      "gutters": { "left": "155px", "right": "80px", "note": "Deliberately asymmetric (wide punched-margin bias); the hero and footer override to symmetric 80/80." },
+      "sectionRhythm": { "top": "80px", "bottom": "96px" }
+    }
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The one filled button on the site. Yellow means clickable.",
+      "html": "<button class=\"ds-btn-primary\">Book Your Spot</button>",
+      "css": ".ds-btn-primary { display: inline-block; padding: 16px 36px; background: #facc15; color: #1b1533; outline: 4px solid #1b1533; outline-offset: -4px; box-shadow: 7px 7px 0 #1b1533; font-family: 'Bungee', sans-serif; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.05em; border: none; border-radius: 0; cursor: pointer; transition: box-shadow 80ms ease, transform 80ms ease; } .ds-btn-primary:hover { box-shadow: 3px 3px 0 #1b1533; transform: translate(4px, 4px); } .ds-btn-primary:focus-visible { outline: 4px solid #1b1533; box-shadow: 0 0 0 3px #facc15, 7px 7px 0 #1b1533; }"
+    },
+    {
+      "name": "Header CTA (small)",
+      "kind": "button",
+      "refersTo": "button-primary-sm",
+      "description": "Compact primary button for the header bar.",
+      "html": "<button class=\"ds-btn-primary-sm\">Book Your Spot</button>",
+      "css": ".ds-btn-primary-sm { display: inline-block; padding: 10px 20px; background: #facc15; color: #1b1533; outline: 4px solid #1b1533; outline-offset: -4px; box-shadow: 3px 3px 0 #1b1533; font-family: 'Bungee', sans-serif; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; border: none; border-radius: 0; cursor: pointer; transition: box-shadow 80ms ease, transform 80ms ease; } .ds-btn-primary-sm:hover { box-shadow: 1px 1px 0 #1b1533; transform: translate(2px, 2px); }"
+    },
+    {
+      "name": "Newsletter Ghost Button",
+      "kind": "button",
+      "refersTo": "button-newsletter-ghost",
+      "description": "Hollow twin of the primary button. Outlined, never filled, so yellow stays the only button colour. Lives on the teal footer.",
+      "html": "<div style=\"background:#14b8a6;padding:24px;\"><a class=\"ds-btn-ghost\" href=\"#\">Sign up for our newsletter</a></div>",
+      "css": ".ds-btn-ghost { display: inline-block; padding: 15px 30px; background: transparent; outline: 3px solid #ffffff; outline-offset: -3px; box-shadow: 6px 6px 0 #1b1533; font-family: 'Bungee', sans-serif; font-size: 0.85rem; color: #ffffff; text-transform: uppercase; letter-spacing: 0.05em; text-decoration: none; transition: box-shadow 80ms ease, transform 80ms ease; } .ds-btn-ghost:hover { box-shadow: 2px 2px 0 #1b1533; transform: translate(4px, 4px); }"
+    },
+    {
+      "name": "Sticker Headline",
+      "kind": "custom",
+      "refersTo": "sticker-headline",
+      "description": "Signature component. Each headline line is its own puffy sticker — pink, teal, or orange, never yellow. Lines stack with a 12px gap, each slightly rotated.",
+      "html": "<span class=\"ds-sticker ds-sticker--teal\">Everything's</span>\n<span class=\"ds-sticker ds-sticker--pink\">Included</span>",
+      "css": ".ds-sticker { display: inline-block; padding: 10px 20px; border-radius: 16px; outline: 4px solid #1b1533; outline-offset: -4px; box-shadow: 6px 6px 0 #1b1533; font-family: 'Bungee', sans-serif; font-size: 3rem; line-height: 1.1; color: #ffffff; white-space: nowrap; } .ds-sticker--teal { background: #14b8a6; } .ds-sticker--pink { background: #f43f5e; transform: rotate(-2deg); } .ds-sticker--orange { background: #f97316; }"
+    },
+    {
+      "name": "Info Tag",
+      "kind": "chip",
+      "refersTo": "info-tag",
+      "description": "Small rectangular metadata tag — location, date, duration. Hard corners, inset outline, no shadow.",
+      "html": "<span class=\"ds-info-tag ds-info-tag--pink\">Cape Town</span> <span class=\"ds-info-tag ds-info-tag--pink\">Feb 12th 2027</span> <span class=\"ds-info-tag ds-info-tag--pink\">3 Nights</span>",
+      "css": ".ds-info-tag { display: inline-block; padding: 8px 16px; outline: 2.5px solid #1b1533; outline-offset: -2.5px; font-family: 'Archivo Black', sans-serif; font-size: 0.75rem; color: #ffffff; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; } .ds-info-tag--pink { background: #f43f5e; } .ds-info-tag--teal { background: #14b8a6; } .ds-info-tag--orange { background: #f97316; }"
+    },
+    {
+      "name": "Badge Pill",
+      "kind": "chip",
+      "refersTo": "badge-pill",
+      "description": "Rounded status callout, e.g. \"30% sold out\". The only pill-shaped element besides discs.",
+      "html": "<span class=\"ds-badge\">30% sold out</span>",
+      "css": ".ds-badge { display: inline-block; padding: 8px 16px; border-radius: 999px; background: #f97316; outline: 2.5px solid #1b1533; outline-offset: -2.5px; box-shadow: 3px 3px 0 #1b1533; font-family: 'Archivo Black', sans-serif; font-size: 0.75rem; color: #ffffff; text-transform: uppercase; letter-spacing: 0.05em; }"
+    },
+    {
+      "name": "Outlined Card",
+      "kind": "card",
+      "refersTo": "card-outlined",
+      "description": "The white feature/quote card. Hard corners, 4px inset ink outline, flat medium shadow. No hover change.",
+      "html": "<div class=\"ds-card\"><span class=\"ds-card__icon\">✓</span><h3 class=\"ds-card__title\">All food &amp; drinks</h3><p class=\"ds-card__text\">Every meal, every snack, every drink. You never reach for your wallet at Camp.</p></div>",
+      "css": ".ds-card { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; max-width: 320px; background: #ffffff; padding: 28px 26px; outline: 4px solid #1b1533; outline-offset: -4px; box-shadow: 6px 6px 0 #1b1533; } .ds-card__icon { width: 52px; height: 52px; display: flex; align-items: center; justify-content: center; background: #14b8a6; color: #ffffff; border-radius: 50%; outline: 2.5px solid #1b1533; outline-offset: -2.5px; box-shadow: 3px 3px 0 #1b1533; font-family: 'Archivo Black', sans-serif; } .ds-card__title { margin: 0; font-family: 'Archivo Black', sans-serif; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.03em; color: #1b1533; } .ds-card__text { margin: 0; font-family: 'Archivo Black', sans-serif; font-size: 0.88rem; line-height: 1.6; color: #1b1533; }"
+    },
+    {
+      "name": "Polaroid",
+      "kind": "custom",
+      "refersTo": "polaroid",
+      "description": "White photo mat with a wide chin for a handwritten caption. Heaviest shadow in the system; always rotated a few degrees.",
+      "html": "<figure class=\"ds-polaroid\"><div class=\"ds-polaroid__frame\"></div><figcaption class=\"ds-polaroid__caption\">Team Braai, 2026</figcaption></figure>",
+      "css": ".ds-polaroid { display: inline-block; margin: 0; background: #ffffff; padding: 20px 20px 80px; outline: 4px solid #1b1533; outline-offset: -4px; box-shadow: 9px 9px 0 #1b1533; transform: rotate(-3deg); } .ds-polaroid__frame { width: 240px; height: 200px; background: #d4d4d4; overflow: hidden; } .ds-polaroid__caption { font-family: 'Kalam', cursive; font-size: 1.25rem; font-weight: 700; color: #2d52c8; text-align: center; margin-top: 12px; line-height: 1.3; }"
+    },
+    {
+      "name": "Header Nav Link",
+      "kind": "nav",
+      "refersTo": null,
+      "description": "Plain uppercase text link. Never a pill or sticker. Dim at rest, full ink on hover; active link carries an orange hard rule.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-nav__link ds-nav__link--active\" href=\"#\">Home</a><a class=\"ds-nav__link\" href=\"#\">Rankings</a><a class=\"ds-nav__link\" href=\"#\">About</a></nav>",
+      "css": ".ds-nav { display: flex; gap: 26px; } .ds-nav__link { font-family: 'Archivo Black', sans-serif; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: #1b1533; opacity: 0.45; border-bottom: 3px solid transparent; padding-bottom: 2px; text-decoration: none; transition: opacity 120ms ease; } .ds-nav__link:hover { opacity: 1; } .ds-nav__link--active { opacity: 1; border-bottom-color: #f97316; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Camp Scrapbook",
+    "overview": "The page is not a website about camp — it is the scrapbook someone assembled after they got home: photos pinned down, captions written in pen, stickers and torn notebook paper stuck to the sheet with a glue stick, circa 1996. Every element is a discrete physical object with its own weight, its own hand-placed tilt, and one hard-edged shadow proving it sits a few millimetres above the page. Nothing looks generated in software, and that is the whole point. The energy comes from density and colour — chunky poster type, four loud hues, objects overlapping at angles — but the restraint is what keeps it a scrapbook and not a mess: a tight palette, hard 90 degree corners almost everywhere, no soft gradients, no blur, and a page paced as a stack of paper sheets where only two of them are allowed to shout in full colour. Motion is currently minimal — a single tactile press on interactive controls — and is an open area for future work, welcome as long as it doesn't undermine the cut-and-glued, hard-edged feel. Confirmed anti-references: anything that looks designed in a computer — soft drop shadows, blurred glass, smooth gradients, rounded-everything cards.",
+    "keyCharacteristics": [
+      "Every placed object casts one flat, zero-blur offset shadow in ink.",
+      "Four accent hues (pink, teal, orange, yellow) over three neutrals (cream, ink-navy, white); yellow is controls only.",
+      "Borders are inset outlines drawn just inside the edge, not `border`.",
+      "Hard 90 degree corners everywhere except stickers (16px) and pills/discs (999px).",
+      "Objects are hand-rotated -4 to +4 degrees and vertically nudged so rows read as placed by hand.",
+      "The page is a stack of paper sheets: each section gets either a soft wash or a hard-edged pattern, never both; exactly two carry a full teal colour field.",
+      "Three type voices with fixed jobs: Bungee (poster), Archivo Black (functional), Kalam (handwriting)."
+    ],
+    "rules": [
+      { "name": "The Yellow-Is-A-Verb Rule", "body": "Yellow (#facc15) appears only on things you can click. It never goes on a sticker, a tag, or a badge. Break this and yellow stops meaning \"press here\".", "section": "colors" },
+      { "name": "The Two-Loud-Sheets Rule", "body": "At most two sections on a page carry a full teal colour field (currently the Julie quote and Everything's Included). Everything else is cream or a wash. The page is paced around those two payoffs.", "section": "colors" },
+      { "name": "The One-Or-The-Other Rule", "body": "A section gets either a soft wash or a hard-edged pattern (halftone, barber stripe, ledger grid, contour lines). Never both, and never a soft gradient — every pattern is built from hard colour stops.", "section": "colors" },
+      { "name": "The Three-Voices Rule", "body": "Bungee = poster, Archivo Black = machine label, Kalam = a person's handwriting. A piece of text picks exactly one voice for exactly its job. No blending.", "section": "typography" },
+      { "name": "The Short-Copy Rule", "body": "Body text is Archivo Black, which is all weight and no air. Keep it to a couple of lines; if a paragraph wants to run long, that is a content problem, not a reason to switch to a lighter weight.", "section": "typography" },
+      { "name": "The Zero-Blur Rule", "body": "No shadow in the system has a blur radius. Ever. box-shadow is always Npx Npx 0. The one blur in the codebase is the hero's two 100px-blur colour blobs at 0.25 opacity, which are background atmosphere behind a halftone and never touch a foreground object — treat that as the sealed exception, not a precedent.", "section": "elevation" },
+      { "name": "The Press Rule", "body": "On :hover / :active, an interactive control shrinks its shadow (to 3px or 1px) and translates by the same offset (translate(4px,4px) / translate(2px,2px)) over 80ms — the object is physically pressed into the page.", "section": "elevation" },
+      { "name": "The Edges-Have-No-Shadow Rule", "body": "The sticky header and the footer get a hard 3px ink rule and no shadow. They are the top and bottom edges of the paper, not objects on top of it; a shadow there would drag across every section on scroll.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do give every placed object exactly one hard offset shadow in ink-navy from the 3 / 6 / 7 / 9px set — always Npx Npx 0, never with blur.",
+      "Do draw borders as outline with a negative outline-offset (4px / 2.5px solid ink), so the line sits just inside the edge.",
+      "Do keep Control Yellow (#facc15) exclusively on things you can click.",
+      "Do hand-rotate repeated objects -4 to +4 degrees and vary their vertical nudge (via nth-child) so rows read as placed by hand.",
+      "Do build every section background from hard colour stops — halftone dots, barber stripes, ledger grid, contour lines — and give a section either a wash or a pattern, never both.",
+      "Do keep the two full teal colour fields as the page's only loud sheets, and pace the layout around them.",
+      "Do set headlines in a sticker (Bungee, 16px radius, inset outline, hard shadow) and nowhere else; use Kalam 700 for captions, quotes, and checklist voice.",
+      "Do collapse a control's shadow and translate it by the same offset on hover/active (80ms) so it feels pressed."
+    ],
+    "donts": [
+      "Don't add a blur radius to any shadow, or a soft gradient to any fill. The hero blobs are the one sealed exception.",
+      "Don't put yellow on a sticker, tag, or badge.",
+      "Don't make nav links into pills, tags, or stickers — they are plain uppercase text.",
+      "Don't give the sticky header or footer a shadow; they get a hard 3px rule only.",
+      "Don't use a dark colour as a section background — only the venue info panel and the video modal interior are dark.",
+      "Don't round the corners of cards, tags, polaroids, or photo frames; radius belongs to stickers (16px) and pills/discs (999px) only.",
+      "Don't introduce a fifth accent hue, and don't set long paragraphs in Archivo Black — keep body copy brief."
+    ]
+  }
+}

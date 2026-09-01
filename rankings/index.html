@@ -1,280 +1,442 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rankings | Nomad Summer Camp</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Camper Rankings | Nomad Summer Camp</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Archivo+Black&family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/components.js" defer></script>
+  <script async src="https://tally.so/widgets/embed.js"></script>
+  <style>
 
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    <link rel="manifest" href="/site.webmanifest">
+    /* ── Page shell ─────────────────────────────────────── */
+    body {
+      background: var(--color-cream);
+      color: var(--color-dark);
+    }
 
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    /* ── Hero ───────────────────────────────────────────── */
+    .ranking-hero {
+      padding: 72px 80px 72px 155px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 20px;
+    }
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caprasimo&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    .ranking-hero__headlines {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: flex-start;
+    }
 
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-WB3WKB2G');</script>
-    <!-- End Google Tag Manager -->
+    .ranking-hero__sub {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      line-height: 1.5;
+      color: var(--color-dark);
+      opacity: 0.55;
+      max-width: 480px;
+    }
 
-    <style>
-        body {
-            background-color: #111827;
-            color: #F3F4F6;
-            font-family: 'Inter', sans-serif;
-        }
-        .font-display {
-            font-family: 'Caprasimo', cursive;
-        }
-        .font-bebas {
-            font-family: 'Bebas Neue', sans-serif;
-        }
-        .rank-1 { color: #FBBF24; }
-        .rank-2 { color: #9CA3AF; }
-        .rank-3 { color: #D97706; }
+    /* ── Rankings section ───────────────────────────────── */
+    .ranking-section {
+      background: var(--color-cream);
+      padding: 0 80px 96px 155px;
+    }
 
-        .badge-tip {
-            position: relative;
-            display: inline-block;
-            cursor: default;
-        }
-        .badge-tip::after {
-            content: attr(data-tip);
-            position: absolute;
-            bottom: calc(100% + 6px);
-            left: 50%;
-            transform: translateX(-50%);
-            background: #1F2937;
-            color: #F9FAFB;
-            font-size: 11px;
-            font-family: 'Inter', sans-serif;
-            font-weight: 400;
-            white-space: nowrap;
-            padding: 4px 10px;
-            border-radius: 6px;
-            border: 1px solid #374151;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.15s;
-            z-index: 20;
-        }
-        .badge-tip:hover::after,
-        .badge-tip.tip-active::after {
-            opacity: 1;
-        }
-    </style>
-    <script src="/components.js" defer></script>
+    /* ── Legend + toggle row ────────────────────────────── */
+    .ranking-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-bottom: 32px;
+    }
+
+    .ranking-legend {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .ranking-legend__label {
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-dark);
+      opacity: 0.35;
+    }
+
+    .ranking-legend__item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .ranking-legend__text {
+      font-family: var(--font-body);
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-dark);
+      opacity: 0.5;
+    }
+
+    /* Badge sticker frame */
+    .badge-sticker {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      vertical-align: middle;
+      flex-shrink: 0;
+    }
+
+    .badge-sticker img {
+      width: 26px;
+      height: 26px;
+      object-fit: contain;
+      display: block;
+    }
+
+    /* Badge tooltip */
+    .badge-tip {
+      position: relative;
+      display: inline-flex;
+      cursor: default;
+    }
+    .badge-tip::after {
+      content: attr(data-tip);
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--color-cream);
+      color: var(--color-dark);
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+      padding: 4px 10px;
+      border: 2px solid var(--color-dark);
+      box-shadow: 2px 2px 0 var(--color-dark);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.15s;
+      z-index: 20;
+    }
+    .badge-tip:hover::after,
+    .badge-tip.tip-active::after { opacity: 1; }
+
+    /* ── Toggle ─────────────────────────────────────────── */
+    .ranking-toggle {
+      display: flex;
+      gap: 6px;
+    }
+
+    .ranking-toggle__btn {
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      padding: 8px 20px;
+      border: 3px solid var(--color-dark);
+      cursor: pointer;
+      background: transparent;
+      color: var(--color-dark);
+      opacity: 0.4;
+      box-shadow: none;
+      transition: opacity 0.15s, background 0.15s, color 0.15s, box-shadow 0.15s;
+    }
+
+    .ranking-toggle__btn.is-active {
+      background: var(--color-teal);
+      color: white;
+      opacity: 1;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* ── Table header ───────────────────────────────────── */
+    .ranking-header {
+      display: grid;
+      grid-template-columns: 3.5rem 1fr 5rem 5rem 6rem;
+      gap: 12px;
+      padding: 0 20px 10px;
+      font-family: var(--font-body);
+      font-size: 0.62rem;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--color-dark);
+      opacity: 0.35;
+    }
+
+    .ranking-header__cell--right { text-align: right; }
+
+    /* ── Rows ───────────────────────────────────────────── */
+    #rankings-rows { display: flex; flex-direction: column; gap: 6px; }
+
+    .ranking-row {
+      display: grid;
+      grid-template-columns: 3.5rem 1fr 5rem 5rem 6rem;
+      gap: 12px;
+      align-items: center;
+      padding: 14px 20px;
+      background: var(--color-white);
+      border: 3px solid var(--color-dark);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .ranking-row--gold   { background: var(--color-white); }
+    .ranking-row--silver { background: var(--color-white); }
+    .ranking-row--bronze { background: var(--color-white); }
+
+    .ranking-row__rank {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      line-height: 1;
+      text-align: center;
+      color: var(--color-dark);
+      opacity: 0.25;
+    }
+
+    .ranking-row--gold   .ranking-row__rank { opacity: 0.7; }
+    .ranking-row--silver .ranking-row__rank { opacity: 0.6; }
+    .ranking-row--bronze .ranking-row__rank { opacity: 0.5; }
+
+    .ranking-row__name {
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      color: var(--color-dark);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .ranking-row__badges {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .ranking-row__stat {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      line-height: 1;
+      text-align: right;
+      color: var(--color-dark);
+      opacity: 0.25;
+    }
+
+    .ranking-row__stat--active {
+      color: var(--color-teal);
+      opacity: 1;
+    }
+
+    /* Loading / error */
+    .ranking-state {
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--color-dark);
+      opacity: 0.35;
+      padding: 48px 0;
+    }
+
+    .hidden { display: none !important; }
+
+  </style>
 </head>
-<body class="antialiased">
+<body>
 
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WB3WKB2G"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
+  <div id="nav-placeholder"></div>
 
-    <div id="nav-placeholder"></div>
 
-    <main>
+  <!-- Hero -->
+  <section class="ranking-hero">
+    <div class="ranking-hero__headlines">
+      <span class="info-tag info-tag--teal">All-time Leaderboard</span>
+      <span class="sticker sticker--pink">Camper Rankings</span>
+    </div>
+    <p class="ranking-hero__sub">Who's racked up the most points across every Nomad Summer Camp? Find out below.</p>
+  </section>
 
-        <!-- HERO -->
-        <section class="pt-24 pb-12 md:pt-36 md:pb-16 px-4 text-center">
-            <div class="max-w-3xl mx-auto">
-                <p class="text-yellow-500 font-semibold text-sm uppercase tracking-widest mb-3">All-time leaderboard</p>
-                <h1 class="font-display text-5xl md:text-7xl text-white tracking-wide leading-tight">Camper<br>Rankings</h1>
-                <p class="mt-6 text-lg md:text-xl text-gray-400 leading-relaxed">
-                    Who's racked up the most points across every Nomad Summer Camp? Find out below.
-                </p>
-            </div>
-        </section>
+  <!-- Rankings -->
+  <section class="ranking-section">
 
-        <!-- RANKINGS TABLE -->
-        <section class="px-4 pb-24 md:pb-36">
-            <div class="max-w-3xl mx-auto">
+    <!-- Controls row: legend + toggle -->
+    <div class="ranking-controls">
+      <div class="ranking-legend">
+        <span class="ranking-legend__label">Badges</span>
+        <div class="ranking-legend__item">
+          <span class="badge-sticker"><img src="/badges/badge-duck-foot.avif" alt="Duck foot badge"></span>
+          <span class="ranking-legend__text">3+ Camps</span>
+        </div>
+        <div class="ranking-legend__item">
+          <span class="badge-sticker"><img src="/badges/badge-bear-paw.avif" alt="Bear paw badge"></span>
+          <span class="ranking-legend__text">5+ Camps</span>
+        </div>
+        <div class="ranking-legend__item">
+          <span class="badge-sticker"><img src="/badges/badge-bonfire.avif" alt="Bonfire badge"></span>
+          <span class="ranking-legend__text">3+ Wins</span>
+        </div>
+      </div>
 
-                <!-- Legend -->
-                <div class="flex items-center gap-5 mb-8 flex-wrap">
-                    <span class="text-xs font-semibold uppercase tracking-widest text-gray-500">Badges</span>
-                    <div class="flex items-center gap-1.5">
-                        <img src="/badges/badge-duck-foot.avif" alt="Duck foot" class="w-5 h-5 object-contain">
-                        <span class="text-xs text-gray-400">3+ Camps</span>
-                    </div>
-                    <div class="flex items-center gap-1.5">
-                        <img src="/badges/badge-bear-paw.avif" alt="Bear paw" class="w-5 h-5 object-contain">
-                        <span class="text-xs text-gray-400">5+ Camps</span>
-                    </div>
-                    <div class="flex items-center gap-1.5">
-                        <img src="/badges/badge-bonfire.avif" alt="Bonfire" class="w-5 h-5 object-contain">
-                        <span class="text-xs text-gray-400">3+ Wins</span>
-                    </div>
-                </div>
+      <div class="ranking-toggle">
+        <button id="toggle-points" class="ranking-toggle__btn is-active">Points</button>
+        <button id="toggle-wins" class="ranking-toggle__btn">Won Camps</button>
+      </div>
+    </div>
 
-                <!-- Toggle -->
-                <div class="flex items-center gap-2 mb-6 bg-gray-800/60 border border-white/5 rounded-2xl p-1 w-fit">
-                    <button id="toggle-points" class="px-5 py-2 rounded-xl text-sm font-semibold transition-all duration-200 bg-yellow-500 text-gray-900">Points</button>
-                    <button id="toggle-wins" class="px-5 py-2 rounded-xl text-sm font-semibold transition-all duration-200 text-gray-400 hover:text-white">Won Camps</button>
-                </div>
+    <!-- Column headers -->
+    <div class="ranking-header">
+      <div></div>
+      <div>Camper</div>
+      <div class="ranking-header__cell--right">Camps</div>
+      <div class="ranking-header__cell--right">Wins</div>
+      <div class="ranking-header__cell--right">Points</div>
+    </div>
 
-                <!-- Loading state -->
-                <div id="rankings-loading" class="text-center py-16 text-gray-500">Loading rankings…</div>
+    <!-- States -->
+    <p id="rankings-loading" class="ranking-state">Loading rankings…</p>
+    <p id="rankings-error" class="ranking-state hidden">Could not load rankings data.</p>
 
-                <!-- Error state -->
-                <div id="rankings-error" class="hidden text-center py-16 text-gray-500">Could not load rankings data.</div>
+    <!-- Rows -->
+    <div id="rankings-table" class="hidden">
+      <div id="rankings-rows"></div>
+    </div>
 
-                <!-- Table -->
-                <div id="rankings-table" class="hidden">
+  </section>
 
-                    <!-- Header row -->
-                    <div class="grid grid-cols-[1.25rem_1fr_repeat(3,_3.25rem)] md:grid-cols-[2rem_1fr_repeat(3,_6rem)] gap-2 md:gap-4 px-3 md:px-4 pb-3 text-xs font-semibold uppercase tracking-widest text-gray-500">
-                        <div></div>
-                        <div>Camper</div>
-                        <div class="text-right">Camps</div>
-                        <div class="text-right">Wins</div>
-                        <div class="text-right">Points</div>
-                    </div>
 
-                    <div id="rankings-rows" class="space-y-2"></div>
-                </div>
+  <script>
+    (function () {
+      let allCampers = [];
+      let mode = 'points';
 
-            </div>
-        </section>
+      function sortCampers(campers, m) {
+        return campers.slice().sort(function (a, b) {
+          if (m === 'wins') {
+            if (b.wins !== a.wins) return b.wins - a.wins;
+            if (b.points !== a.points) return b.points - a.points;
+            return b.camps - a.camps;
+          }
+          if (b.points !== a.points) return b.points - a.points;
+          if (b.wins !== a.wins) return b.wins - a.wins;
+          return b.camps - a.camps;
+        });
+      }
 
-    </main>
+      function rankLabel(i) {
+        return String(i + 1);
+      }
 
-    <div id="footer-placeholder"></div>
+      function rankRowClass(i) {
+        if (i === 0) return 'ranking-row ranking-row--gold';
+        if (i === 1) return 'ranking-row ranking-row--silver';
+        if (i === 2) return 'ranking-row ranking-row--bronze';
+        return 'ranking-row';
+      }
 
-    <script>
-        (function () {
-            const MEDALS = ['🥇', '🥈', '🥉'];
-            var allCampers = [];
-            var mode = 'points'; // 'points' | 'wins'
+      function buildBadges(camper) {
+        const badges = [];
+        if (camper.camps >= 3) badges.push({ src: '/badges/badge-duck-foot.avif', tip: 'Went to 3+ Camps' });
+        if (camper.camps >= 5) badges.push({ src: '/badges/badge-bear-paw.avif', tip: 'Went to 5+ Camps' });
+        if (camper.wins >= 3) badges.push({ src: '/badges/badge-bonfire.avif', tip: 'Won 3+ Camps' });
+        return badges.map(function (b) {
+          return '<span class="badge-tip" data-tip="' + b.tip + '"><span class="badge-sticker"><img src="' + b.src + '" alt="' + b.tip + '" loading="lazy"></span></span>';
+        }).join('');
+      }
 
-            function sortCampers(campers, m) {
-                return campers.slice().sort(function (a, b) {
-                    if (m === 'wins') {
-                        if (b.wins !== a.wins) return b.wins - a.wins;
-                        if (b.points !== a.points) return b.points - a.points;
-                        return b.camps - a.camps;
-                    }
-                    if (b.points !== a.points) return b.points - a.points;
-                    if (b.wins !== a.wins) return b.wins - a.wins;
-                    return b.camps - a.camps;
-                });
-            }
+      function escapeHtml(str) {
+        return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      }
 
-            function rankLabel(i) {
-                if (i < 3) return MEDALS[i];
-                return String(i + 1);
-            }
+      function render() {
+        const sorted = sortCampers(allCampers, mode);
+        const container = document.getElementById('rankings-rows');
+        container.innerHTML = '';
+        sorted.forEach(function (camper, i) {
+          const row = document.createElement('div');
+          row.className = rankRowClass(i);
+          const campsActive = '';
+          const winsActive  = mode === 'wins'   ? ' ranking-row__stat--active' : '';
+          const ptsActive   = mode === 'points' ? ' ranking-row__stat--active' : '';
+          row.innerHTML =
+            '<div class="ranking-row__rank">' + rankLabel(i) + '</div>' +
+            '<div class="ranking-row__name">' +
+              escapeHtml(camper.name) +
+              '<span class="ranking-row__badges">' + buildBadges(camper) + '</span>' +
+            '</div>' +
+            '<div class="ranking-row__stat' + campsActive + '">' + camper.camps + '</div>' +
+            '<div class="ranking-row__stat' + winsActive  + '">' + camper.wins  + '</div>' +
+            '<div class="ranking-row__stat' + ptsActive   + '">' + camper.points.toLocaleString() + '</div>';
+          container.appendChild(row);
+        });
+      }
 
-            function rankClass(i) {
-                if (i === 0) return 'rank-1';
-                if (i === 1) return 'rank-2';
-                if (i === 2) return 'rank-3';
-                return 'text-gray-400';
-            }
+      function setMode(m) {
+        mode = m;
+        document.getElementById('toggle-points').classList.toggle('is-active', m === 'points');
+        document.getElementById('toggle-wins').classList.toggle('is-active',   m === 'wins');
+        render();
+      }
 
-            function rowBg(i) {
-                if (i === 0) return 'bg-yellow-500/10 border border-yellow-500/20';
-                return 'bg-gray-800/60 border border-white/5';
-            }
+      document.getElementById('toggle-points').addEventListener('click', function () { setMode('points'); });
+      document.getElementById('toggle-wins').addEventListener('click',   function () { setMode('wins');   });
 
-            function render() {
-                var sorted = sortCampers(allCampers, mode);
-                var container = document.getElementById('rankings-rows');
-                container.innerHTML = '';
-                sorted.forEach(function (camper, i) {
-                    var row = document.createElement('div');
-                    row.className = 'grid grid-cols-[1.25rem_1fr_repeat(3,_3.25rem)] md:grid-cols-[2rem_1fr_repeat(3,_6rem)] gap-2 md:gap-4 items-center px-3 md:px-4 py-4 rounded-2xl ' + rowBg(i);
-                    row.innerHTML =
-                        '<div class="font-bebas text-xl md:text-2xl ' + rankClass(i) + ' text-center leading-none">' + rankLabel(i) + '</div>' +
-                        '<div class="font-semibold text-white text-base md:text-lg leading-tight flex items-center gap-1.5">' + escapeHtml(camper.name) + '<span class="flex items-center gap-0.5">' + buildBadges(camper) + '</span></div>' +
-                        '<div class="text-right font-bebas text-xl md:text-2xl text-gray-300">' + camper.camps + '</div>' +
-                        '<div class="text-right font-bebas text-xl md:text-2xl ' + (mode === 'wins' ? 'text-yellow-400' : 'text-gray-300') + '">' + camper.wins + '</div>' +
-                        '<div class="text-right font-bebas text-xl md:text-2xl ' + (mode === 'points' ? 'text-yellow-400' : 'text-gray-300') + '">' + camper.points.toLocaleString() + '</div>';
-                    container.appendChild(row);
-                });
-            }
-
-            function setMode(m) {
-                mode = m;
-                var btnPoints = document.getElementById('toggle-points');
-                var btnWins = document.getElementById('toggle-wins');
-                if (m === 'points') {
-                    btnPoints.className = 'px-5 py-2 rounded-xl text-sm font-semibold transition-all duration-200 bg-yellow-500 text-gray-900';
-                    btnWins.className = 'px-5 py-2 rounded-xl text-sm font-semibold transition-all duration-200 text-gray-400 hover:text-white';
-                } else {
-                    btnWins.className = 'px-5 py-2 rounded-xl text-sm font-semibold transition-all duration-200 bg-yellow-500 text-gray-900';
-                    btnPoints.className = 'px-5 py-2 rounded-xl text-sm font-semibold transition-all duration-200 text-gray-400 hover:text-white';
-                }
-                render();
-            }
-
-            document.getElementById('toggle-points').addEventListener('click', function () { setMode('points'); });
-            document.getElementById('toggle-wins').addEventListener('click', function () { setMode('wins'); });
-
-            fetch('/data/campers.json')
-                .then(function (res) {
-                    if (!res.ok) throw new Error('fetch failed');
-                    return res.json();
-                })
-                .then(function (data) {
-                    var camperMap = {};
-                    data.campers.forEach(function (c) {
-                        camperMap[c.id] = { name: c.name, camps: 0, wins: 0, points: 0 };
-                    });
-                    data.camps.forEach(function (camp) {
-                        camp.teams.forEach(function (team) {
-                            team.campers.forEach(function (id) {
-                                if (!camperMap[id]) return;
-                                camperMap[id].camps += 1;
-                                camperMap[id].points += team.points;
-                                if (team.won) camperMap[id].wins += 1;
-                            });
-                        });
-                    });
-                    allCampers = Object.values(camperMap);
-                    render();
-                    document.getElementById('rankings-loading').classList.add('hidden');
-                    document.getElementById('rankings-table').classList.remove('hidden');
-                })
-                .catch(function () {
-                    document.getElementById('rankings-loading').classList.add('hidden');
-                    document.getElementById('rankings-error').classList.remove('hidden');
-                });
-
-            function escapeHtml(str) {
-                return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-            }
-
-            function buildBadges(camper) {
-                var badges = [];
-                if (camper.camps >= 3) badges.push({ src: '/badges/badge-duck-foot.avif', tip: 'Went to 3 or more Camps' });
-                if (camper.camps >= 5) badges.push({ src: '/badges/badge-bear-paw.avif', tip: 'Went to 5 or more Camps' });
-                if (camper.wins >= 3) badges.push({ src: '/badges/badge-bonfire.avif', tip: 'Won 3 or more Camps' });
-                return badges.map(function (b) {
-                    return '<span class="badge-tip" data-tip="' + b.tip + '"><img src="' + b.src + '" alt="' + b.tip + '" class="inline-block w-6 h-6 object-contain" loading="lazy"></span>';
-                }).join('');
-            }
-
-            document.addEventListener('click', function (e) {
-                var tip = e.target.closest('.badge-tip');
-                document.querySelectorAll('.badge-tip.tip-active').forEach(function (el) {
-                    if (el !== tip) el.classList.remove('tip-active');
-                });
-                if (tip) tip.classList.toggle('tip-active');
+      fetch('/data/campers.json')
+        .then(function (res) {
+          if (!res.ok) throw new Error('fetch failed');
+          return res.json();
+        })
+        .then(function (data) {
+          const camperMap = {};
+          data.campers.forEach(function (c) {
+            camperMap[c.id] = { name: c.name, camps: 0, wins: 0, points: 0 };
+          });
+          data.camps.forEach(function (camp) {
+            camp.teams.forEach(function (team) {
+              team.campers.forEach(function (id) {
+                if (!camperMap[id]) return;
+                camperMap[id].camps  += 1;
+                camperMap[id].points += team.points;
+                if (team.won) camperMap[id].wins += 1;
+              });
             });
-        })();
-    </script>
+          });
+          allCampers = Object.values(camperMap);
+          render();
+          document.getElementById('rankings-loading').classList.add('hidden');
+          document.getElementById('rankings-table').classList.remove('hidden');
+        })
+        .catch(function () {
+          document.getElementById('rankings-loading').classList.add('hidden');
+          document.getElementById('rankings-error').classList.remove('hidden');
+        });
+
+      /* Badge tooltip: tap on mobile */
+      document.addEventListener('click', function (e) {
+        var tip = e.target.closest('.badge-tip');
+        document.querySelectorAll('.badge-tip.tip-active').forEach(function (el) {
+          if (el !== tip) el.classList.remove('tip-active');
+        });
+        if (tip) tip.classList.toggle('tip-active');
+      });
+    })();
+  </script>
+
+  <div id="footer-placeholder"></div>
+
+  <script type="text/javascript" async src="https://subscribe-forms.beehiiv.com/attribution.js"></script>
 
 </body>
 </html>

@@ -1,853 +1,1236 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Big Fat Nomad Summer Camp</title>
-
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    <link rel="manifest" href="/site.webmanifest">
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caprasimo&family=Inter:wght@400;700&display=swap" rel="stylesheet">
-
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-WB3WKB2G');</script>
-    <!-- End Google Tag Manager -->
-    
-    <!-- SwiperJS for Carousel -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
-    <!-- Tally -->
-    <script async src="https://tally.so/widgets/embed.js"></script>
-
-    <style>
-        /* Custom Styles */
-        body {
-            background-color: #111827;
-            color: #F3F4F6;
-            font-family: 'Inter', sans-serif;
-        }
-        .font-display {
-            font-family: 'Caprasimo', cursive;
-        }
-        .font-bebas {
-            font-family: 'Bebas Neue', sans-serif;
-        }
-        .hero {
-            background-image: linear-gradient(rgba(17, 24, 39, 0.7), rgba(17, 24, 39, 0.7)), url('https://raw.githubusercontent.com/nomadsummercamp/website/e693c84538d2b9df33b63a1520a7e9f31d79eddb/camp-big-daddy.jpg');
-            background-size: cover;
-            background-position: center;
-        }
-        .video-element {
-            background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://img.youtube.com/vi/j8RlL1rbtu0/maxresdefault.jpg');
-            background-size: cover;
-            background-position: center;
-        }
-        .activity-tile {
-            position: relative;
-            overflow: hidden;
-        }
-        .activity-tile img {
-            transition: transform 0.4s ease;
-        }
-        .activity-tile:hover img {
-            transform: scale(1.1);
-        }
-        /* Style for the video modal */
-        .video-modal {
-            transition: opacity 0.3s ease;
-        }
-        .swiper-slide {
-            height: auto;
-        }
-        /* Masonry grid helper */
-        .break-inside-avoid {
-            break-inside: avoid;
-        }
-        .text-shadow-lg {
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
-        }
-        /* Swiper custom styles */
-        .grounds-slider .swiper-button-next, 
-        .grounds-slider .swiper-button-prev,
-        .instagram-slider .swiper-button-next, 
-        .instagram-slider .swiper-button-prev {
-            color: #FFD700; /* Yellow */
-        }
-        .grounds-slider .swiper-pagination-bullet-active,
-        .instagram-slider .swiper-pagination-bullet-active {
-            background-color: #FFD700; /* Yellow */
-        }
-        /* Instagram embed responsive fix */
-        .instagram-media {
-            margin: 0 auto !important;
-        }
-    </style>
-    <script src="/components.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nomad Summer Camp — Cape Town 2027</title>
+  <meta name="description" content="Nomad Summer Camp Cape Town — an all-inclusive long-weekend camp for digital nomads. Worry-free, unplugged, unforgettable. Camp Big Daddy 2027.">
+  <meta property="og:title" content="Nomad Summer Camp — Cape Town 2027">
+  <meta property="og:description" content="An all-inclusive long-weekend camp for digital nomads. Worry-free, unplugged, unforgettable.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Archivo+Black&family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/components.js" defer></script>
+  <script async src="https://tally.so/widgets/embed.js"></script>
 </head>
-<body class="antialiased">
+<body>
 
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WB3WKB2G"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
+  <div id="nav-placeholder"></div>
 
-    <div id="nav-placeholder"></div>
+  <!-- Mobile-only sticky book bar — see COMPONENT — STICKY MOBILE BOOK BAR
+       in style.css. position:fixed, so it lives here (before the scripts
+       that reference it need to find it) regardless of paint order.
+       Hidden by JS once the footer's own CTA scrolls into view. -->
+  <div class="sticky-book" id="sticky-book">
+    <button class="btn-primary sticky-book__btn" data-tally-open="zxDW8M" data-tally-layout="modal" data-tally-width="800" data-tally-emoji-text="🥳" data-tally-emoji-animation="none" data-tally-form-events-forwarding="1">Book Your Spot</button>
+  </div>
 
-    <!-- 1. HERO SECTION -->
-    <header class="hero h-auto min-h-screen flex flex-col justify-center items-center text-center text-white p-4 pt-10 pb-20 md:py-24">
-        <div class="max-w-5xl flex flex-col items-center">
-            <div class="border border-blue-400 bg-white/10 backdrop-blur-sm text-white px-4 py-1 rounded-full text-sm font-semibold mb-4 inline-block">
-                🔥 Tickets now live | 25% already sold
-            </div>
-            <h1 class="font-display text-4xl md:text-7xl lg:text-8xl tracking-normal text-shadow-lg">Our Big Fat Nomad Summer Camp</h1>
-            <h2 class="text-base md:text-xl mt-4 md:mt-6 font-light tracking-wide">Join the next Nomad Summer Camp in Cape Town in 2027! Disconnect from the real world for 3 days of Camp Magic.</h2>
-            <button data-tally-open="zxDW8M" data-tally-layout="modal" data-tally-width="800" data-tally-align-left="1" data-tally-hide-title="0" data-tally-emoji-text="🤩" data-tally-emoji-animation="heart-beat" data-tally-form-events-forwarding="1" class="mt-8 inline-block bg-yellow-500 hover:bg-yellow-400 text-gray-900 font-display text-2xl px-12 py-4 rounded-full transition-transform duration-300 hover:scale-105 shadow-lg">
-                Request Spot Now
-            </button>
-            <!-- INFO BOXES -->
-            <div class="w-full mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="bg-gray-800/80 backdrop-blur-sm p-6 rounded-xl text-center transform hover:-translate-y-2 transition-transform duration-300 shadow-lg">
-                    <div class="text-yellow-500 text-3xl mb-2">📅</div>
-                    <h3 class="font-display text-2xl text-white">Dates</h3>
-                    <p class="text-gray-400">02/12/27 - 02/15/27</p>
-                </div>
-                <div class="bg-gray-800/80 backdrop-blur-sm p-6 rounded-xl text-center transform hover:-translate-y-2 transition-transform duration-300 shadow-lg">
-                    <div class="text-blue-500 text-3xl mb-2">📍</div>
-                    <h3 class="font-display text-2xl text-white">Location</h3>
-                    <p class="text-gray-400">Cape Town (1h ride)</p>
-                </div>
-                <div class="bg-gray-800/80 backdrop-blur-sm p-6 rounded-xl text-center transform hover:-translate-y-2 transition-transform duration-300 shadow-lg">
-                    <div class="text-orange-500 text-3xl mb-2">⏳</div>
-                    <h3 class="font-display text-2xl text-white">Duration</h3>
-                    <p class="text-gray-400">3 Nights</p>
-                </div>
-                <div class="bg-gray-800/80 backdrop-blur-sm p-6 rounded-xl text-center transform hover:-translate-y-2 transition-transform duration-300 shadow-lg">
-                    <div class="text-green-500 text-3xl mb-2">✨</div>
-                    <h3 class="font-display text-2xl text-white">All Inclusive</h3>
-                    <p class="text-gray-400">Just show up & enjoy</p>
-                </div>
-            </div>
-        </div>
-    </header>
 
-    <main>
+  <!-- ================================================
+       HERO
+       ================================================ -->
+  <section class="hero">
 
-                <!--  VIDEO ELEMENT -->
-        <div class="relative mt-20 px-4">
-            <div id="play-video" class="video-element z-10 max-w-4xl mx-auto aspect-video rounded-2xl shadow-2xl border-4 border-white/10 cursor-pointer flex justify-center items-center group">
-                <div class="bg-white/80 backdrop-blur-sm w-20 h-20 md:w-28 md:h-28 rounded-full flex justify-center items-center transition-transform duration-300 group-hover:scale-110">
-                    <svg class="w-8 h-8 md:w-12 md:h-12 text-gray-900" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
-                </div>
-            </div>
+    <!-- Background decorative layer (blobs + halftone) -->
+    <div class="hero__blob hero__blob--teal" aria-hidden="true"></div>
+    <div class="hero__blob hero__blob--pink"  aria-hidden="true"></div>
+    <div class="hero__halftone"               aria-hidden="true"></div>
+
+    <!-- Two-column content -->
+    <div class="hero__inner">
+
+      <!-- Left: copy & CTA -->
+      <div class="hero__content">
+
+        <span class="badge badge--pill badge--orange">30% sold out</span>
+
+        <h1 class="headline-stack">
+          <span class="sticker sticker--teal">Summer Camp</span>
+          <span class="sticker sticker--teal">is calling</span>
+        </h1>
+
+        <div class="info-strips">
+          <span class="info-tag info-tag--pink">Cape Town</span>
+          <span class="info-tag info-tag--pink">Feb 12th 2027</span>
+          <span class="info-tag info-tag--pink">3 Nights</span>
         </div>
 
-        <!-- 2. WHAT IS CAMP BIG DADDY SECTION -->
-        <section class="pt-10 md:pt-16 pb-20 md:pb-16 text-center px-4">
-            <div class="max-w-3xl mx-auto">
-                <h2 class="font-display text-5xl md:text-6xl text-yellow-500 tracking-wide">Join Camp Big Daddy 👋</h2>
-                <p class="mt-6 text-lg md:text-xl text-gray-300 leading-relaxed">
-                    Remember when you were a kid and got so lost in a game, the whole world disappeared? Now add all the fun you can have as an adult.
-                </p>
-                <p class="mt-6 text-lg md:text-xl text-gray-300 leading-relaxed">
-                    <strong>That's what Nomad Summer Camp is all about.</strong>
-                </p>
-            </div>
-        </section>
+        <p class="hero__sub">Join our next Nomad Summer Camp in Cape Town in 2027! Disconnect from the real world and swap it for 3 days of Camp Magic.</p>
 
-        <!-- 3. ACTIVITIES SECTION -->
-        <section class="py-20 md:py-16 px-4">
-            <div class="max-w-6xl mx-auto text-center">
-                <h2 class="font-display text-5xl md:text-6xl text-yellow-500 tracking-wide mb-4">Activities Await</h2>
-                <p class="text-lg text-gray-400 max-w-2xl mx-auto mb-12">Here are just a few of our epic camp activities. Wait till you see our surprise activities...</p>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
-                    <!-- Activity 1 -->
-                    <div class="bg-gray-800 rounded-xl aspect-square p-4 flex flex-col justify-center items-center text-center transform hover:-translate-y-2 transition-transform duration-300">
-                        <span class="text-6xl mb-4">🏆</span>
-                        <h3 class="font-display text-white text-2xl leading-tight">Epic Camp Games</h3>
-                        <p class="text-gray-400 text-sm mt-1">Win for your team!</p>
-                    </div>
-                    <!-- Activity 2 -->
-                    <div class="bg-gray-800 rounded-xl aspect-square p-4 flex flex-col justify-center items-center text-center transform hover:-translate-y-2 transition-transform duration-300">
-                        <span class="text-6xl mb-4">🔥</span>
-                        <h3 class="font-display text-white text-2xl leading-tight">Campfires</h3>
-                        <p class="text-gray-400 text-sm mt-1">S'mores & stories</p>
-                    </div>
-                    <!-- Activity 3 -->
-                    <div class="bg-gray-800 rounded-xl aspect-square p-4 flex flex-col justify-center items-center text-center transform hover:-translate-y-2 transition-transform duration-300">
-                        <span class="text-6xl mb-4">🌲</span>
-                        <h3 class="font-display text-white text-2xl leading-tight">Outdoor Galore</h3>
-                        <p class="text-gray-400 text-sm mt-1">SUP, Hikes & more</p>
-                    </div>
-                    <!-- Activity 4 -->
-                    <div class="bg-gray-800 rounded-xl aspect-square p-4 flex flex-col justify-center items-center text-center transform hover:-translate-y-2 transition-transform duration-300">
-                        <span class="text-6xl mb-4">🎨</span>
-                        <h3 class="font-display text-white text-2xl leading-tight">Crafts</h3>
-                        <p class="text-gray-400 text-sm mt-1">Let out your artsy side!</p>
-                    </div>
-                    <!-- Activity 5 -->
-                    <div class="bg-gray-800 rounded-xl aspect-square p-4 flex flex-col justify-center items-center text-center transform hover:-translate-y-2 transition-transform duration-300">
-                        <span class="text-6xl mb-4">🤪</span>
-                        <h3 class="font-display text-white text-2xl leading-tight">Goofiness</h3>
-                        <p class="text-gray-400 text-sm mt-1">Unleash your inner child</p>
-                    </div>
-                    <!-- Activity 6 -->
-                    <div class="bg-gray-800 rounded-xl aspect-square p-4 flex flex-col justify-center items-center text-center transform hover:-translate-y-2 transition-transform duration-300">
-                        <span class="text-6xl mb-4">🎤</span>
-                        <h3 class="font-display text-white text-2xl leading-tight">Nomads Got Talent</h3>
-                        <p class="text-gray-400 text-sm mt-1">Show us what you've got!</p>
-                    </div>
-                    <!-- Activity 7 -->
-                    <div class="bg-gray-800 rounded-xl aspect-square p-4 flex flex-col justify-center items-center text-center transform hover:-translate-y-2 transition-transform duration-300">
-                        <span class="text-6xl mb-4">🎉</span>
-                        <h3 class="font-display text-white text-2xl leading-tight">Party</h3>
-                        <p class="text-gray-400 text-sm mt-1">Our infamous camp celebrations</p>
-                    </div>
-                    <!-- Activity 8 -->
-                    <div class="bg-gray-800 rounded-xl aspect-square p-4 flex flex-col justify-center items-center text-center transform hover:-translate-y-2 transition-transform duration-300">
-                        <span class="text-6xl mb-4">🎁</span>
-                        <h3 class="font-display text-white text-2xl leading-tight">Surprises</h3>
-                        <p class="text-gray-400 text-sm mt-1">Just you wait...</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
-        <!-- 4. WHAT'S INCLUDED SECTION -->
-        <section class="bg-gray-900 py-20 md:py-32 px-4">
-            <div class="max-w-5xl mx-auto text-center">
-                <h2 class="font-display text-5xl md:text-6xl text-yellow-500 tracking-wide">Everything's Included</h2>
-                <p class="text-lg text-gray-400 max-w-2xl mx-auto mb-12">You're at camp to have fun, we take care of the rest. All of the below is covered, so you don't need to worry about a thing. Hakuna Matata!</p>
-
-                <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-left">
-                    <div class="bg-gray-800 p-6 rounded-xl">
-                        <div class="flex items-center mb-3">
-                            <span class="text-4xl mr-4">🏠</span>
-                            <h3 class="font-display text-2xl text-white">Unique Housing</h3>
-                        </div>
-                        <p class="text-gray-400">Choose your own adventure with our unique housing. We have everything from cozy houses and tiny homes to vintage Airstream trailers and luxury glamping tents.</p>
-                    </div>
-                    <div class="bg-gray-800 p-6 rounded-xl">
-                        <div class="flex items-center mb-3">
-                            <span class="text-4xl mr-4">🍔</span>
-                            <h3 class="font-display text-2xl text-white">All Food</h3>
-                        </div>
-                        <p class="text-gray-400">Fuel your adventures with delicious, chef-prepared meals. We provide a full spread for breakfast, lunch, and dinner, plus plenty of snacks to keep you going all day long.</p>
-                    </div>
-                    <div class="bg-gray-800 p-6 rounded-xl">
-                        <div class="flex items-center mb-3">
-                            <span class="text-4xl mr-4">🍹</span>
-                            <h3 class="font-display text-2xl text-white">All Drinks</h3>
-                        </div>
-                        <p class="text-gray-400">Stay refreshed with our all-day open bar, including soft drinks, beer, and wine. Enjoy a glass of wine perfectly paired with your evening meals.</p>
-                    </div>
-                    <div class="bg-gray-800 p-6 rounded-xl">
-                        <div class="flex items-center mb-3">
-                            <span class="text-4xl mr-4">🏄</span>
-                            <h3 class="font-display text-2xl text-white">All Activities</h3>
-                        </div>
-                        <p class="text-gray-400">That's right, everything is included. From the epic games to the surprise events, every single activity is part of your ticket. No hidden fees, no extra costs.</p>
-                    </div>
-                    <div class="bg-gray-800 p-6 rounded-xl">
-                        <div class="flex items-center mb-3">
-                            <span class="text-4xl mr-4">🤝</span>
-                            <h3 class="font-display text-2xl text-white">New Friends</h3>
-                        </div>
-                        <p class="text-gray-400">Leave with more than just memories. You'll join a global family of creative, adventurous souls who will become your lifelong friends and collaborators.</p>
-                    </div>
-                    <div class="bg-gray-800 p-6 rounded-xl">
-                        <div class="flex items-center mb-3">
-                            <span class="text-4xl mr-4">💖</span>
-                            <h3 class="font-display text-2xl text-white">That Camp Magic</h3>
-                        </div>
-                        <p class="text-gray-400">It's that indescribable feeling of pure joy, freedom, and connection. It's the laughter that makes your cheeks hurt and the moments you'll talk about for years to come. You just have to be there.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-<!--        <div class="max-w-6xl mx-auto text-center flex justify-center">
-             <script async src="https://subscribe-forms.beehiiv.com/embed.js"></script><iframe src="https://subscribe-forms.beehiiv.com/113948f3-d7ae-48e5-b5d3-c490cb43e535" class="beehiiv-embed" data-test-id="beehiiv-embed" frameborder="0" scrolling="no" style="width: 600px; height: 397px; margin: 0; border-radius: 0px 0px 0px 0px !important; background-color: transparent; box-shadow: 0 0 #0000; max-width: 100%;"></iframe>
+        <div class="cta-block">
+          <button class="btn-primary" data-tally-open="zxDW8M" data-tally-layout="modal" data-tally-width="800" data-tally-emoji-text="🥳" data-tally-emoji-animation="none" data-tally-form-events-forwarding="1">Book Your Spot</button>
+          <p class="fine-print">Only $99 deposit due today — fully refundable</p>
         </div>
--->
-        <!-- 5. INSTAGRAM SECTION -->
-        <section class="bg-gray-900 py-20 md:py-32 px-4">
-            <div class="max-w-6xl mx-auto text-center">
-                <h2 class="font-display text-5xl md:text-6xl text-yellow-500 tracking-wide mb-4">What does a Nomad Summer Camp look like?</h2>
-                <p class="text-lg text-gray-400 max-w-2xl mx-auto mb-12">
-                    Still wondering what the vibe is really like? It’s a little bit of epic, a dash of silly, and a whole lot of magic. But don't just take our word for it—see for yourself.
-                </p>
-                
-                <!-- Instagram Slider -->
-                <div class="swiper instagram-slider">
-                    <div class="swiper-wrapper">
-                        <!-- Slide 1 -->
-                        <div class="swiper-slide">
-                            <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DA1ujCfIjhf/" data-instgrm-version="14"></blockquote>
-                        </div>
-                        <!-- Slide 2 -->
-                        <div class="swiper-slide">
-                            <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DLaBjqIIpga/" data-instgrm-version="14"></blockquote>
-                        </div>
-                        <!-- Slide 3 -->
-                        <div class="swiper-slide">
-                            <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DK1vMtTu89p/" data-instgrm-version="14"></blockquote>
-                        </div>
-                        <!-- Slide 4 -->
-                        <div class="swiper-slide">
-                            <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DJt-Wk0AS9g/" data-instgrm-version="14"></blockquote>
-                        </div>
-                        <!-- Slide 5 -->
-                        <div class="swiper-slide">
-                            <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DDFxV3MTMoh/" data-instgrm-version="14"></blockquote>
-                        </div>
-                        <!-- Slide 6 -->
-                        <div class="swiper-slide">
-                            <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DKpB1l2JoSC/" data-instgrm-version="14"></blockquote>
-                        </div>
-                        <!-- Slide 7 -->
-                        <div class="swiper-slide">
-                            <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DIjonanOFa8/" data-instgrm-version="14"></blockquote>
-                        </div>
-                        <!-- Slide 8 -->
-                        <div class="swiper-slide">
-                            <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DI4jaYhu0eF/" data-instgrm-version="14"></blockquote>
-                        </div>
-                        <!-- Slide 9 -->
-                        <div class="swiper-slide">
-                            <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DEQiP_kS4E6/" data-instgrm-version="14"></blockquote>
-                        </div>
-                    </div>
-                    <!-- Add Pagination -->
-                    <div class="swiper-pagination mt-8 relative"></div>
-                    <!-- Add Navigation -->
-                    <div class="swiper-button-prev"></div>
-                    <div class="swiper-button-next"></div>
-                </div>
-                
-                <p class="text-lg text-gray-400 max-w-2xl mx-auto mt-12">
-                    <a href="https://www.instagram.com/nomad.summercamp/" target="_blank" rel="noopener noreferrer" class="text-yellow-500 hover:underline font-semibold">Check out our Instagram for more!</a>
-                </p>
-            </div>
-        </section>
-        <script async src="//www.instagram.com/embed.js"></script>
-        
-        <!-- 6. CAMP GROUNDS SECTION -->
-        <section class="py-20 md:py-32 px-4">
-            <div class="max-w-6xl mx-auto text-center">
-                <h2 class="font-display text-5xl md:text-6xl text-yellow-500 tracking-wide mb-4">Camp Big Daddy Grounds</h2>
-                <p class="text-lg text-gray-400 max-w-2xl mx-auto mb-12">From luxurious tiny homes to quirky and cozy airstream trailers. Camp Big Daddy has the right sleeping place for your vibe.</p>
-                <!-- Slider main container -->
-                <div class="swiper grounds-slider rounded-2xl shadow-2xl">
-                    <!-- Additional required wrapper -->
-                    <div class="swiper-wrapper">
-                        <!-- Slides -->
-                        <div class="swiper-slide"><img src="grounds1.jpg" alt="Camp Grounds 1" class="w-full h-full object-cover aspect-video" onerror="this.onerror=null;this.src='https://placehold.co/1280x720/111827/F3F4F6?text=Image+Not+Found';"></div>
-                        <div class="swiper-slide"><img src="grounds2.jpg" alt="Camp Grounds 2" class="w-full h-full object-cover aspect-video" onerror="this.onerror=null;this.src='https://placehold.co/1280x720/111827/F3F4F6?text=Image+Not+Found';"></div>
-                        <div class="swiper-slide"><img src="grounds3.jpg" alt="Camp Grounds 3" class="w-full h-full object-cover aspect-video" onerror="this.onerror=null;this.src='https://placehold.co/1280x720/111827/F3F4F6?text=Image+Not+Found';"></div>
-                        <div class="swiper-slide"><img src="grounds4.jpg" alt="Camp Grounds 4" class="w-full h-full object-cover aspect-video" onerror="this.onerror=null;this.src='https://placehold.co/1280x720/111827/F3F4F6?text=Image+Not+Found';"></div>
-                        <div class="swiper-slide"><img src="grounds5.jpg" alt="Camp Grounds 5" class="w-full h-full object-cover aspect-video" onerror="this.onerror=null;this.src='https://placehold.co/1280x720/111827/F3F4F6?text=Image+Not+Found';"></div>
-                        <div class="swiper-slide"><img src="grounds6.jpg" alt="Camp Grounds 6" class="w-full h-full object-cover aspect-video" onerror="this.onerror=null;this.src='https://placehold.co/1280x720/111827/F3F4F6?text=Image+Not+Found';"></div>
-                        <div class="swiper-slide"><img src="grounds7.jpg" alt="Camp Grounds 7" class="w-full h-full object-cover aspect-video" onerror="this.onerror=null;this.src='https://placehold.co/1280x720/111827/F3F4F6?text=Image+Not+Found';"></div>
-                        <div class="swiper-slide"><img src="grounds8.jpg" alt="Camp Grounds 8" class="w-full h-full object-cover aspect-video" onerror="this.onerror=null;this.src='https://placehold.co/1280x720/111827/F3F4F6?text=Image+Not+Found';"></div>
-                        <div class="swiper-slide"><img src="grounds9.jpg" alt="Camp Grounds 9" class="w-full h-full object-cover aspect-video" onerror="this.onerror=null;this.src='https://placehold.co/1280x720/111827/F3F4F6?text=Image+Not+Found';"></div>
-                        <div class="swiper-slide"><img src="grounds10.jpg" alt="Camp Grounds 10" class="w-full h-full object-cover aspect-video" onerror="this.onerror=null;this.src='https://placehold.co/1280x720/111827/F3F4F6?text=Image+Not+Found';"></div>
-                        <div class="swiper-slide"><img src="grounds11.jpg" alt="Camp Grounds 11" class="w-full h-full object-cover aspect-video" onerror="this.onerror=null;this.src='https://placehold.co/1280x720/111827/F3F4F6?text=Image+Not+Found';"></div>
-                    </div>
-                    <!-- Add Pagination -->
-                    <div class="swiper-pagination"></div>
-                    <!-- Add Navigation -->
-                    <div class="swiper-button-prev"></div>
-                    <div class="swiper-button-next"></div>
-                </div>
-                    <button data-tally-open="zxDW8M" data-tally-layout="modal" data-tally-width="800" data-tally-align-left="1" data-tally-hide-title="0" data-tally-emoji-text="🤩" data-tally-emoji-animation="heart-beat" data-tally-form-events-forwarding="1" class="mt-8 inline-block bg-yellow-500 hover:bg-yellow-400 text-gray-900 font-display text-2xl px-12 py-4 rounded-full transition-transform duration-300 hover:scale-105 shadow-lg">
-                    Request Spot Now
-                    </button>
-            </div>
-        </section>
 
-        <!-- 7. TESTIMONIALS SECTION -->
-        <section class="py-20 md:py-32 px-4">
-            <div class="max-w-7xl mx-auto text-center">
-                <h2 class="font-display text-5xl md:text-6xl text-yellow-500 tracking-wide">Straight from the Campers</h2>
-                <div class="mt-12 columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8">
-                    <div class="break-inside-avoid bg-gray-800 rounded-xl text-left overflow-hidden">
-                        <img src="testimonial-jeff.jpg" alt="Testimonial from Jeff" class="w-full h-48 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/540x384/111827/F3F4F6?text=Image+Not+Found';">
-                        <div class="p-6">
-                            <p class="text-gray-300 mb-4">“You won’t understand until you do it – and you must do it! You need it for your soul. I don’t ever want to miss another camp.”</p>
-                            <h4 class="font-bold text-lg text-white">- Jeff</h4>
-                        </div>
-                    </div>
-                    <div class="break-inside-avoid bg-gray-800 rounded-xl text-left overflow-hidden">
-                        <img src="testimonial-heather.jpg" alt="Testimonial from Heather" class="w-full h-48 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/540x384/111827/F3F4F6?text=Image+Not+Found';">
-                        <div class="p-6">
-                            <p class="text-gray-300 mb-4">“One of the best weeks of my entire life. You somehow manage to outdo yourselves every year!“</p>
-                            <h4 class="font-bold text-lg text-white">- Heather</h4>
-                        </div>
-                    </div>
-                    <div class="break-inside-avoid bg-gray-800 rounded-xl text-left overflow-hidden">
-                        <img src="testimonial-julie.jpg" alt="Testimonial from Camper Julie" class="w-full h-48 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/540x384/111827/F3F4F6?text=Image+Not+Found';">
-                        <div class="p-6">
-                            <p class="text-gray-300 mb-4">“As someone who grew up at summer camp, saying Nomad Summer Camp met all my wildest hopes and dreams – is an understatement. NSC is the most perfect way to play like we were kids, party like we were in college, and laugh like we will live forever...”</p>
-                            <h4 class="font-bold text-lg text-white">- Julie</h4>
-                        </div>
-                    </div>
-                    <div class="break-inside-avoid bg-gray-800 rounded-xl text-left overflow-hidden">
-                        <img src="testimonial-matty.jpg" alt="Testimonial from MATTY" class="w-full h-48 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/540x384/111827/F3F4F6?text=Image+Not+Found';">
-                        <div class="p-6">
-                            <p class="text-gray-300 mb-4">“Nomad Summer Camp is the most fun I’ve had since I was a kid! The bestest time ever!”</p>
-                            <h4 class="font-bold text-lg text-white">- MATTY</h4>
-                        </div>
-                    </div>
-                    <div class="break-inside-avoid bg-gray-800 rounded-xl text-left overflow-hidden">
-                        <img src="testimonial-lindsey.jpg" alt="Testimonial from Lindsey" class="w-full h-48 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/540x384/111827/F3F4F6?text=Image+Not+Found';">
-                        <div class="p-6">
-                            <p class="text-gray-300 mb-4">“Want to relive your childhood? You MUST go to Nomad Summer Camp! You’ll laugh, you’ll cry... Your adult body will probably yell at you for trying to do all of these kid games, but it’ll all be worth it.”</p>
-                            <h4 class="font-bold text-lg text-white">- Lindsey</h4>
-                        </div>
-                    </div>
-                    <div class="break-inside-avoid bg-gray-800 rounded-xl text-left overflow-hidden">
-                        <img src="testimonial-nikki.jpg" alt="Testimonial from Nikki" class="w-full h-48 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/540x384/111827/F3F4F6?text=Image+Not+Found';">
-                        <div class="p-6">
-                            <p class="text-gray-300 mb-4">“I loved the team dynamics, being forced to work with new people, we always had something to do and never needed to worry about food or shopping. A week full of laughter, fun and party!“</p>
-                            <h4 class="font-bold text-lg text-white">- Nikki</h4>
-                        </div>
-                    </div>
-                     <div class="break-inside-avoid bg-gray-800 rounded-xl text-left overflow-hidden">
-                        <img src="testimonial-becca.jpg" alt="Testimonial from Becca" class="w-full h-48 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/540x384/111827/F3F4F6?text=Image+Not+Found';">
-                        <div class="p-6">
-                            <p class="text-gray-300 mb-4">“I’ve been into games my whole life... This was a whole week fun. Every day we got to wake up, eat amazing food, spend the day in the sunshine playing and getting to be silly. A great time to unplug, be creative, and laugh until your cheeks hurt. I can’t wait for next year!“</p>
-                            <h4 class="font-bold text-lg text-white">- Becca</h4>
-                        </div>
-                    </div>
-                    <div class="break-inside-avoid bg-gray-800 rounded-xl text-left overflow-hidden">
-                        <img src="testimonial-nela.jpg" alt="Testimonial from Nela" class="w-full h-48 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/540x384/111827/F3F4F6?text=Image+Not+Found';">
-                        <div class="p-6">
-                            <p class="text-gray-300 mb-4">“You will have a week in which you’ll forget about the outside world. SO much fun! Amazing friends and so many GAMES... I felt so loved and receiving so many treats every days, it was AMAZING!”</p>
-                            <h4 class="font-bold text-lg text-white">- Nela</h4>
-                        </div>
-                    </div>
-                     <div class="break-inside-avoid bg-gray-800 rounded-xl text-left overflow-hidden">
-                        <img src="testimonial-rachel.jpg" alt="Testimonial from Rachel" class="w-full h-48 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/540x384/111827/F3F4F6?text=Image+Not+Found';">
-                        <div class="p-6">
-                            <p class="text-gray-300 mb-4">“The most memorable experience that I can’t wait to do every year”</p>
-                            <h4 class="font-bold text-lg text-white">- Rachel</h4>
-                        </div>
-                    </div>
-                    <div class="break-inside-avoid bg-gray-800 rounded-xl text-left overflow-hidden">
-                        <img src="testimonial-danny.jpg" alt="Testimonial from Danny" class="w-full h-48 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/540x384/111827/F3F4F6?text=Image+Not+Found';">
-                        <div class="p-6">
-                            <p class="text-gray-300 mb-4">“By far the best use of PTO I've had in my 5 years as a nomad”</p>
-                            <h4 class="font-bold text-lg text-white">- Danny</h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+      </div>
 
+      <!-- Right: hero video -->
+      <div class="hero__visual">
+        <video src="/bigdaddy-website-hero.mp4" autoplay muted loop playsinline class="hero__video"></video>
+      </div>
 
-        <!-- 8. PRICING SECTION -->
-                <!--
-        <section class="bg-gray-900 py-20 md:py-32 px-4">
-            <div class="max-w-7xl mx-auto text-center">
-                <h2 class="font-display text-5xl md:text-6xl text-yellow-500 tracking-wide">Choose Your Camp Experience</h2>
-                <p class="mt-6 text-lg md:text-xl text-gray-400 max-w-3xl mx-auto">
-                    Every ticket includes the full camp experience: all food, an open bar, and every single activity. The only difference is where you'll rest your head at night. Pick the vibe that's right for you!
-                </p>
-        
-                <!- Pricing Cards Grid ->
-                <div class="mt-16 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 text-left">
+    </div><!-- /.hero__inner -->
 
-                    <!- VIP Ticket Card ->
-                    <div class="bg-gray-800 rounded-xl p-8 flex flex-col transform hover:-translate-y-2 transition-transform duration-300 shadow-lg border border-yellow-500/50">
-                        <div class="flex-grow">
-                            <h3 class="font-display text-3xl text-yellow-500">💎 VIP</h3>
-                            <p class="text-gray-400 mt-4">Stay in a luxury tiny home with a queen bed and your own private outdoor hot tub.</p>
-                            <div class="mt-6 space-y-4">
-                                <div class="flex justify-between items-center">
-                                    <span class="text-gray-300">Private House</span>
-                                    <span class="font-bold text-2xl text-white">$1,049</span>
-                                </div>
-                                <div class="flex justify-between items-center">
-                                    <span class="text-gray-300">Shared House<br>(per person)</span>
-                                    <span class="font-bold text-2xl text-white">$799</span>
-                                </div>
-                            </div>
-                        </div>
-                        <button
-                              type="button"
-                              disabled
-                              class="mt-8 w-full bg-gray-600 text-gray-300 font-display text-xl px-8 py-3 rounded-full cursor-not-allowed opacity-70">
-                              Sold out
-                        </button>
-                    </div>
-
-                    <!- Premium Ticket Card ->
-                    <div class="bg-gray-800 rounded-xl p-8 flex flex-col transform hover:-translate-y-2 transition-transform duration-300 shadow-lg">
-                        <div class="flex-grow">
-                            <h3 class="font-display text-3xl text-white">✨ Premium</h3>
-                            <p class="text-gray-400 mt-4">Shared rooms (2 Campers) in a big house with a shared common area. Bathrooms ensuite or shared.</p>
-                            <div class="mt-6 space-y-4">
-                                <div class="flex justify-between items-center">
-                                    <span class="text-gray-300">Private Room</span>
-                                    <span class="font-bold text-2xl text-white">Sold out</span>
-                                </div>
-                                <div class="flex justify-between items-center">
-                                    <span class="text-gray-300">Shared Room<br>(per person)</span>
-                                    <span class="font-bold text-2xl text-white">$649</span>
-                                </div>
-                            </div>
-                        </div>
-                        <button data-tally-open="mBy2RN" data-tally-layout="modal" data-tally-width="800" class="mt-8 w-full bg-yellow-500 hover:bg-yellow-400 text-gray-900 font-display text-xl px-8 py-3 rounded-full transition-transform duration-300 hover:scale-105">
-                            Request Spot
-                        </button>
-                    </div>
-
-                    <!- Standard Ticket Card ->
-                    <div class="bg-gray-800 rounded-xl p-8 flex flex-col transform hover:-translate-y-2 transition-transform duration-300 shadow-lg">
-                        <div class="flex-grow">
-                            <h3 class="font-display text-3xl text-white">🏠 Standard</h3>
-                            <p class="text-gray-400 mt-4">A cozy room or artsy airstream with a bathroom shared between 2-4 people.</p>
-                            <div class="mt-6 space-y-4">
-                                <div class="flex justify-between items-center">
-                                    <span class="text-gray-300">Private Room</span>
-                                    <span class="font-bold text-2xl text-white">$799</span>
-                                </div>
-                                <div class="flex justify-between items-center">
-                                    <span class="text-gray-300">Shared Room<br>(per person)</span>
-                                    <span class="font-bold text-2xl text-white">$549</span>
-                                </div>
-                            </div>
-                        </div>
-                        <button data-tally-open="mBy2RN" data-tally-layout="modal" data-tally-width="800" class="mt-8 w-full bg-yellow-500 hover:bg-yellow-400 text-gray-900 font-display text-xl px-8 py-3 rounded-full transition-transform duration-300 hover:scale-105">
-                            Request Spot
-                        </button>
-                    </div>
-
-                    <!- Budget Ticket Card ->
-                    <div class="bg-gray-800 rounded-xl p-8 flex flex-col transform hover:-translate-y-2 transition-transform duration-300 shadow-lg">
-                        <div class="flex-grow">
-                            <h3 class="font-display text-3xl text-white">🤑 Budget</h3>
-                            <p class="text-gray-400 mt-4">A spot in a 4-bed female-only room in one of our villas or a cozy tent.</p>
-                            <div class="mt-6 space-y-4">
-                                <div class="flex justify-between items-center">
-                                    <span class="text-gray-300">Shared Room or Tent</span>
-                                    <span class="font-bold text-2xl text-white">$499</span>
-                                </div>
-                            </div>
-                        </div>
-                        <button data-tally-open="mBy2RN" data-tally-layout="modal" data-tally-width="800" class="mt-8 w-full bg-yellow-500 hover:bg-yellow-400 text-gray-900 font-display text-xl px-8 py-3 rounded-full transition-transform duration-300 hover:scale-105">
-                            Request Spot
-                        </button>
-                    </div>
-
-                </div>
-            </div>
-        </section>
--->
-
-        <!-- PAST CAMPS TEASER -->
-        <section class="py-20 md:py-28 px-4 text-center">
-            <div class="max-w-3xl mx-auto">
-                <p class="text-yellow-500 font-semibold text-sm uppercase tracking-widest mb-3">What we've done so far</p>
-                <h2 class="font-display text-5xl md:text-6xl text-white tracking-wide">Our Camps so far...</h2>
-                <p class="mt-6 text-lg text-gray-400 leading-relaxed">
-                    Austria, Serbia, Mexico, France, Cape Town. Every year a new location, every year the same magic. Just with more people and worse decisions.
-                </p>
-                <!-- Camp name badges -->
-                <div class="mt-8 flex flex-wrap justify-center gap-3">
-                    <span class="bg-gray-800 text-gray-300 text-sm font-medium px-4 py-2 rounded-full border border-white/10">Camp Bädäss</span>
-                    <span class="bg-gray-800 text-gray-300 text-sm font-medium px-4 py-2 rounded-full border border-white/10">Camp Jandala</span>
-                    <span class="bg-gray-800 text-gray-300 text-sm font-medium px-4 py-2 rounded-full border border-white/10">Camp Chido</span>
-                    <span class="bg-gray-800 text-gray-300 text-sm font-medium px-4 py-2 rounded-full border border-white/10">Camp Chateau</span>
-                    <span class="bg-gray-800 text-gray-300 text-sm font-medium px-4 py-2 rounded-full border border-white/10">Camp Big Daddy</span>
-                </div>
-                <a href="/past-camps" class="mt-10 inline-block bg-white/10 hover:bg-white/20 text-white font-display text-xl px-10 py-4 rounded-full transition-colors duration-300">
-                    See all camps &rarr;
-                </a>
-            </div>
-        </section>
-
-        <!-- MEET YOUR COUNSELORS SECTION -->
-        <section class="bg-gray-900 py-20 md:py-28 px-4 text-center">
-            <div class="max-w-3xl mx-auto">
-                <p class="text-yellow-500 font-semibold text-sm uppercase tracking-widest mb-3">Who's running this thing?</p>
-                <h2 class="font-display text-5xl md:text-6xl text-white tracking-wide">Your Camp Counselors</h2>
-                <p class="mt-6 text-lg text-gray-400 leading-relaxed">
-                    Ali, Alex, Julio&hellip; and Jeff. Three nomads, one rubber chicken, and a combined 20+ years on the road.
-                </p>
-
-                <!-- Counselor tiles -->
-                <div class="mt-10 grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div class="bg-gray-800 rounded-2xl py-8 px-4 flex flex-col items-center gap-3">
-                        <span class="text-5xl">🌺</span>
-                        <span class="font-display text-white text-xl">Ali</span>
-                    </div>
-                    <div class="bg-gray-800 rounded-2xl py-8 px-4 flex flex-col items-center gap-3">
-                        <span class="text-5xl">🤙</span>
-                        <span class="font-display text-white text-xl">Alex</span>
-                    </div>
-                    <div class="bg-gray-800 rounded-2xl py-8 px-4 flex flex-col items-center gap-3">
-                        <span class="text-5xl">🎸</span>
-                        <span class="font-display text-white text-xl">Julio</span>
-                    </div>
-                    <div class="bg-gray-800 rounded-2xl py-8 px-4 flex flex-col items-center gap-3">
-                        <span class="text-5xl">🐔</span>
-                        <span class="font-display text-white text-xl">Jeff</span>
-                    </div>
-                </div>
-
-                <a href="/about" class="mt-10 inline-block bg-white/10 hover:bg-white/20 text-white font-display text-xl px-10 py-4 rounded-full transition-colors duration-300">
-                    Meet the counselors &rarr;
-                </a>
-            </div>
-        </section>
-
-        <!-- 9. FAQ SECTION -->
-        <section class="py-20 md:py-32 px-4">
-            <div class="max-w-3xl mx-auto">
-                <h2 class="font-display text-5xl md:text-6xl text-yellow-500 tracking-wide text-center mb-12">Got Questions?</h2>
-                <div class="space-y-4">
-                    <div class="faq-item bg-gray-800 rounded-lg">
-                        <button class="faq-question w-full flex justify-between items-center text-left p-6">
-                            <span class="text-xl font-semibold text-white">What is the pricing?</span>
-                            <svg class="faq-icon w-6 h-6 text-yellow-500 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                        </button>
-                        <div class="faq-answer overflow-hidden max-h-0 transition-all duration-500 ease-in-out">
-                            <p class="p-6 pt-0 text-gray-400">The pricing for our Camp Big Daddy 2027 is not out yet. For our last Camp, the prices varied between $499 and $1,049.</p>
-                        </div>
-                    </div>
-                    <div class="faq-item bg-gray-800 rounded-lg">
-                        <button class="faq-question w-full flex justify-between items-center text-left p-6">
-                            <span class="text-xl font-semibold text-white">What's included?</span>
-                            <svg class="faq-icon w-6 h-6 text-yellow-500 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                        </button>
-                        <div class="faq-answer overflow-hidden max-h-0 transition-all duration-500 ease-in-out">
-                            <p class="p-6 pt-0 text-gray-400">🛏️ Accommodation<br>🌮 Food<br>🍹 All drinks (beer, wine and soft drinks)<br>🤸 All activities<br>📅 Daily schedule<br>🍿 Snacks</p>
-                        </div>
-                    </div>
-                    <div class="faq-item bg-gray-800 rounded-lg">
-                        <button class="faq-question w-full flex justify-between items-center text-left p-6">
-                            <span class="text-xl font-semibold text-white">What is not included?</span>
-                            <svg class="faq-icon w-6 h-6 text-yellow-500 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                        </button>
-                        <div class="faq-answer overflow-hidden max-h-0 transition-all duration-500 ease-in-out text-left">
-                            <p class="p-6 pt-0 text-gray-400">✈️ Flights<br>🚌 Bus from Cape Town to location (can be booked optionally or organized individually)<br>🛋️ Post Camp therapy sessions due to severe Camp Life Withdrawal (CLW)</p>
-                        </div>
-                    </div>
-                    <div class="faq-item bg-gray-800 rounded-lg">
-                        <button class="faq-question w-full flex justify-between items-center text-left p-6">
-                            <span class="text-xl font-semibold text-white">What is the refund policy?</span>
-                            <svg class="faq-icon w-6 h-6 text-yellow-500 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                        </button>
-                        <div class="faq-answer overflow-hidden max-h-0 transition-all duration-500 ease-in-out text-left">
-                            <p class="p-6 pt-0 text-gray-400">Your payment is fully refundable until December 1st 2025. After December 1st, the payments are non-refundable.</p>
-                        </div>
-                    </div>
-                    <div class="faq-item bg-gray-800 rounded-lg">
-                        <button class="faq-question w-full flex justify-between items-center text-left p-6">
-                            <span class="text-xl font-semibold text-white">Can I work during camp?</span>
-                            <svg class="faq-icon w-6 h-6 text-yellow-500 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                        </button>
-                        <div class="faq-answer overflow-hidden max-h-0 transition-all duration-500 ease-in-out text-left">
-                            <p class="p-6 pt-0 text-gray-400">The short answer: no. If you need to check your phone and answer an email or slack message or two, noone is going to judge you. But the general idea is to take this weekend off to connect, have fun, unplug and earn some camp points! Camp vibes are non-work vibes.</p>
-                        </div>
-                    </div>
-                    <div class="faq-item bg-gray-800 rounded-lg">
-                        <button class="faq-question w-full flex justify-between items-center text-left p-6">
-                            <span class="text-xl font-semibold text-white">Who typically attends NSC?</span>
-                            <svg class="faq-icon w-6 h-6 text-yellow-500 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                        </button>
-                        <div class="faq-answer overflow-hidden max-h-0 transition-all duration-500 ease-in-out text-left">
-                            <p class="p-6 pt-0 text-gray-400">Campers range from full time nomads, part time nomads, entrepreneurs, developers, writers, employees (at nomad friendly companies), and folks that love to travel and just want to experience a great weekend with fellow travel minded people.</p>
-                            <p class="p-6 pt-0 text-gray-400">So far, we've had attendees from:<br>
-                            🇩🇪 Germany<br>
-                            🇺🇸 USA<br>
-                            🇬🇧 England<br>
-                            🇷🇴 Romania<br>
-                            🇨🇦 Canada<br>
-                            🇲🇽 Mexico<br>
-                            🇪 Peru<br>
-                            🇷🇺 Russia<br>
-                            🇳🇱 Netherlands<br>
-                            🇷 France<br>
-                            🇮🇪 Ireland<br>
-                            🇩🇰 Denmark
-                            </p>
-                        </div>
-                    </div>
-                    <div class="faq-item bg-gray-800 rounded-lg">
-                        <button class="faq-question w-full flex justify-between items-center text-left p-6">
-                            <span class="text-xl font-semibold text-white">Am I nomad enough?</span>
-                            <svg class="faq-icon w-6 h-6 text-yellow-500 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                        </button>
-                        <div class="faq-answer overflow-hidden max-h-0 transition-all duration-500 ease-in-out text-left">
-                            <p class="p-6 pt-0 text-gray-400">The “Nomad” part of Nomad Summer Camp comes from the vision to bring together a group of travel minded people who love new experiences and “roll with the punches” when things don’t go perfectly. We’ve noticed that this generally comes from Nomads, but whether you are a full time nomad, part time nomad, or just travel a few months out of the year, we’d love to have you to create lasting memories with us at NSC! </p>
-                            <p class="p-6 pt-0 text-gray-400">We are not some adult summer camp that offers a weekend away close to home. Instead, we want to take advantage of what the world has to offer, making every camp a unique event for unique people. For context, the founders are all full time nomads. For years we’ve traveled the world with no home base and lived for a few weeks to a few months at a time in cool destinations while we built our separate businesses.</p>
-                        </div>
-                    </div>
-                    <div class="faq-item bg-gray-800 rounded-lg">
-                        <button class="faq-question w-full flex justify-between items-center text-left p-6">
-                            <span class="text-xl font-semibold text-white">What are the different ticket options?</span>
-                            <svg class="faq-icon w-6 h-6 text-yellow-500 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                        </button>
-                        <div class="faq-answer overflow-hidden max-h-0 transition-all duration-500 ease-in-out text-left">
-                            <p class="p-6 pt-0 text-gray-400">Your ticket to Camp Big Daddy is all-inclusive. That means for three full days, your accommodation, every meal, all your drinks, and access to all the games, music, and activities are completely covered.</p>
-                            <p class="p-6 pt-0 text-gray-400">We have four tiers of accommodation designed to fit your vibe and budget. For most tiers, you can book a Shared Room Ticket (the per-person price) or a Single Room Ticket (which gets you the whole room to yourself).</p>
-                            <p class="p-6 pt-0 text-gray-400">No matter where you crash, you get the same all-access pass to the entire Camp Big Daddy experience.</p>
-                        </div>
-                    </div> 
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <div id="footer-placeholder"></div>
-
-    <!-- Video Modal -->
-    <div id="video-modal" class="video-modal fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex justify-center items-center opacity-0 pointer-events-none p-4">
-        <div class="relative w-full max-w-4xl">
-            <button id="close-modal" class="absolute -top-10 right-0 text-white text-4xl">&times;</button>
-            <div id="video-content" class="aspect-video bg-black rounded-lg">
-                <!-- YouTube iframe will be inserted here -->
-            </div>
-        </div>
+    <!-- Bottom: polaroid strip — auto-scrolling -->
+    <div class="polaroid-strip" aria-hidden="true">
+      <div class="polaroid-strip__track">
+        <div class="polaroid polaroid--sm"><div class="polaroid__frame"><img src="/strip-1.avif" alt="" class="polaroid__img"></div></div>
+        <div class="polaroid polaroid--sm"><div class="polaroid__frame"><img src="/strip-2.avif" alt="" class="polaroid__img"></div></div>
+        <div class="polaroid polaroid--sm"><div class="polaroid__frame"><img src="/strip-3.avif" alt="" class="polaroid__img"></div></div>
+        <div class="polaroid polaroid--sm"><div class="polaroid__frame"><img src="/strip-4.avif" alt="" class="polaroid__img"></div></div>
+        <div class="polaroid polaroid--sm"><div class="polaroid__frame"><img src="/strip-5.avif" alt="" class="polaroid__img"></div></div>
+        <div class="polaroid polaroid--sm"><div class="polaroid__frame"><img src="/strip-6.avif" alt="" class="polaroid__img"></div></div>
+        <div class="polaroid polaroid--sm"><div class="polaroid__frame"><img src="/strip-7.avif" alt="" class="polaroid__img"></div></div>
+        <div class="polaroid polaroid--sm"><div class="polaroid__frame"><img src="/strip-8.avif" alt="" class="polaroid__img"></div></div>
+        <div class="polaroid polaroid--sm"><div class="polaroid__frame"><img src="/strip-9.avif" alt="" class="polaroid__img"></div></div>
+        <div class="polaroid polaroid--sm"><div class="polaroid__frame"><img src="/strip-10.avif" alt="" class="polaroid__img"></div></div>
+        <div class="polaroid polaroid--sm"><div class="polaroid__frame"><img src="/strip-11.avif" alt="" class="polaroid__img"></div></div>
+        <div class="polaroid polaroid--sm"><div class="polaroid__frame"><img src="/strip-12.avif" alt="" class="polaroid__img"></div></div>
+        <div class="polaroid polaroid--sm"><div class="polaroid__frame"><img src="/strip-13.avif" alt="" class="polaroid__img"></div></div>
+        <div class="polaroid polaroid--sm"><div class="polaroid__frame"><img src="/strip-14.avif" alt="" class="polaroid__img"></div></div>
+        <div class="polaroid polaroid--sm"><div class="polaroid__frame"><img src="/strip-15.avif" alt="" class="polaroid__img"></div></div>
+        <!-- duplicate set for seamless loop -->
+        <div class="polaroid polaroid--sm"><div class="polaroid__frame"><img src="/strip-1.avif" alt="" class="polaroid__img"></div></div>
+        <div class="polaroid polaroid--sm"><div class="polaroid__frame"><img src="/strip-2.avif" alt="" class="polaroid__img"></div></div>
+        <div class="polaroid polaroid--sm"><div class="polaroid__frame"><img src="/strip-3.avif" alt="" class="polaroid__img"></div></div>
+        <div class="polaroid polaroid--sm"><div class="polaroid__frame"><img src="/strip-4.avif" alt="" class="polaroid__img"></div></div>
+        <div class="polaroid polaroid--sm"><div class="polaroid__frame"><img src="/strip-5.avif" alt="" class="polaroid__img"></div></div>
+        <div class="polaroid polaroid--sm"><div class="polaroid__frame"><img src="/strip-6.avif" alt="" class="polaroid__img"></div></div>
+        <div class="polaroid polaroid--sm"><div class="polaroid__frame"><img src="/strip-7.avif" alt="" class="polaroid__img"></div></div>
+        <div class="polaroid polaroid--sm"><div class="polaroid__frame"><img src="/strip-8.avif" alt="" class="polaroid__img"></div></div>
+        <div class="polaroid polaroid--sm"><div class="polaroid__frame"><img src="/strip-9.avif" alt="" class="polaroid__img"></div></div>
+        <div class="polaroid polaroid--sm"><div class="polaroid__frame"><img src="/strip-10.avif" alt="" class="polaroid__img"></div></div>
+        <div class="polaroid polaroid--sm"><div class="polaroid__frame"><img src="/strip-11.avif" alt="" class="polaroid__img"></div></div>
+        <div class="polaroid polaroid--sm"><div class="polaroid__frame"><img src="/strip-12.avif" alt="" class="polaroid__img"></div></div>
+        <div class="polaroid polaroid--sm"><div class="polaroid__frame"><img src="/strip-13.avif" alt="" class="polaroid__img"></div></div>
+        <div class="polaroid polaroid--sm"><div class="polaroid__frame"><img src="/strip-14.avif" alt="" class="polaroid__img"></div></div>
+        <div class="polaroid polaroid--sm"><div class="polaroid__frame"><img src="/strip-15.avif" alt="" class="polaroid__img"></div></div>
+      </div>
     </div>
 
-    <script>
+  </section>
 
-        // --- SwiperJS Carousel Initialization ---
-        const groundsSwiper = new Swiper('.grounds-slider', {
-            loop: true,
-            autoplay: {
-                delay: 3000,
-                disableOnInteraction: false,
-            },
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
+  <!-- ================================================
+       QUOTE
+       ================================================ -->
+  <section class="quote-section">
+
+    <div class="quote-section__inner">
+
+      <!-- Camper polaroid -->
+      <div class="quote-section__polaroid">
+        <div class="polaroid polaroid--camper">
+          <div class="polaroid__frame polaroid__frame--camper">
+            <img src="/quote-julie.avif" alt="Julie at Nomad Summer Camp" class="polaroid__img">
+          </div>
+        </div>
+      </div>
+
+      <!-- Quote on torn notebook paper -->
+      <div class="quote-card quote-card--paper">
+        <img src="/notes-background.png" class="quote-card__paper" alt="" aria-hidden="true">
+        <div class="quote-card__content">
+          <blockquote class="quote-text">
+            <p class="quote-text__p">"As someone who grew up at summer camp, saying Nomad Summer Camp met all my wildest hopes and dreams... is an understatement.</p>
+            <p class="quote-text__p"><mark class="highlight">NSC is the most perfect way to play like we were kids, party like we were in college, and laugh like we will live forever..."</mark></p>
+          </blockquote>
+          <cite class="quote-author">Julie, NSC Cape Town 2026</cite>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ================================================
+       WHAT IS NSC — CONCEPT A: Manifesto Strip
+       Merged with the old "Last Year's Camp" section — its video
+       polaroid now sits here, on the right.
+       ================================================ -->
+  <section class="what-nsc what-nsc--a">
+    <div class="what-a__inner">
+
+      <div class="what-a__content">
+        <div class="what-a__stickers">
+          <span class="sticker sticker--pink">Play. Compete.</span>
+          <span class="sticker sticker--teal">Connect.</span>
+          <span class="sticker sticker--orange">Disconnect.</span>
+        </div>
+        <p class="what-nsc__copy">
+          Nomad Summer Camp is an all-inclusive adult camp experience — 3 nights where the only thing on your schedule is fun. No emails, no agendas, no worries. Just epic games, unexpected friendships, and memories you'll actually want to keep.
+        </p>
+      </div>
+
+      <div class="polaroid what-a__video">
+        <div class="polaroid__frame what-a__video-frame">
+          <button type="button" class="video-embed" data-video-id="j8RlL1rbtu0"
+                  data-video-title="Camp Big Daddy 2026"
+                  aria-label="Play the Camp Big Daddy 2026 video">
+            <img src="https://i.ytimg.com/vi/j8RlL1rbtu0/maxresdefault.jpg" alt=""
+                 class="video-embed__thumb" loading="lazy"
+                 onerror="this.src='https://i.ytimg.com/vi/j8RlL1rbtu0/hqdefault.jpg'">
+            <span class="play-btn" aria-hidden="true">▶</span>
+          </button>
+        </div>
+        <p class="polaroid__caption">This is what Camp Big Daddy looked like last year</p>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ================================================
+       WHAT'S INCLUDED
+       ================================================ -->
+  <section class="included">
+    <div class="included__inner">
+
+      <!-- Left: headline + tagline -->
+      <div class="included__content">
+        <div class="headline-stack">
+          <span class="sticker sticker--pink">Everything's</span>
+          <span class="sticker sticker--pink">Included</span>
+        </div>
+        <p class="included__sub">You're at camp to have fun — we take care of the rest. Every single one of these is covered. No surprises, no hidden costs.</p>
+      </div>
+
+      <!-- Right: clipboard with overlaid checklist -->
+      <div class="included__clipboard-wrap">
+        <div class="included__clipboard">
+          <img src="/clipboard.png" alt="Everything included checklist" class="included__clipboard-img">
+          <ul class="included__checklist" aria-label="What's included">
+            <li class="included__item"><span class="included__check">✓</span> Unique Housing</li>
+            <li class="included__item"><span class="included__check">✓</span> All Food</li>
+            <li class="included__item"><span class="included__check">✓</span> All Drinks</li>
+            <li class="included__item"><span class="included__check">✓</span> All Activities</li>
+            <li class="included__item"><span class="included__check">✓</span> New Friends</li>
+            <li class="included__item"><span class="included__check">✓</span> That Camp Magic</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Second block — same teal field, the six things spelled out -->
+    <div class="included__detail">
+      <div class="included__feature">
+        <span class="included__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/>
+            <path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          </svg>
+        </span>
+        <h3 class="included__feature-title">Unique Housing</h3>
+        <p class="included__feature-text">Choose your own adventure with our unique housing. We have everything from cozy houses and tiny homes to vintage Airstream trailers.</p>
+      </div>
+
+      <div class="included__feature">
+        <span class="included__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m16 2-2.3 2.3a3 3 0 0 0 0 4.2l1.8 1.8a3 3 0 0 0 4.2 0L22 8"/>
+            <path d="M15 15 3.3 3.3a4.2 4.2 0 0 0 0 6l7.3 7.3c.7.7 2 .7 2.8 0L15 15Zm0 0 7 7"/>
+            <path d="m2.1 21.8 6.4-6.3"/>
+            <path d="m19 5-7 7"/>
+          </svg>
+        </span>
+        <h3 class="included__feature-title">Food <span class="included__feature-note">3 meals a day + snacks</span></h3>
+        <p class="included__feature-text">Fuel your adventures with delicious, chef-prepared meals. We provide a full spread for breakfast, lunch, and dinner, plus plenty of snacks to keep you going all day long.</p>
+      </div>
+
+      <div class="included__feature">
+        <span class="included__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8 22h8"/>
+            <path d="M7 10h10"/>
+            <path d="M12 15v7"/>
+            <path d="M12 15a5 5 0 0 0 5-5c0-2-.5-4-2-8H9c-1.5 4-2 6-2 8a5 5 0 0 0 5 5Z"/>
+          </svg>
+        </span>
+        <h3 class="included__feature-title">Drinks <span class="included__feature-note">Open bar</span></h3>
+        <p class="included__feature-text">Stay refreshed with our all-day open bar, including soft drinks, beer, and wine. Enjoy a glass of wine perfectly paired with your evening meals.</p>
+      </div>
+
+      <div class="included__feature">
+        <span class="included__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 14.66V17a1 1 0 0 1-1 1 2 2 0 0 0-2 2v2"/>
+            <path d="M14 14.66V17a1 1 0 0 0 1 1 2 2 0 0 1 2 2v2"/>
+            <path d="M17.916 10H19.5A2.5 2.5 0 0 0 22 7.5V5a1 1 0 0 0-1-1h-3"/>
+            <path d="M4 22h16"/>
+            <path d="M6 9a6 6 0 0 0 12 0V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1z"/>
+            <path d="M6.084 10H4.5A2.5 2.5 0 0 1 2 7.5V5a1 1 0 0 1 1-1h3"/>
+          </svg>
+        </span>
+        <h3 class="included__feature-title">All Activities</h3>
+        <p class="included__feature-text">That's right, everything is included. From the epic games to the surprise events, every single activity is part of your ticket. No hidden fees, no extra costs.</p>
+      </div>
+
+      <div class="included__feature">
+        <span class="included__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 21a8 8 0 0 0-16 0"/>
+            <circle cx="10" cy="8" r="5"/>
+            <path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3"/>
+          </svg>
+        </span>
+        <h3 class="included__feature-title">New Friends</h3>
+        <p class="included__feature-text">Leave with more than just memories. You'll join a global family of creative, adventurous souls who will become your lifelong friends and collaborators.</p>
+      </div>
+
+      <div class="included__feature">
+        <span class="included__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/>
+            <path d="M20 2v4"/>
+            <path d="M22 4h-4"/>
+            <circle cx="4" cy="20" r="2"/>
+          </svg>
+        </span>
+        <h3 class="included__feature-title">That Camp Magic</h3>
+        <p class="included__feature-text">It's that indescribable feeling of pure joy, freedom, and connection. It's the laughter that makes your cheeks hurt and the moments you'll talk about for years to come. You just have to be there.</p>
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- ================================================
+       CAMPER QUOTES
+       ================================================ -->
+  <section class="quotes-lr">
+    <div class="quotes-lr__grid">
+
+      <!-- Row 1: Heather sticker left, quote right -->
+      <div class="quotes-lr__img quotes-lr__img--heather">
+        <img src="/heather-testimonial.avif" alt="Heather at camp">
+      </div>
+      <div class="quotes-duo__card quotes-lr__card quotes-lr__card--heather">
+        <blockquote class="quotes-duo__text">"One of the best weeks <mark class="highlight">of my entire life.</mark> You somehow manage to outdo yourselves every year!"</blockquote>
+        <cite class="quotes-duo__author">Heather — after her 5th camp</cite>
+      </div>
+
+      <!-- Row 2: quote left, Matt polaroid right -->
+      <div class="quotes-duo__card quotes-lr__card quotes-lr__card--matt">
+        <blockquote class="quotes-duo__text">"As the newbie who never met anyone in the group before, thanks for welcoming me in and making me <mark class="highlight">feel part of the group from day 1!</mark> See you in Cape Town!"</blockquote>
+        <cite class="quotes-duo__author">Matt — after his first camp</cite>
+      </div>
+      <div class="quotes-lr__img quotes-lr__img--matt">
+        <div class="quotes-lr__polaroid">
+          <img src="/matt-testimonial-polaroid.avif" alt="Matt at camp">
+          <p class="polaroid__caption">Matt & his team Magia Melone<br>(also referred to as Melon Heads)</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ================================================
+       A DAY AT CAMP — B2: HORIZONTAL TIMELINE
+       ================================================ -->
+  <section class="schedule sched-b2">
+    <div class="sched-b2__inner">
+
+      <div class="sched-b2__head">
+        <div class="sched-b2__head-row">
+          <span class="sticker sticker--teal">A day at camp</span>
+          <div class="sched-b2__nav">
+            <button class="sched-b2__btn" id="b2-prev" aria-label="Previous">←</button>
+            <button class="sched-b2__btn" id="b2-next" aria-label="Next">→</button>
+          </div>
+        </div>
+        <p class="sched__sub">This is what a day at Camp could look like (the real schedule is a surprise!)</p>
+      </div>
+
+    </div><!-- /.sched-b2__inner -->
+
+    <div class="sched-b2__scroll" id="b2-scroll">
+
+        <div class="sched-b2__item">
+          <img src="/pin.png" class="sched-b2__pin" aria-hidden="true" alt="">
+          <div class="sched-b2__card">
+            <div class="sched-b2__photo">
+              <img src="/dayatcamp_breakfast.jpg" alt="Breakfast" class="sched-b2__photo-media">
+            </div>
+            <span class="sched-b2__time">9am</span>
+            <h3 class="sched-b2__name">Breakfast</h3>
+            <p class="sched-b2__desc">Recharge your batteries at our breakfast buffet including our beloved hash browns (yes, we ordered more)</p>
+          </div>
+        </div>
+
+        <div class="sched-b2__item">
+          <img src="/pin.png" class="sched-b2__pin" aria-hidden="true" alt="">
+          <div class="sched-b2__card">
+            <div class="sched-b2__photo">
+              <video src="/dayatcamp_kickball.mp4" autoplay muted loop playsinline class="sched-b2__photo-media"></video>
+            </div>
+            <span class="sched-b2__time">11am</span>
+            <h3 class="sched-b2__name">Waterslide Kickball</h3>
+            <p class="sched-b2__desc">Lots of soap, lots of water, lots of action. One of last year's favorite activities</p>
+          </div>
+        </div>
+
+        <div class="sched-b2__item">
+          <img src="/pin.png" class="sched-b2__pin" aria-hidden="true" alt="">
+          <div class="sched-b2__card">
+            <div class="sched-b2__photo">
+              <video src="/dayatcamp_crafts.mp4" autoplay muted loop playsinline class="sched-b2__photo-media"></video>
+            </div>
+            <span class="sched-b2__time">11am</span>
+            <h3 class="sched-b2__name">Camp Crafts</h3>
+            <p class="sched-b2__desc">Feeling more chill? Sit down, have a chat with fellow Campers and create friendship bracelets and other crafty things.</p>
+          </div>
+        </div>
+
+        <div class="sched-b2__item">
+          <img src="/pin.png" class="sched-b2__pin" aria-hidden="true" alt="">
+          <div class="sched-b2__card">
+            <div class="sched-b2__photo">
+              <img src="/dayatcamp_braai.avif" alt="Braai Lunch" class="sched-b2__photo-media">
+            </div>
+            <span class="sched-b2__time">1pm</span>
+            <h3 class="sched-b2__name">Braai Lunch</h3>
+            <p class="sched-b2__desc">What is a Camp without a bbq? In South Africa, it's called Braai, and it's delicious!</p>
+          </div>
+        </div>
+
+        <div class="sched-b2__item">
+          <img src="/pin.png" class="sched-b2__pin" aria-hidden="true" alt="">
+          <div class="sched-b2__card">
+            <div class="sched-b2__photo">
+              <video src="/dayatcamp_campgames.mp4" autoplay muted loop playsinline class="sched-b2__photo-media"></video>
+            </div>
+            <span class="sched-b2__time">3pm</span>
+            <h3 class="sched-b2__name">Campolympics</h3>
+            <p class="sched-b2__desc">It's game time, Campers. Get in your teams, get your war paint on and fight for those points!</p>
+          </div>
+        </div>
+
+        <div class="sched-b2__item">
+          <img src="/pin.png" class="sched-b2__pin" aria-hidden="true" alt="">
+          <div class="sched-b2__card">
+            <div class="sched-b2__photo">
+              <img src="/dayatcamp_hottub.jpg" alt="Hot Tub Time" class="sched-b2__photo-media">
+            </div>
+            <span class="sched-b2__time">5pm</span>
+            <h3 class="sched-b2__name">Hot Tub Time</h3>
+            <p class="sched-b2__desc">Your afternoon is free, so you can get to know other Campers. And why not do that in a hot tub?!</p>
+          </div>
+        </div>
+
+        <div class="sched-b2__item">
+          <img src="/pin.png" class="sched-b2__pin" aria-hidden="true" alt="">
+          <div class="sched-b2__card">
+            <div class="sched-b2__photo">
+              <img src="/dayatcamp_dinner.jpg" alt="Curry Dinner" class="sched-b2__photo-media">
+            </div>
+            <span class="sched-b2__time">8pm</span>
+            <h3 class="sched-b2__name">Curry Dinner</h3>
+            <p class="sched-b2__desc">South Africa loves its curries… and the Camp kitchen folks really are experts at making them!</p>
+          </div>
+        </div>
+
+        <div class="sched-b2__item">
+          <img src="/pin.png" class="sched-b2__pin" aria-hidden="true" alt="">
+          <div class="sched-b2__card">
+            <div class="sched-b2__photo">
+              <video src="/dayatcamp_nomadsgottalent.mp4" autoplay muted loop playsinline class="sched-b2__photo-media"></video>
+            </div>
+            <span class="sched-b2__time">9pm</span>
+            <h3 class="sched-b2__name">Nomads Got Talent</h3>
+            <p class="sched-b2__desc">Hidden talents welcome: sing, juggle, or tell your worst joke. The stage is yours, Campers.</p>
+          </div>
+        </div>
+
+        <div class="sched-b2__item">
+          <img src="/pin.png" class="sched-b2__pin" aria-hidden="true" alt="">
+          <div class="sched-b2__card">
+            <div class="sched-b2__photo sched-b2__photo--dark"></div>
+            <span class="sched-b2__time">Late</span>
+            <h3 class="sched-b2__name">After Party</h3>
+            <p class="sched-b2__desc">Still got some energy? Join one of our infamous Camp parties, at your own risk…</p>
+          </div>
+        </div>
+
+    </div><!-- /.sched-b2__scroll -->
+  </section>
+
+
+  <!-- ================================================
+       LOCATION
+       ================================================ -->
+  <section class="venue venue-c2">
+    <div class="venue-c2__track" id="c2-track">
+      <!-- Intro slide -->
+      <div class="venue-c2__slide">
+        <img src="/campgrounds-1-start.jpg" alt="Camp Big Daddy overview" class="venue-c2__img" style="object-fit:cover;width:100%;height:100%;display:block;">
+        <div class="venue-c2__info">
+          <span class="sticker sticker--teal">Camp Grounds Tour</span>
+          <p class="venue-c2__desc">Come with us and discover your home for 3 nights — 700 hectares of private Cape Town nature reserve, right on the water.</p>
+        </div>
+      </div>
+      <div class="venue-c2__slide">
+        <img src="/campgrounds-2-lake-beach.avif" alt="Lake & Beach" class="venue-c2__img" style="object-fit:cover;width:100%;height:100%;display:block;">
+        <div class="venue-c2__info">
+          <span class="info-tag info-tag--teal">Stop 1</span>
+          <h3 class="venue-c2__name">Lake & Beach</h3>
+          <p class="venue-c2__desc">A private lake with a white sand beach. Kayaks, paddle boards, and cold water you'll jump in anyway.</p>
+        </div>
+      </div>
+      <div class="venue-c2__slide">
+        <img src="/campgrounds-3-barn.avif" alt="The Barn" class="venue-c2__img" style="object-fit:cover;width:100%;height:100%;display:block;">
+        <div class="venue-c2__info">
+          <span class="info-tag info-tag--orange">Stop 2</span>
+          <h3 class="venue-c2__name">The Barn</h3>
+          <p class="venue-c2__desc">Three meals a day, all included. Part restaurant, part social hub — if you haven't laughed at dinner yet, you will.</p>
+        </div>
+      </div>
+      <div class="venue-c2__slide">
+        <img src="/campgrounds-4-kleinparadys.avif" alt="Klein Paradys" class="venue-c2__img" style="object-fit:cover;width:100%;height:100%;display:block;">
+        <div class="venue-c2__info">
+          <span class="info-tag info-tag--pink">Stop 3</span>
+          <h3 class="venue-c2__name">Klein Paradys</h3>
+          <p class="venue-c2__desc">The main game field. Obstacle courses, team challenges — the kind of competition that turns strangers into rivals into friends.</p>
+        </div>
+      </div>
+      <div class="venue-c2__slide">
+        <img src="/campgrounds-5-airstreams.avif" alt="Airstreams" class="venue-c2__img" style="object-fit:cover;width:100%;height:100%;display:block;">
+        <div class="venue-c2__info">
+          <span class="info-tag info-tag--orange">Stop 4</span>
+          <h3 class="venue-c2__name">Airstreams</h3>
+          <p class="venue-c2__desc">Vintage Airstream trailers for lucky campers. Unique, iconic, and exactly as cool as they sound.</p>
+        </div>
+      </div>
+    </div>
+    <div class="venue-c2__ui">
+      <button class="sched-b2__btn" id="c2-prev" aria-label="Previous">←</button>
+      <span class="venue-c2__counter" id="c2-counter">1 / 5</span>
+      <button class="sched-b2__btn" id="c2-next" aria-label="Next">→</button>
+    </div>
+  </section>
+
+
+  <!-- ================================================
+       ACCOMMODATION
+       ================================================ -->
+  <section class="accom accom-a">
+    <div class="accom-a__head">
+      <div class="accom-a__head-row">
+        <span class="sticker sticker--pink">Rooms &amp; Pricing</span>
+        <div class="accom-a__nav">
+          <button class="sched-b2__btn" id="accom-prev" aria-label="Previous">←</button>
+          <span class="accom-a__counter" id="accom-counter">1 / 8</span>
+          <button class="sched-b2__btn" id="accom-next" aria-label="Next">→</button>
+        </div>
+      </div>
+      <p class="accom-a__sub">Six different accommodation types, each one with its own character.</p>
+      <p class="accom-a__sub accom-a__sub--callout"><mark class="highlight">Remember: The prices below include everything (food, drinks, activities, transport, etc.), not only the housing.</mark></p>
+    </div>
+    <div class="accom-a__scroll" id="accom-scroll">
+
+      <!-- Luxury Tiny Homes -->
+      <div class="accom-a__card">
+        <img src="/housing-tinyhomes.webp" alt="Luxury Tiny Homes" class="accom-a__photo">
+        <div class="accom-a__body">
+          <div class="accom-a__card-top">
+            <span class="accom-a__tier accom-a__tier--premium">Premium</span>
+            <h3 class="accom__name">Luxury Tiny Homes</h3>
+            <p class="accom__rooms">6 tiny homes with hot tub</p>
+            <p class="accom-a__price">$649 <span class="accom-a__price-note accom-a__price-note--shared">Shared</span>
+              <span class="accom-a__price-note">(+$300 for private)</span></p>
+            <span class="accom-a__all-inc">All-inclusive</span>
+          </div>
+          <ul class="accom__pros">
+            <li>Your own private house</li>
+            <li>AC + private hot tub</li>
+            <li>Private bathroom</li>
+            <li>Luxury finishes</li>
+          </ul>
+          <details class="accom__pros-more">
+            <summary>3 more</summary>
+            <ul class="accom__pros">
+              <li>Right by Games Arena</li>
+              <li>Communal pool</li>
+              <li>Only one bed each</li>
+            </ul>
+          </details>
+          <p class="accom-a__lede">Each built by a different team for a South African reality TV show — every one has a unique theme.</p>
+        </div>
+      </div>
+
+      <!-- Apple Grove -->
+      <div class="accom-a__card">
+        <img src="/housing-applegrove.avif" alt="Apple Grove" class="accom-a__photo">
+        <div class="accom-a__body">
+          <div class="accom-a__card-top">
+            <span class="accom-a__tier accom-a__tier--premium">Premium</span>
+            <h3 class="accom__name">Apple Grove</h3>
+            <p class="accom__rooms">3 rooms · Lakeside villa</p>
+            <p class="accom-a__price">$649 <span class="accom-a__price-note accom-a__price-note--shared">Shared</span>
+              <span class="accom-a__price-note">(+$300 for private)</span></p>
+            <span class="accom-a__all-inc">All-inclusive</span>
+          </div>
+          <ul class="accom__pros">
+            <li>Beautiful wooden villa</li>
+            <li>Private bathrooms</li>
+            <li>Lake views</li>
+            <li>Big rooms</li>
+          </ul>
+          <details class="accom__pros-more">
+            <summary>2 more</summary>
+            <ul class="accom__pros">
+              <li>Right by Barn</li>
+              <li>Some rooms: hot tub</li>
+            </ul>
+          </details>
+          <p class="accom-a__note">Common area is our main hangout — can get lively at night.</p>
+        </div>
+      </div>
+
+      <!-- Daddy's Villa -->
+      <div class="accom-a__card">
+        <img src="/housing-daddysvilla.avif" alt="Daddy's Villa" class="accom-a__photo">
+        <div class="accom-a__body">
+          <div class="accom-a__card-top">
+            <span class="accom-a__tier accom-a__tier--premium">Premium</span>
+            <h3 class="accom__name">Daddy's Villa</h3>
+            <p class="accom__rooms">3 Rooms, Villa with View</p>
+            <p class="accom-a__price">$649 <span class="accom-a__price-note accom-a__price-note--shared">Shared</span>
+              <span class="accom-a__price-note">(+$300 for private)</span></p>
+            <span class="accom-a__all-inc">All-inclusive</span>
+          </div>
+          <ul class="accom__pros">
+            <li>Big rooms</li>
+            <li>Big terrace + panoramic view</li>
+            <li>Hot tub</li>
+            <li>Right by Barn</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- School House -->
+      <div class="accom-a__card">
+        <img src="/housing-schoolhouse.avif" alt="School House" class="accom-a__photo">
+        <div class="accom-a__body">
+          <div class="accom-a__card-top">
+            <span class="accom-a__tier accom-a__tier--premium">Premium</span>
+            <h3 class="accom__name">School House</h3>
+            <p class="accom__rooms">3 rooms, Actual School</p>
+            <p class="accom-a__price">$649 <span class="accom-a__price-note accom-a__price-note--shared">Shared</span>
+              <span class="accom-a__price-note">(+$300 for private)</span></p>
+            <span class="accom-a__all-inc">All-inclusive</span>
+          </div>
+          <ul class="accom__pros">
+            <li>Big common area (in + outdoor)</li>
+            <li>Hot tub</li>
+            <li>AC</li>
+            <li>Right by Games Arena</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Air Stream Trailers -->
+      <div class="accom-a__card">
+        <img src="/housing-airstream.jpg" alt="Air Stream Trailers" class="accom-a__photo">
+        <div class="accom-a__body">
+          <div class="accom-a__card-top">
+            <span class="accom-a__tier accom-a__tier--standard">Standard</span>
+            <h3 class="accom__name">Air Stream Trailers</h3>
+            <p class="accom__rooms">12 unique trailers</p>
+            <p class="accom-a__price">$549 <span class="accom-a__price-note accom-a__price-note--shared">Shared</span>
+              <span class="accom-a__price-note">(+$250 for private)</span></p>
+            <span class="accom-a__all-inc">All-inclusive</span>
+          </div>
+          <ul class="accom__pros">
+            <li>Your own private trailer</li>
+            <li>AC</li>
+            <li>Unique designs</li>
+            <li>Right by Barn</li>
+          </ul>
+          <details class="accom__pros-more">
+            <summary>1 more</summary>
+            <ul class="accom__pros">
+              <li>Only one bed each</li>
+            </ul>
+          </details>
+          <p class="accom-a__lede">Each trailer was uniquely designed by a different South African artist.</p>
+        </div>
+      </div>
+
+      <!-- Trailer Attachments -->
+      <div class="accom-a__card">
+        <img src="/housing-attachment.jpg" alt="Trailer Attachments" class="accom-a__photo">
+        <div class="accom-a__body">
+          <div class="accom-a__card-top">
+            <span class="accom-a__tier accom-a__tier--standard">Standard</span>
+            <h3 class="accom__name">Trailer Attachments</h3>
+            <p class="accom__rooms">8 rooms with a view</p>
+            <p class="accom-a__price">$549 <span class="accom-a__price-note accom-a__price-note--shared">Shared</span>
+              <span class="accom-a__price-note">(+$250 for private)</span></p>
+            <span class="accom-a__all-inc">All-inclusive</span>
+          </div>
+          <ul class="accom__pros">
+            <li>Beautiful view</li>
+            <li>Glass front</li>
+            <li>Shared bath</li>
+            <li>Right by Barn</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Dorm Room -->
+      <div class="accom-a__card">
+        <img src="/housing-dorm.avif" alt="Dorm Room" class="accom-a__photo">
+        <div class="accom-a__body">
+          <div class="accom-a__card-top">
+            <span class="accom-a__tier accom-a__tier--budget">Budget · All female</span>
+            <h3 class="accom__name">Dorm Room</h3>
+            <p class="accom__rooms">3 bunk beds · In School House</p>
+            <p class="accom-a__price">$499</p>
+            <span class="accom-a__all-inc">All-inclusive</span>
+          </div>
+          <ul class="accom__pros">
+            <li>Very big room</li>
+            <li>Private shared bath (dorm only)</li>
+            <li>Access to all School House amenities</li>
+            <li>Hot tub · AC</li>
+          </ul>
+          <details class="accom__pros-more">
+            <summary>2 more</summary>
+            <ul class="accom__pros">
+              <li>Right by Games Arena</li>
+              <li>Best price</li>
+            </ul>
+          </details>
+        </div>
+      </div>
+
+      <!-- Tented Camp -->
+      <div class="accom-a__card">
+        <img src="/housing-tentedcamp.jpg" alt="Tented Camp" class="accom-a__photo">
+        <div class="accom-a__body">
+          <div class="accom-a__card-top">
+            <span class="accom-a__tier accom-a__tier--budget">Budget</span>
+            <h3 class="accom__name">Tented Camp</h3>
+            <p class="accom__rooms">Your own tent · Private</p>
+            <p class="accom-a__price">$499</p>
+            <span class="accom-a__all-inc">All-inclusive</span>
+          </div>
+          <ul class="accom__pros">
+            <li>Your own private tent</li>
+            <li>Privacy</li>
+            <li>Right by Barn</li>
+            <li>Best price</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================================================
+       MID-PAGE CTA — after the accommodation scroller.
+       The page's one real decision point had no CTA anywhere
+       near it; a visitor who found their room had to scroll
+       back to the hero or hunt in the footer.
+       ================================================ -->
+  <section class="cta-mid">
+    <div class="cta-mid__inner">
+      <p class="cta-mid__line">Found your spot? Let's lock it in.</p>
+      <button class="btn-primary" data-tally-open="zxDW8M" data-tally-layout="modal" data-tally-width="800" data-tally-emoji-text="🥳" data-tally-emoji-animation="none" data-tally-form-events-forwarding="1">Book Your Spot</button>
+    </div>
+  </section>
+
+
+  <!-- ================================================
+       CAMPER TESTIMONIALS — pinned mosaic
+       ================================================ -->
+  <section class="testimonials">
+    <div class="testimonials__inner">
+
+      <div class="testimonials__head">
+        <div class="headline-stack">
+          <span class="sticker sticker--orange testimonials__sticker">Don't take</span>
+          <span class="sticker sticker--orange testimonials__sticker">our word for it</span>
+        </div>
+        <p class="testimonials__sub">Actual words from actual Campers. We didn't pay them &mdash; pinky promise.</p>
+      </div>
+
+      <div class="testimonials__wall">
+
+        <div class="tmonial">
+          <img src="/pin.png" class="tmonial__pin" aria-hidden="true" alt="">
+          <div class="tmonial__photo">
+            <img src="/testimonial-jeff.jpg" alt="Jeff at camp" class="tmonial__img">
+          </div>
+          <blockquote class="tmonial__quote">"You won't understand until you do it &ndash; and you must do it! You need it for your soul. I don't ever want to miss another camp."</blockquote>
+          <cite class="tmonial__author">Jeff</cite>
+        </div>
+
+        <div class="tmonial">
+          <img src="/pin.png" class="tmonial__pin" aria-hidden="true" alt="">
+          <div class="tmonial__photo">
+            <img src="/testimonial-rachel.jpg" alt="Rachel at camp" class="tmonial__img">
+          </div>
+          <blockquote class="tmonial__quote">"The most memorable experience that I can't wait to do every year."</blockquote>
+          <cite class="tmonial__author">Rachel</cite>
+        </div>
+
+        <div class="tmonial">
+          <img src="/pin.png" class="tmonial__pin" aria-hidden="true" alt="">
+          <div class="tmonial__photo">
+            <img src="/testimonial-becca.jpg" alt="Becca at camp" class="tmonial__img">
+          </div>
+          <blockquote class="tmonial__quote">"I've been into games my whole life... This was a whole week fun. Every day we got to wake up, eat amazing food, spend the day in the sunshine playing and getting to be silly. A great time to unplug, be creative, and laugh until your cheeks hurt. I can't wait for next year!"</blockquote>
+          <cite class="tmonial__author">Becca</cite>
+        </div>
+
+        <div class="tmonial">
+          <img src="/pin.png" class="tmonial__pin" aria-hidden="true" alt="">
+          <div class="tmonial__photo">
+            <img src="/testimonial-matty.jpg" alt="Matty at camp" class="tmonial__img">
+          </div>
+          <blockquote class="tmonial__quote">"Nomad Summer Camp is the most fun I've had since I was a kid! The bestest time ever!"</blockquote>
+          <cite class="tmonial__author">Matty</cite>
+        </div>
+
+        <div class="tmonial">
+          <img src="/pin.png" class="tmonial__pin" aria-hidden="true" alt="">
+          <div class="tmonial__photo">
+            <img src="/testimonial-nikki.jpg" alt="Nikki at camp" class="tmonial__img">
+          </div>
+          <blockquote class="tmonial__quote">"I loved the team dynamics, being forced to work with new people, we always had something to do and never needed to worry about food or shopping. A week full of laughter, fun and party!"</blockquote>
+          <cite class="tmonial__author">Nikki</cite>
+        </div>
+
+        <div class="tmonial">
+          <img src="/pin.png" class="tmonial__pin" aria-hidden="true" alt="">
+          <div class="tmonial__photo">
+            <img src="/testimonial-danny.jpg" alt="Danny at camp" class="tmonial__img">
+          </div>
+          <blockquote class="tmonial__quote">"By far the best use of PTO I've had in my 5 years as a nomad."</blockquote>
+          <cite class="tmonial__author">Danny</cite>
+        </div>
+
+        <div class="tmonial">
+          <img src="/pin.png" class="tmonial__pin" aria-hidden="true" alt="">
+          <div class="tmonial__photo">
+            <img src="/testimonial-lindsey.jpg" alt="Lindsey at camp" class="tmonial__img">
+          </div>
+          <blockquote class="tmonial__quote">"Want to relive your childhood? You MUST go to Nomad Summer Camp! You'll laugh, you'll cry... Your adult body will probably yell at you for trying to do all of these kid games, but it'll all be worth it."</blockquote>
+          <cite class="tmonial__author">Lindsey</cite>
+        </div>
+
+        <div class="tmonial">
+          <img src="/pin.png" class="tmonial__pin" aria-hidden="true" alt="">
+          <div class="tmonial__photo">
+            <img src="/testimonial-nela.jpg" alt="Nela at camp" class="tmonial__img">
+          </div>
+          <blockquote class="tmonial__quote">"You will have a week in which you'll forget about the outside world. SO much fun! Amazing friends and so many GAMES... I felt so loved and receiving so many treats every day, it was AMAZING!"</blockquote>
+          <cite class="tmonial__author">Nela</cite>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================
+       MID-PAGE CTA — after the testimonial wall.
+       This is the page's emotional peak-end and, until now, the
+       last section before the footer — it converted to nothing.
+       ================================================ -->
+  <section class="cta-mid">
+    <div class="cta-mid__inner">
+      <p class="cta-mid__line">That could be you next February.</p>
+      <button class="btn-primary" data-tally-open="zxDW8M" data-tally-layout="modal" data-tally-width="800" data-tally-emoji-text="🥳" data-tally-emoji-animation="none" data-tally-form-events-forwarding="1">Book Your Spot</button>
+    </div>
+  </section>
+
+
+  <!-- ================================================
+       VIDEO OVERLAY
+       Shared lightbox for any .video-embed on the page.
+       ================================================ -->
+  <div class="video-modal" id="video-modal" hidden>
+    <div class="video-modal__backdrop" data-video-close></div>
+    <div class="video-modal__box" role="dialog" aria-modal="true" aria-label="Camp video">
+      <button type="button" class="video-modal__close" data-video-close aria-label="Close video">✕</button>
+      <div class="video-modal__player" id="video-modal-player"></div>
+    </div>
+  </div>
+
+
+  <script>
+    (function () {
+      // Accommodation scroll nav
+      const accomScroll = document.getElementById('accom-scroll');
+      const accomCounter = document.getElementById('accom-counter');
+      const accomCards = accomScroll.querySelectorAll('.accom-a__card');
+      function updateAccomCounter() {
+        const step = accomCards[1] ? (accomCards[1].offsetLeft - accomCards[0].offsetLeft) : 340;
+        const idx = Math.min(accomCards.length, Math.round(accomScroll.scrollLeft / step) + 1);
+        accomCounter.textContent = idx + ' / ' + accomCards.length;
+      }
+      document.getElementById('accom-prev').addEventListener('click', function() {
+        accomScroll.scrollBy({ left: -290, behavior: 'smooth' });
+      });
+      document.getElementById('accom-next').addEventListener('click', function() {
+        accomScroll.scrollBy({ left: 290, behavior: 'smooth' });
+      });
+      accomScroll.addEventListener('scroll', updateAccomCounter, { passive: true });
+      updateAccomCounter();
+
+      // B2 scroll nav buttons
+      const b2Scroll = document.getElementById('b2-scroll');
+      document.getElementById('b2-prev').addEventListener('click', function() {
+        b2Scroll.scrollBy({ left: -344, behavior: 'smooth' });
+      });
+      document.getElementById('b2-next').addEventListener('click', function() {
+        b2Scroll.scrollBy({ left: 344, behavior: 'smooth' });
+      });
+
+      // Venue tour (C2)
+      const track = document.getElementById('c2-track');
+      const counter = document.getElementById('c2-counter');
+      const total = track.querySelectorAll('.venue-c2__slide').length;
+      function update() {
+        const idx = Math.round(track.scrollLeft / track.clientWidth) + 1;
+        counter.textContent = idx + ' / ' + total;
+      }
+      document.getElementById('c2-prev').addEventListener('click', function() {
+        track.scrollBy({ left: -track.clientWidth, behavior: 'smooth' });
+      });
+      document.getElementById('c2-next').addEventListener('click', function() {
+        track.scrollBy({ left: track.clientWidth, behavior: 'smooth' });
+      });
+      track.addEventListener('scroll', update, { passive: true });
+    })();
+  </script>
+
+  <script>
+    /* Drag-to-swipe, free-scroll strips (A Day at Camp, Where You'll
+       Stay). Mouse only — touch already scrolls natively, and
+       hijacking it would cost the momentum the browser gives for
+       free. The arrow buttons sit outside these containers, so
+       nothing conflicts. */
+    (function () {
+      ['b2-scroll', 'accom-scroll'].forEach(function (id) {
+        const strip = document.getElementById(id);
+        if (!strip) return;
+
+        let down = false, startX = 0, startLeft = 0, moved = 0;
+        strip.classList.add('is-draggable');
+
+        strip.addEventListener('pointerdown', function (e) {
+          if (e.pointerType !== 'mouse' || e.button !== 0) return;
+          down      = true;
+          moved     = 0;
+          startX    = e.clientX;
+          startLeft = strip.scrollLeft;
+          strip.classList.add('is-dragging');
+          try { strip.setPointerCapture(e.pointerId); } catch (err) {}
         });
 
-        const instagramSwiper = new Swiper('.instagram-slider', {
-            loop: true,
-            slidesPerView: 1,
-            spaceBetween: 16,
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            breakpoints: {
-                // when window width is >= 640px
-                640: {
-                    slidesPerView: 2,
-                    spaceBetween: 20
-                },
-                // when window width is >= 1024px
-                1024: {
-                    slidesPerView: 3,
-                    spaceBetween: 30
-                }
-            },
-            // Add this event listener
-            on: {
-                init: function () {
-                    // If the instagram embed script is loaded, process the new slides
-                    if (window.instgrm) {
-                        window.instgrm.Embeds.process();
-                    }
-                },
-                slideChange: function () {
-                     if (window.instgrm) {
-                        window.instgrm.Embeds.process();
-                    }
-                }
-            }
+        strip.addEventListener('pointermove', function (e) {
+          if (!down) return;
+          const dx = e.clientX - startX;
+          moved = Math.max(moved, Math.abs(dx));
+          strip.scrollLeft = startLeft - dx;
+          e.preventDefault();
         });
 
-        // --- FAQ Accordion ---
-        const faqItems = document.querySelectorAll('.faq-item');
-        faqItems.forEach(item => {
-            const question = item.querySelector('.faq-question');
-            const answer = item.querySelector('.faq-answer');
-            const icon = item.querySelector('.faq-icon');
+        function release(e) {
+          if (!down) return;
+          down = false;
+          strip.classList.remove('is-dragging');
+          try { strip.releasePointerCapture(e.pointerId); } catch (err) {}
+        }
+        strip.addEventListener('pointerup', release);
+        strip.addEventListener('pointercancel', release);
 
-            question.addEventListener('click', () => {
-                const isOpen = answer.classList.contains('open');
+        // A drag that happens to end on a link must not also click it.
+        strip.addEventListener('click', function (e) {
+          if (moved > 5) { e.preventDefault(); e.stopPropagation(); }
+        }, true);
 
-                // Close all other answers
-                document.querySelectorAll('.faq-answer.open').forEach(openAnswer => {
-                    if (openAnswer !== answer) {
-                        openAnswer.classList.remove('open');
-                        openAnswer.style.maxHeight = '0px';
-                        openAnswer.previousElementSibling.querySelector('.faq-icon').classList.remove('rotate-180');
-                    }
-                });
-                
-                // Toggle current answer
-                if (isOpen) {
-                    answer.classList.remove('open');
-                    answer.style.maxHeight = '0px';
-                    icon.classList.remove('rotate-180');
-                } else {
-                    answer.classList.add('open');
-                    answer.style.maxHeight = answer.scrollHeight + 'px';
-                    icon.classList.add('rotate-180');
-                }
-            });
+        // Otherwise the browser's native image drag takes over mid-swipe.
+        strip.addEventListener('dragstart', function (e) { e.preventDefault(); });
+      });
+    })();
+  </script>
+
+  <script>
+    /* Drag-to-swipe, Camp Grounds Tour. Each slide is the full
+       section width, so 1:1 cursor tracking (like the two strips
+       above) would need a full slide-width drag just to advance —
+       that's the "finicky" feeling. Real carousels page on a small
+       threshold or a fast flick instead, so that's what this does:
+       the slide still follows the cursor while dragging, but only a
+       fraction of its width — or a quick flick — is needed to
+       commit to the next or previous one. */
+    (function () {
+      const track = document.getElementById('c2-track');
+      if (!track) return;
+      track.classList.add('is-draggable');
+
+      const THRESHOLD = 70;   // px of drag to commit to the next/prev slide
+      const FLICK_MS   = 250; // faster than this + a small move = a flick
+      const FLICK_PX   = 24;
+
+      let down = false, startX = 0, startLeft = 0, startTime = 0, moved = 0;
+
+      function width() { return track.clientWidth; }
+      function total() { return track.querySelectorAll('.venue-c2__slide').length; }
+      function goTo(index) {
+        const clamped = Math.max(0, Math.min(total() - 1, index));
+        track.scrollTo({ left: clamped * width(), behavior: 'smooth' });
+      }
+
+      track.addEventListener('pointerdown', function (e) {
+        if (e.pointerType !== 'mouse' || e.button !== 0) return;
+        down      = true;
+        moved     = 0;
+        startX    = e.clientX;
+        startTime = performance.now();
+        startLeft = track.scrollLeft;
+        track.classList.add('is-dragging');
+        try { track.setPointerCapture(e.pointerId); } catch (err) {}
+      });
+
+      track.addEventListener('pointermove', function (e) {
+        if (!down) return;
+        const dx = e.clientX - startX;
+        moved = Math.max(moved, Math.abs(dx));
+        track.scrollLeft = startLeft - dx;
+        e.preventDefault();
+      });
+
+      function release(e) {
+        if (!down) return;
+        down = false;
+        track.classList.remove('is-dragging');
+        try { track.releasePointerCapture(e.pointerId); } catch (err) {}
+
+        const dx = e.clientX - startX;
+        const elapsed = performance.now() - startTime;
+        const startIndex = Math.round(startLeft / width());
+        const isFlick = elapsed < FLICK_MS && Math.abs(dx) > FLICK_PX;
+
+        let target = startIndex;
+        if (isFlick || Math.abs(dx) > THRESHOLD) {
+          target = startIndex + (dx < 0 ? 1 : -1);
+        }
+        goTo(target);
+      }
+      track.addEventListener('pointerup', release);
+      track.addEventListener('pointercancel', release);
+
+      track.addEventListener('click', function (e) {
+        if (moved > 5) { e.preventDefault(); e.stopPropagation(); }
+      }, true);
+
+      track.addEventListener('dragstart', function (e) { e.preventDefault(); });
+    })();
+  </script>
+
+  <script>
+    /* Click-to-play: the poster opens the video full-size in the
+       overlay at the bottom of this file. Nothing from YouTube
+       loads until someone actually presses play. */
+    (function () {
+      const modal = document.getElementById('video-modal');
+      if (!modal) return;
+      const player = document.getElementById('video-modal-player');
+      const close  = modal.querySelector('.video-modal__close');
+
+      let opener = null;   // the poster that opened it, for focus return
+
+      function open(btn) {
+        opener = btn;
+        const frame = document.createElement('iframe');
+        frame.className = 'video-modal__frame';
+        frame.src = 'https://www.youtube-nocookie.com/embed/' + btn.dataset.videoId +
+                    '?autoplay=1&rel=0';
+        frame.title = btn.dataset.videoTitle || 'Camp video';
+        frame.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; ' +
+                      'gyroscope; picture-in-picture; web-share';
+        frame.allowFullscreen = true;
+        player.appendChild(frame);
+        modal.hidden = false;
+        document.body.classList.add('has-modal');
+        close.focus();
+      }
+
+      function hide() {
+        if (modal.hidden) return;
+        player.replaceChildren();       // removing the iframe stops playback
+        modal.hidden = true;
+        document.body.classList.remove('has-modal');
+        if (opener) { opener.focus(); opener = null; }
+      }
+
+      document.querySelectorAll('.video-embed').forEach(function (btn) {
+        btn.addEventListener('click', function () { open(btn); });
+      });
+
+      modal.querySelectorAll('[data-video-close]').forEach(function (el) {
+        el.addEventListener('click', hide);
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') hide();
+      });
+    })();
+  </script>
+
+  <script>
+    (function () {
+      const track = document.querySelector('.polaroid-strip__track');
+      if (!track) return;
+
+      const AUTO_SPEED = 1.0;   // px per frame auto-scroll
+      const FRICTION   = 0.92;  // momentum decay after release
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      let x       = 0;
+      let vel     = 0;
+      let dragging  = false;
+      let paused    = false; // hover-to-pause, and prefers-reduced-motion
+      let lastPointer = 0;
+
+      function halfWidth() { return track.scrollWidth / 2; }
+
+      function wrap() {
+        const h = halfWidth();
+        if (x < -h) x += h;
+        if (x > 0)  x -= h;
+      }
+
+      function tick() {
+        if (dragging) {
+          // momentum still accumulates while dragging; auto-scroll paused
+        } else if (paused || reduceMotion) {
+          vel *= FRICTION; // let any residual drag momentum settle, don't auto-advance
+          x   += vel;
+        } else {
+          x   -= AUTO_SPEED;
+          vel *= FRICTION;
+          x   += vel;
+        }
+        wrap();
+        track.style.transform = 'translateX(' + x + 'px)';
+        requestAnimationFrame(tick);
+      }
+
+      // Pause the marquee on hover so a curious visitor (or a stress
+      // test) can actually look at a photo instead of chasing it.
+      track.addEventListener('mouseenter', function () { paused = true; });
+      track.addEventListener('mouseleave', function () { paused = false; });
+
+      // Mouse
+      track.addEventListener('mousedown', function (e) {
+        dragging    = true;
+        lastPointer = e.clientX;
+        vel         = 0;
+        track.classList.add('is-dragging');
+        e.preventDefault();
+      });
+      document.addEventListener('mousemove', function (e) {
+        if (!dragging) return;
+        const dx = e.clientX - lastPointer;
+        x        += dx;
+        vel       = dx;
+        lastPointer = e.clientX;
+      });
+      document.addEventListener('mouseup', function () {
+        if (!dragging) return;
+        dragging = false;
+        track.classList.remove('is-dragging');
+      });
+
+      // Touch
+      track.addEventListener('touchstart', function (e) {
+        dragging    = true;
+        lastPointer = e.touches[0].clientX;
+        vel         = 0;
+      }, { passive: true });
+      track.addEventListener('touchmove', function (e) {
+        if (!dragging) return;
+        const dx = e.touches[0].clientX - lastPointer;
+        x        += dx;
+        vel       = dx;
+        lastPointer = e.touches[0].clientX;
+      }, { passive: true });
+      track.addEventListener('touchend', function () {
+        dragging = false;
+      });
+
+      requestAnimationFrame(tick);
+    })();
+  </script>
+
+  <script>
+    /* Accessibility: cut decorative motion for prefers-reduced-motion.
+       The autoplay/loop schedule videos are pure decoration — this
+       freezes them on their first frame. Every click-to-play control
+       (the YouTube embeds) is untouched; those only ever play on a
+       deliberate tap. */
+    (function () {
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      document.querySelectorAll('video[autoplay]').forEach(function (v) {
+        v.pause();
+        v.removeAttribute('autoplay');
+        v.removeAttribute('loop');
+      });
+    })();
+  </script>
+
+  <script>
+    /* Sticky mobile book bar: hides once the footer's own "Sign up for
+       Camp Big Daddy 2027" button — the same Tally form — scrolls into
+       view, so the two CTAs never double up. The footer is injected
+       asynchronously by /components.js, so this waits for it. A plain
+       scroll-position check (rather than IntersectionObserver) so the
+       bar's state is always exactly what a rect check says right now. */
+    (function () {
+      const bar = document.getElementById('sticky-book');
+      if (!bar) return;
+      let footerCta = null;
+
+      function sync() {
+        if (!footerCta) return;
+        const r = footerCta.getBoundingClientRect();
+        const visible = r.top < window.innerHeight && r.bottom > 0;
+        bar.classList.toggle('sticky-book--hidden', visible);
+      }
+
+      function watchFooterCta() {
+        footerCta = document.querySelector('.site-footer__cta');
+        if (!footerCta) return;
+        sync();
+        window.addEventListener('scroll', sync, { passive: true });
+        window.addEventListener('resize', sync);
+      }
+
+      if (document.querySelector('.site-footer__cta')) {
+        watchFooterCta();
+      } else {
+        const mo = new MutationObserver(function () {
+          if (document.querySelector('.site-footer__cta')) {
+            mo.disconnect();
+            watchFooterCta();
+          }
         });
+        mo.observe(document.body, { childList: true, subtree: true });
+      }
+    })();
+  </script>
 
-        // --- Video Modal ---
-        const playButton = document.getElementById('play-video');
-        const videoModal = document.getElementById('video-modal');
-        const closeModal = document.getElementById('close-modal');
-        const videoContent = document.getElementById('video-content');
-        const videoId = 'j8RlL1rbtu0';
+  <div id="footer-placeholder"></div>
 
-        playButton.addEventListener('click', () => {
-            videoContent.innerHTML = `<iframe class="w-full h-full" src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
-            videoModal.classList.remove('opacity-0', 'pointer-events-none');
-        });
+  <script type="text/javascript" async src="https://subscribe-forms.beehiiv.com/attribution.js"></script>
 
-        const stopVideo = () => {
-            videoContent.innerHTML = '';
-            videoModal.classList.add('opacity-0', 'pointer-events-none');
-        };
-
-        closeModal.addEventListener('click', stopVideo);
-        videoModal.addEventListener('click', (e) => {
-            if (e.target === videoModal) {
-                stopVideo();
-            }
-        });
-
-
-</script>
 </body>
 </html>
