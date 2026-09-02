@@ -65,7 +65,8 @@
   <!-- Newsletter popup. The beehiiv embed iframe is loaded up-front and just
        shown/hidden — building it on click (the old v3/loader.js popup) added
        a ~1s delay. subscribe-forms.beehiiv.com/embed.js (appended by
-       components.js) sizes the iframe. Same pattern as nomadsummercamp.com. -->
+       components.js on first open — it must measure the form while the
+       overlay is visible) sizes the iframe. Same pattern as nomadsummercamp.com. -->
   <div id="nsc-newsletter-overlay" class="nsc-nl-overlay">
     <div class="nsc-nl-overlay__box">
       <button type="button" class="nsc-nl-overlay__close" aria-label="Close">&times;</button>

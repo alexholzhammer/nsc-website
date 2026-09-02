@@ -144,17 +144,25 @@
     var overlay = document.getElementById('nsc-newsletter-overlay');
     if (!overlay) return;
 
-    if (!document.querySelector('script[src*="subscribe-forms.beehiiv.com/embed.js"]')) {
+    /* Load beehiiv's embed.js on the *first open*, not on page load. It makes
+       the form measure itself and writes the result back as an inline width
+       on the iframe — and that measurement is only correct once the overlay
+       is visible (display:flex) and the iframe has its real width. Measured
+       while the overlay is still display:none, the form collapses to ~162px
+       and that width sticks. Guard keeps it to one injection. */
+    var loadEmbedScript = function () {
+      if (document.querySelector('script[src*="subscribe-forms.beehiiv.com/embed.js"]')) return;
       var s = document.createElement('script');
       s.async = true;
       s.src = 'https://subscribe-forms.beehiiv.com/embed.js';
       document.body.appendChild(s);
-    }
+    };
 
     var open = function (e) {
       if (e) e.preventDefault();
       overlay.classList.add('nsc-nl-overlay--open');
       document.documentElement.style.overflow = 'hidden';
+      loadEmbedScript();
     };
     var close = function () {
       overlay.classList.remove('nsc-nl-overlay--open');

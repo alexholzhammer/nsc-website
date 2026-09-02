@@ -737,7 +737,12 @@ h1 { font-size: inherit; font-weight: inherit; }
 }
 
 .nsc-nl-overlay__box .beehiiv-embed {
-  width: 100%;
+  /* beehiiv's embed.js writes an inline `width:<px>` onto the iframe from
+     the form's own self-measurement. If it measures while the overlay is
+     display:none the form collapses to ~162px and that inline width sticks
+     — and an inline style beats a plain stylesheet rule, so this needs
+     !important. Height must stay dynamic (beehiiv drives it). */
+  width: 100% !important;
 }
 
 .nsc-nl-overlay__close {
