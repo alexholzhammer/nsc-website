@@ -59,17 +59,66 @@
        header's CTA has to be registered by hand. */
     if (window.Tally) window.Tally.loadEmbeds();
 
-    /* Desktop: collapse the 80px bar to 50px once the page is
-       scrolled. The height + transition live in style.css; this
-       just toggles the class. */
     var header = document.getElementById('site-header');
-    if (header) {
-      var syncScrolled = function () {
-        header.classList.toggle('site-header--scrolled', window.scrollY > 0);
+    if (!header) return;
+
+    /* Mobile dropdown menu. The links live in the same <nav> that shows
+       inline on desktop; below 768px style.css turns it into a panel and
+       this just toggles .site-header--menu-open. */
+    var toggle = header.querySelector('.site-header__menu-toggle');
+    var nav = document.getElementById('site-header-nav');
+    if (toggle && nav) {
+      var setMenu = function (open) {
+        header.classList.toggle('site-header--menu-open', open);
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
       };
-      syncScrolled();
-      window.addEventListener('scroll', syncScrolled, { passive: true });
+      toggle.addEventListener('click', function () {
+        setMenu(!header.classList.contains('site-header--menu-open'));
+      });
+      nav.addEventListener('click', function (e) {
+        if (e.target.closest('.site-header__link')) setMenu(false);
+      });
+      document.addEventListener('click', function (e) {
+        if (header.classList.contains('site-header--menu-open') && !header.contains(e.target)) {
+          setMenu(false);
+        }
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && header.classList.contains('site-header--menu-open')) {
+          setMenu(false);
+          toggle.focus();
+        }
+      });
+      window.addEventListener('resize', function () {
+        if (window.innerWidth > 768) setMenu(false);
+      });
     }
+
+    /* One scroll listener drives both:
+       - desktop (>=1101px): collapse the 80px bar to 50px once scrolled
+         (heights + transition live in style.css)
+       - mobile only (<=768px, where the dropdown menu lives): auto-hide —
+         the header slides up on scroll-down and back in on scroll-up, but
+         never while the menu is open or within the header's height of the
+         top. Tablet keeps the header put. */
+    var lastY = window.scrollY;
+    var headerH = header.offsetHeight;
+    var onScroll = function () {
+      var y = window.scrollY < 0 ? 0 : window.scrollY;
+      header.classList.toggle('site-header--scrolled', y > 0);
+
+      if (window.innerWidth > 768 ||
+          header.classList.contains('site-header--menu-open') ||
+          y <= 8) {
+        header.classList.remove('site-header--hidden');
+      } else if (Math.abs(y - lastY) > 6) {
+        header.classList.toggle('site-header--hidden', y > lastY && y > headerH);
+      }
+      lastY = y;
+    };
+    window.addEventListener('resize', function () { headerH = header.offsetHeight; });
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
   }
 
   function initFooter() {

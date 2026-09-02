@@ -7,3 +7,7 @@
 .impeccable/config.local.json
 .impeccable/hook.cache.json
 .impeccable/live/
+
+# local pre-edit media backups (HEVC videos, uncropped photos) — safe to delete
+_video-originals/
+_image-originals/

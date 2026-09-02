@@ -165,9 +165,11 @@ h1 { font-size: inherit; font-weight: inherit; }
   white-space: nowrap;
 }
 
-.info-tag--pink   { background: var(--color-pink); }
-.info-tag--teal   { background: var(--color-teal); }
-.info-tag--orange { background: var(--color-orange); }
+/* Outline is a darker shade of the tag's own colour (the 700 step of
+   each hue), not black — same idea as the housing "All-inclusive" chip. */
+.info-tag--pink   { background: var(--color-pink);   outline-color: #be123c; }
+.info-tag--teal   { background: var(--color-teal);   outline-color: #0f766e; }
+.info-tag--orange { background: var(--color-orange); outline-color: #c2410c; }
 
 
 /* ============================================================
@@ -206,6 +208,24 @@ h1 { font-size: inherit; font-weight: inherit; }
 .btn-primary--sm:hover {
   box-shadow: 1px 1px 0 var(--color-dark);
   transform: translate(2px, 2px);
+}
+
+/* Stacked variant — main label with a small sub-note beneath it
+   (hero CTA: "Book Your Spot" / "No payment due yet"). */
+.btn-primary--stack {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  line-height: 1.15;
+}
+
+.btn-primary__note {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  letter-spacing: 0.03em;
+  text-transform: none;
+  opacity: 0.8;
 }
 
 
@@ -252,6 +272,13 @@ h1 { font-size: inherit; font-weight: inherit; }
   z-index: 100;
   background: var(--color-cream);
   border-bottom: 3px solid var(--color-dark);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header,
+  .site-header__nav {
+    transition: none;
+  }
 }
 
 /* Desktop only: fixed 80px bar that collapses to 50px once the page
@@ -335,6 +362,34 @@ h1 { font-size: inherit; font-weight: inherit; }
   flex-shrink: 0;
 }
 
+/* Hamburger toggle — hidden on desktop (links show inline), shown on
+   mobile. Plain ink icon, no fill: the same "nav is text, not a sticker"
+   restraint the links follow. */
+.site-header__menu-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  margin-left: -4px;
+  padding: 0;
+  background: none;
+  border: none;
+  color: var(--color-dark);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.site-header__menu-icon { display: block; }
+.site-header__menu-icon--x { display: none; }
+.site-header__menu-toggle[aria-expanded="true"] .site-header__menu-icon--bars { display: none; }
+.site-header__menu-toggle[aria-expanded="true"] .site-header__menu-icon--x { display: block; }
+
+/* Desktop/tablet: the IG glyph is mobile-only, and the wrapper collapses
+   so the CTA keeps pushing itself right exactly as before. */
+.site-header__actions { display: contents; }
+.site-header__ig { display: none; }
+
 @media (max-width: 1100px) {
   .site-header__inner {
     padding-left: 60px;
@@ -349,8 +404,97 @@ h1 { font-size: inherit; font-weight: inherit; }
     padding-left: 24px;
     padding-right: 24px;
   }
-  /* Wordmark + CTA only. Four links do not warrant a drawer. */
-  .site-header__nav { display: none; }
+
+  /* Mobile-only auto-hide — components.js toggles .site-header--hidden
+     from a scroll listener (down = hide, up = show). Desktop/tablet keep
+     the header put; desktop has its own collapse-on-scroll above. */
+  .site-header {
+    transition: transform 250ms ease;
+  }
+
+  .site-header--hidden {
+    transform: translateY(-100%);
+  }
+
+  /* Bar becomes: logo (left) · IG glyph + hamburger (right). The CTA
+     drops out — the sticky book bar covers it below 768px. */
+  .site-header__cta {
+    display: none;
+  }
+
+  .site-header__actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  .site-header__ig {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    color: var(--color-dark);
+  }
+
+  .site-header__ig-icon {
+    display: block;
+  }
+
+  .site-header__menu-toggle {
+    display: flex;
+    margin-left: 0;
+  }
+
+  /* The nav turns into a dropdown panel under the bar — same links,
+     stacked, still plain uppercase text. */
+  .site-header__nav {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--color-cream);
+    border-bottom: 3px solid var(--color-dark);
+    box-shadow: 0 8px 0 rgba(var(--color-dark-rgb), 0.18);
+    padding: 4px 24px 12px;
+    /* closed */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    pointer-events: none;
+    transition: opacity 160ms ease, transform 160ms ease, visibility 160ms;
+  }
+
+  .site-header--menu-open .site-header__nav {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .site-header__nav .site-header__link {
+    padding: 15px 2px;
+    font-size: 0.9rem;
+    opacity: 0.6;
+    white-space: nowrap;
+    border-bottom: 1.5px solid rgba(var(--color-dark-rgb), 0.12);
+  }
+
+  .site-header__nav .site-header__link:last-child {
+    border-bottom: none;
+  }
+
+  .site-header__nav .site-header__link--active {
+    opacity: 1;
+    border-bottom-color: var(--color-orange);
+    border-bottom-width: 3px;
+  }
 }
 
 
@@ -441,12 +585,6 @@ h1 { font-size: inherit; font-weight: inherit; }
 .site-footer__newsletter:hover {
   box-shadow: 2px 2px 0 var(--color-dark);
   transform: translate(4px, 4px);
-}
-
-.site-footer__newsletter-sub {
-  font-family: var(--font-handwritten);
-  font-size: 1rem;
-  line-height: 1.35;
 }
 
 .site-footer__heading {
@@ -811,6 +949,30 @@ h1 { font-size: inherit; font-weight: inherit; }
   color: var(--color-dark);
 }
 
+/* Secondary "message us on IG" nudge — matches the CTA sub-note voice
+   (body font, small). Plain text so yellow stays the one CTA colour. */
+.hero__dm {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: var(--color-dark);
+}
+
+.hero__dm a {
+  color: var(--color-dark);
+  text-decoration: none;
+}
+
+.hero__dm a:hover .dm-cta {
+  text-decoration-color: var(--color-pink);
+}
+
+/* Shared: the underlined "Slide into our DMs" phrase (hero + FAQ closer) */
+.dm-cta {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
+}
+
 /* --- Right: polaroid column --- */
 .hero__visual {
   display: flex;
@@ -907,6 +1069,22 @@ h1 { font-size: inherit; font-weight: inherit; }
 
   .hero__content {
     order: 1;
+    align-items: center;
+    text-align: center;
+  }
+
+  .hero__content .headline-stack,
+  .cta-block {
+    align-items: center;
+  }
+
+  .info-strips {
+    justify-content: center;
+  }
+
+  .hero__sub {
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .hero__visual {
@@ -934,6 +1112,30 @@ h1 { font-size: inherit; font-weight: inherit; }
     white-space: normal;
     text-align: center;
     max-width: calc(100vw - 48px);
+  }
+
+  /* The hero headline is only two short words per line ("Summer Camp",
+     "is calling"), so it can run much larger than the generic section
+     sticker. Scale with the viewport — the calc() keeps the longest
+     line ("Summer Camp") a comfortable margin inside the content
+     column from ~320px up, and the 2.5rem cap stops it ballooning as
+     the layout approaches the 768px breakpoint. */
+  .hero__content .sticker {
+    font-size: clamp(1.75rem, calc(12vw - 10px), 2.5rem);
+  }
+
+  /* Section headlines with short labels ("A day at camp", "Everything's
+     / Included", "Got / questions?") have width to spare on a phone —
+     scale them up with the viewport too. The 9vw term keeps the longest
+     of them ("A day at camp") inside the content column from ~320px up;
+     the 2.4rem cap holds them near the breakpoint. Sections with tighter
+     labels (Rooms & Pricing, our word for it) and the two-part manifesto
+     question are deliberately left on the smaller base size, with the
+     wrap-not-overflow safety net above. */
+  .included .sticker,
+  .schedule .sticker,
+  .faq .sticker {
+    font-size: clamp(1.8rem, 9vw, 2.4rem);
   }
 
   .polaroid--hero .polaroid__frame {
@@ -996,51 +1198,63 @@ h1 { font-size: inherit; font-weight: inherit; }
 
 
 /* ============================================================
-   QUOTE CARD — TORN NOTEBOOK PAPER
+   QUOTE CARD — NOTEBOOK PAPER (CSS)
+   The "paper" is the content box itself — warm sheet, ruled lines,
+   punch holes, hard offset shadow — so it grows with the text. This
+   replaced a fixed-aspect-ratio raster (notes-background.png) that
+   the long two-paragraph quote overran at every width below ~1440px.
    ============================================================ */
 .quote-card--paper {
-  position: relative;
-  display: inline-block;
-  transform: rotate(1deg);
-  /* drop-shadow follows the irregular torn-paper silhouette */
-  filter: drop-shadow(6px 6px 0px rgba(var(--color-dark-rgb), 0.22));
+  display: block;
   max-width: 680px;
   width: 100%;
-}
-
-.quote-card__paper {
-  display: block;
-  width: 100%;
-  height: auto;
+  transform: rotate(1deg);
 }
 
 .quote-card__content {
-  position: absolute;
-  /* inset respects the paper margins: generous right gap for hole-punches */
-  top: 12%;
-  left: 7%;
-  right: 18%;
-  bottom: 20%;
+  position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 16px;
+  gap: 18px;
+  padding: 40px 64px 40px 44px;
+  background-color: #fffdf5;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0 35px,
+    rgba(30, 58, 110, 0.13) 35px 36px);
+  background-position: 0 46px;
+  border: 2.5px solid var(--color-dark);
+  box-shadow: 8px 8px 0 var(--color-dark);
+}
+
+/* three punch holes down the right margin */
+.quote-card__content::after {
+  content: "";
+  position: absolute;
+  top: 16%;
+  bottom: 16%;
+  right: 22px;
+  width: 16px;
+  background-image:
+    radial-gradient(circle 7px at 8px 8%, var(--color-teal) 96%, transparent 100%),
+    radial-gradient(circle 7px at 8px 50%, var(--color-teal) 96%, transparent 100%),
+    radial-gradient(circle 7px at 8px 92%, var(--color-teal) 96%, transparent 100%);
+  background-repeat: no-repeat;
 }
 
 /* shared quote typography */
 .quote-text {
   font-family: var(--font-handwritten);
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   font-weight: 700;
-  line-height: 1.3;
+  line-height: 36px;  /* matches the ruling period so lines land on the lines */
   color: #1e3a6e;  /* dark-blue ink, feels natural on lined paper */
   font-style: normal;
 }
 
-/* Julie's quote runs as two paragraphs; the tight 1.1 line-height
-   needs an explicit gap between them to read as a break. */
+/* Julie's quote runs as two paragraphs; the explicit gap reads as a break. */
 .quote-text__p + .quote-text__p {
-  margin-top: 0.7em;
+  margin-top: 0.5em;
 }
 
 .quote-author {
@@ -1050,6 +1264,7 @@ h1 { font-size: inherit; font-weight: inherit; }
   text-transform: uppercase;
   letter-spacing: 0.08em;
   font-style: normal;
+  margin-top: 4px;
 }
 
 
@@ -1073,6 +1288,10 @@ h1 { font-size: inherit; font-weight: inherit; }
     padding: 0 24px;
   }
 
+  .quote-section {
+    overflow-x: clip; /* the card's tilt + shadow must not add scroll */
+  }
+
   .quote-section__inner {
     padding: 0 24px;
     grid-template-columns: 1fr;
@@ -1084,8 +1303,34 @@ h1 { font-size: inherit; font-weight: inherit; }
     justify-content: center;
   }
 
+  /* Julie quote — same CSS paper, tuned down for a narrow column. */
   .quote-card--paper {
     max-width: 100%;
+    transform: rotate(-0.5deg);
+  }
+
+  .quote-card__content {
+    gap: 16px;
+    padding: 26px 40px 28px 26px;
+    background-position: 0 32px;
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent 0 27px,
+      rgba(30, 58, 110, 0.13) 27px 28px);
+  }
+
+  .quote-card__content::after {
+    right: 14px;
+    width: 14px;
+  }
+
+  .quote-text {
+    font-size: 1.2rem;
+    line-height: 28px; /* matches the narrow-column ruling period */
+  }
+
+  .quote-author {
+    font-size: 0.85rem;
   }
 }
 
@@ -1105,6 +1350,10 @@ h1 { font-size: inherit; font-weight: inherit; }
   line-height: 1.5;
   color: var(--color-dark);
   max-width: 460px;
+}
+
+.what-nsc__copy p + p {
+  margin-top: 1em;
 }
 
 /* Play button (shared across video placeholders) */
@@ -1131,26 +1380,22 @@ h1 { font-size: inherit; font-weight: inherit; }
 .what-a__inner {
   max-width: 1440px;
   margin: 0 auto;
-  padding: 0 var(--gutter-right) 0 var(--gutter-left);
-  display: grid;
-  /* Both columns size to their own content, not "content stretches
-     to fill remaining space, video sits after" (1fr auto) — that
-     pinned the video to the far right edge regardless of how
-     narrow the text actually was. Content hugs the video with a
-     72px gap; the sticker (not the copy) sets the column's width,
-     since it's the wider of the two. */
-  grid-template-columns: auto auto;
-  gap: 72px;
+  padding: 0 40px;
+  /* Flex-wrap, not a grid: the video sits beside the text while they
+     both fit, and drops to its own line the moment they don't — no
+     breakpoint to guess. justify-content:center keeps each row centred,
+     so the wrapped video never leaves a dead half-screen beside it. */
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  /* Grid stretches items to fill their column by default. Harmless
-     for the text column (its children are left-aligned with no
-     visible box), but it silently widened the polaroid's own white
-     card past its photo — that's the blank strip bug. Both items
-     size to their actual content instead. */
-  justify-items: start;
+  justify-content: center;
+  gap: 40px 56px;
 }
 
 .what-a__content {
+  flex: 1 1 440px;
+  max-width: 500px;   /* wide enough for the one-line headline bubble */
+  min-width: 0;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -1164,6 +1409,17 @@ h1 { font-size: inherit; font-weight: inherit; }
   align-items: flex-start;
 }
 
+/* These headline bubbles are questions, not punch-words — a notch
+   smaller than a standard sticker headline, and allowed to wrap. */
+.what-a__stickers .sticker {
+  white-space: normal;
+  font-size: 2rem;
+}
+
+@media (max-width: 768px) {
+  .what-a__stickers .sticker { font-size: 1.6rem; }
+}
+
 .what-a__video {
   /* .polaroid is inline-block with no width of its own — it always
      shrink-wraps to its content, same as every other polaroid on
@@ -1175,8 +1431,9 @@ h1 { font-size: inherit; font-weight: inherit; }
      NOT just the frame width, or the frame (a fixed size) pokes out
      past a card capped too small to actually contain it. */
   max-width: 420px; /* 380px frame + 40px padding */
+  padding-bottom: 40px; /* tighter chin under the caption than the base 80px */
   transform: rotate(-2deg);
-  flex-shrink: 0;
+  flex: 0 0 auto;
 }
 
 .what-a__video-frame {
@@ -1193,7 +1450,7 @@ h1 { font-size: inherit; font-weight: inherit; }
    WHAT IS NSC — RESPONSIVE
    ============================================================ */
 @media (max-width: 1100px) {
-  .what-a__inner { padding: 0 48px 0 60px; gap: 48px; }
+  /* Once the two have wrapped anyway, shrink the video a touch. */
   .what-a__video { max-width: 340px; } /* 300px frame + 40px padding */
   .what-a__video-frame { width: 300px; height: 220px; }
 }
@@ -1201,7 +1458,6 @@ h1 { font-size: inherit; font-weight: inherit; }
 @media (max-width: 768px) {
   .what-a__inner {
     padding: 0 24px;
-    grid-template-columns: 1fr;
     gap: 40px;
   }
   .what-a__video { max-width: 100%; }
@@ -1222,7 +1478,7 @@ h1 { font-size: inherit; font-weight: inherit; }
   font-family: var(--font-body);
   font-size: 0.85rem;
   color: var(--color-dark);
-  opacity: 0.55;
+  opacity: 1;
   margin-top: 16px;
   font-style: italic;
   letter-spacing: 0.02em;
@@ -1350,12 +1606,19 @@ h1 { font-size: inherit; font-weight: inherit; }
   justify-content: center;
 }
 
+.sched-b2__hidden {
+  font-family: var(--font-handwritten);
+  font-weight: 700;
+  font-size: 1rem;
+  color: #9a8fce; /* a lighter step of the ink-navy hue */
+  text-align: center;
+  padding: 0 16px;
+}
+
 .sched-b2__time {
   font-family: var(--font-body);
   font-size: 0.75rem; /* was 0.7rem (11.2px) — under the legibility floor */
-  /* was white — 2.5:1 on teal, fails WCAG AA. Ink-navy on teal holds
-     well above 4.5:1 and keeps the chip's colour role unchanged. */
-  color: var(--color-dark);
+  color: var(--color-white);
   background: var(--color-teal);
   padding: 3px 8px;
   display: inline-block;
@@ -1389,8 +1652,21 @@ h1 { font-size: inherit; font-weight: inherit; }
 
 @media (max-width: 768px) {
   .sched-b2__head { padding-right: 24px; padding-left: 24px; }
-  .sched-b2__scroll { padding-right: 24px; padding-left: 24px; }
   .sched-b2__item { width: 300px; }
+
+  /* Mobile: snap one card centred in the viewport instead of free scroll.
+     Leading/trailing padding = half the leftover width so the first and
+     last cards can reach centre too. The drag handler already suspends
+     snap mid-drag (see .is-draggable.is-dragging). */
+  .sched-b2__scroll {
+    scroll-snap-type: x mandatory;
+    scroll-padding: 0;
+    padding-left: max(24px, calc((100vw - 300px) / 2));
+    padding-right: max(24px, calc((100vw - 300px) / 2));
+  }
+  .sched-b2__item {
+    scroll-snap-align: center;
+  }
 }
 
 
@@ -1455,13 +1731,13 @@ h1 { font-size: inherit; font-weight: inherit; }
   top: 22%;
   left: 14%;
   right: 8%;
-  bottom: 4%;
+  bottom: 16%;
   list-style: none;
   padding: 0;
   margin: 0;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   gap: 10px;
 }
 
@@ -1620,12 +1896,10 @@ h1 { font-size: inherit; font-weight: inherit; }
 }
 .venue-c2 {
   position: relative;
-  height: 90vh;
 }
 
 .venue-c2__track {
   display: flex;
-  height: 100%;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
@@ -1634,22 +1908,32 @@ h1 { font-size: inherit; font-weight: inherit; }
 
 .venue-c2__slide {
   flex: 0 0 100%;
-  height: 100%;
   scroll-snap-align: start;
   display: grid;
-  grid-template-columns: 1.6fr 1fr;
+  /* minmax(0, …) so a wide bit of content in one column (e.g. the
+     no-wrap sticker on the intro slide) can't steal width from the
+     other and shrink the photo — every slide splits identically. */
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  /* any letterbox space around a photo reads as part of the dark panel */
+  background: var(--color-dark);
   overflow: hidden;
 }
 
+/* Photos are landscape (mostly 3:2); the box is 3:2 and `contain` so the
+   whole frame always shows — edge details (trailers, buildings) never
+   get cropped. align-self:start keeps the ratio against the grid stretch. */
 .venue-c2__img {
-  height: 100%;
-  min-height: 0;
-  overflow: hidden;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: contain;
+  align-self: center; /* float in the dark field if the info panel is taller */
+  display: block;
 }
 
 .venue-c2__info {
   background: var(--color-dark);
-  padding: 80px 56px;
+  padding: 56px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1657,13 +1941,18 @@ h1 { font-size: inherit; font-weight: inherit; }
   gap: 0;
 }
 
-.venue-c2__info .sticker {
-  box-shadow: 4px 4px 0 rgba(255, 255, 255, 0.15);
-  margin-bottom: 28px;
+/* Intro slide heading — text only, no sticker pill (matches the
+   Bungee weight of .venue-c2__name used on the other slides). */
+.venue-c2__title {
+  font-family: var(--font-display);
+  font-size: 2.8rem;
+  line-height: 1.05;
+  color: var(--color-white);
+  margin-bottom: 24px;
 }
 
 .venue-c2__info .info-tag {
-  outline-color: rgba(255, 255, 255, 0.25);
+  outline: none;
   margin-bottom: 20px;
 }
 
@@ -1679,7 +1968,7 @@ h1 { font-size: inherit; font-weight: inherit; }
   font-family: var(--font-body);
   font-size: 1rem;
   line-height: 1.5;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--color-white);
   max-width: 340px;
 }
 
@@ -1691,6 +1980,44 @@ h1 { font-size: inherit; font-weight: inherit; }
   display: flex;
   align-items: center;
   gap: 16px;
+}
+
+/* ---- Venue tour — responsive ----
+   Had no small-screen handling: the 1.6fr / 1fr grid held at every
+   width, and the dark info panel's min-content (sticker + 56px side
+   padding) crushed the photo into a thin strip. Tablet tightens the
+   split; mobile stacks it — text panel first, photo underneath — and
+   drops the fixed 90vh so nothing gets squeezed. */
+@media (max-width: 1100px) {
+  .venue-c2__slide { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); }
+  .venue-c2__info { padding: 40px 36px; }
+  .venue-c2__ui { right: 48px; }
+}
+
+@media (max-width: 768px) {
+  .venue-c2__slide { grid-template-columns: 1fr; }
+
+  .venue-c2__info {
+    order: -1; /* text panel above the photo (img is first in the DOM) */
+    padding: 40px 24px 36px;
+    justify-content: flex-start;
+  }
+
+  .venue-c2__desc { max-width: none; }
+
+  .venue-c2__ui {
+    right: 16px;
+    bottom: 16px;
+    gap: 10px;
+  }
+
+  /* white counter needs a backing once it sits over the photo */
+  .venue-c2__counter {
+    min-width: 0;
+    padding: 4px 10px;
+    background: rgba(var(--color-dark-rgb), 0.7);
+    border-radius: var(--radius-pill);
+  }
 }
 
 /* ============================================================
@@ -1740,7 +2067,8 @@ h1 { font-size: inherit; font-weight: inherit; }
   display: grid;
   grid-template-columns: 1fr 1fr;
   column-gap: 40px;
-  row-gap: 48px;
+  row-gap: 0; /* the two rows read as one spread; the gap is added back
+                only when they stack on mobile */
   align-items: center;
 }
 
@@ -1760,7 +2088,7 @@ h1 { font-size: inherit; font-weight: inherit; }
 
 .quotes-lr__polaroid {
   background: var(--color-white);
-  padding: 20px 20px 80px;
+  padding: 20px 20px 40px;
   outline: var(--outline-thick);
   outline-offset: -4px;
   box-shadow: var(--shadow-xl);
@@ -1815,6 +2143,14 @@ h1 { font-size: inherit; font-weight: inherit; }
     justify-content: center;
   }
 
+  /* DOM order is heather-img, heather-card, matt-card, matt-img (the
+     desktop alternating layout). On one column that stacks the two
+     quotes back to back — push matt's card last so each person reads
+     as picture then quote. */
+  .quotes-lr__card--matt {
+    order: 1;
+  }
+
   .quotes-lr__card--heather,
   .quotes-lr__card--matt {
     transform: none;
@@ -1860,10 +2196,12 @@ h1 { font-size: inherit; font-weight: inherit; }
 }
 
 .accom__pros li::before {
-  content: '✓';
-  color: var(--color-teal);
+  content: '\2665\FE0E'; /* solid heart, forced text (non-emoji) presentation */
+  color: var(--color-pink);
+  opacity: 0.55; /* softened so it supports the text, doesn't shout */
   flex-shrink: 0;
-  line-height: 1.3;
+  align-self: center; /* centre the heart to the line instead of top-aligning */
+  line-height: 1;
 }
 
 .accom__note {
@@ -1950,70 +2288,25 @@ h1 { font-size: inherit; font-weight: inherit; }
   max-width: 620px;
 }
 
-/* Repeated on every card's price (was stated once, above the scroller,
-   and had to be held in memory across all 8 cards). Ink text — teal-on-
-   mint is unreadable — with a teal border carrying the colour role. */
+/* Sits next to the tier tag (Premium / Standard / Budget) at the top of
+   each card, so "what's included" is answered before the price. */
+.accom-a__tags {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
 .accom-a__all-inc {
   display: inline-block;
-  margin-top: 6px;
   padding: 3px 8px;
   background: var(--wash-mint);
-  color: var(--color-dark);
+  color: var(--color-teal);
   font-family: var(--font-body);
   font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   border: 1.5px solid var(--color-teal);
-}
-
-/* "X of 8" position readout for the accommodation scroller — same
-   role as .venue-c2__counter, tuned for a light card-scroller bar
-   instead of the dark venue-tour panel. */
-.accom-a__counter {
-  font-family: var(--font-handwritten);
-  font-weight: 700;
-  font-size: 1rem;
-  color: var(--color-dark);
-  opacity: 0.6;
-  min-width: 40px;
-}
-
-/* Pros lists longer than 4 collapse behind a native disclosure so the
-   card doesn't have to be held in full to compare against the others. */
-.accom__pros-more {
-  margin-top: 2px;
-}
-
-.accom__pros-more > summary {
-  list-style: none;
-  cursor: pointer;
-  font-family: var(--font-body);
-  font-size: 0.72rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--color-dark);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  text-decoration-color: var(--color-teal);
-  text-decoration-thickness: 2px;
-}
-
-.accom__pros-more > summary::-webkit-details-marker { display: none; }
-
-.accom__pros-more > summary::before {
-  content: '+ ';
-}
-
-.accom__pros-more[open] > summary::before {
-  content: '\2212 '; /* − */
-}
-
-.accom__pros-more[open] > summary {
-  margin-bottom: 5px;
-}
-
-.accom__pros-more .accom__pros {
-  padding-left: 2px;
 }
 
 .accom-a__head-row {
@@ -2086,7 +2379,8 @@ h1 { font-size: inherit; font-weight: inherit; }
   margin-bottom: 6px;
 }
 
-/* Tier tag — subdued, outline-only */
+/* Tier tag (Premium / Standard / Budget) — orange chip beside the teal
+   "All-inclusive" one; the two hues stay distinct. */
 .accom-a__tier {
   display: inline-block;
   font-family: var(--font-body);
@@ -2094,12 +2388,13 @@ h1 { font-size: inherit; font-weight: inherit; }
   text-transform: uppercase;
   letter-spacing: 0.08em;
   padding: 3px 8px;
-  border: 1.5px solid currentColor;
+  /* Same treatment as the teal "All-inclusive" chip, in orange:
+     pale tint fill, accent border, accent text. */
+  background: var(--wash-peach);
+  color: var(--color-orange);
+  border: 1.5px solid var(--color-orange);
   align-self: flex-start;
 }
-.accom-a__tier--standard { color: var(--color-teal); opacity: 0.65; }
-.accom-a__tier--premium  { color: var(--color-orange); opacity: 0.75; }
-.accom-a__tier--budget   { color: var(--color-pink); opacity: 0.7; }
 
 /* Subdued note for card context */
 .accom-a__note {
@@ -2125,6 +2420,37 @@ h1 { font-size: inherit; font-weight: inherit; }
   color: rgba(var(--color-dark-rgb), 0.5);
   border-top: 1.5px solid rgba(var(--color-dark-rgb), 0.12);
   padding-top: 10px;
+  margin-top: auto; /* pin to the card bottom — cards are equal-height
+                       (flex stretch), so the closing note lands on the
+                       same baseline across the row */
+}
+
+/* Booking CTA — lives inside the accommodation section so it sits on the
+   same mint field as the tiles, right where the room decision happens. */
+.accom-a__cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  text-align: center;
+  padding: 8px var(--gutter-right) 8px var(--gutter-left);
+}
+
+.accom-a__cta-line {
+  font-family: var(--font-handwritten);
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 1.3;
+  color: var(--color-dark);
+}
+
+@media (max-width: 1100px) {
+  .accom-a__cta { padding-left: 60px; padding-right: 48px; }
+}
+
+@media (max-width: 768px) {
+  .accom-a__cta { padding-left: 24px; padding-right: 24px; }
+  .accom-a__cta-line { font-size: 1.3rem; }
 }
 
 
@@ -2144,7 +2470,17 @@ h1 { font-size: inherit; font-weight: inherit; }
 
 @media (max-width: 768px) {
   .accom-a__head { padding-right: 24px; padding-left: 24px; }
-  .accom-a__scroll { padding-right: 24px; padding-left: 24px; }
+
+  /* Mobile: snap one card centred, same as the schedule strip. */
+  .accom-a__scroll {
+    scroll-snap-type: x mandatory;
+    scroll-padding: 0;
+    padding-left: max(24px, calc((100vw - 320px) / 2));
+    padding-right: max(24px, calc((100vw - 320px) / 2));
+  }
+  .accom-a__card {
+    scroll-snap-align: center;
+  }
 }
 
 
@@ -2175,14 +2511,12 @@ h1 { font-size: inherit; font-weight: inherit; }
 }
 
 /* headline-stack already carries margin-bottom: 28px */
-.testimonials__sticker:nth-child(1) { transform: rotate(-2deg); }
-.testimonials__sticker:nth-child(2) { transform: rotate(1.4deg); }
 
 .testimonials__sub {
   font-family: var(--font-body);
   font-size: 0.85rem;
   color: var(--color-dark);
-  opacity: 0.55;
+  opacity: 1;
   font-style: italic;
   letter-spacing: 0.02em;
   max-width: 460px;
@@ -2745,49 +3079,6 @@ body.has-modal { overflow: hidden; }
 
 
 /* ============================================================
-   COMPONENT — MID-PAGE CTA
-   Two of these are dropped into the page: after the accommodation
-   scroller (the one real decision point) and after the testimonial
-   wall (the emotional peak-end, which previously converted to
-   nothing). Same button, same voice — a quiet cream sheet, not a
-   third colour field.
-   ============================================================ */
-.cta-mid {
-  background: var(--color-cream);
-  padding: 56px 0 64px;
-  text-align: center;
-}
-
-.cta-mid__inner {
-  max-width: 640px;
-  margin: 0 auto;
-  padding: 0 var(--gutter-right) 0 var(--gutter-left);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-}
-
-.cta-mid__line {
-  font-family: var(--font-handwritten);
-  font-weight: 700;
-  font-size: 1.5rem;
-  line-height: 1.3;
-  color: var(--color-dark);
-}
-
-@media (max-width: 1100px) {
-  .cta-mid__inner { padding: 0 48px; }
-}
-
-@media (max-width: 768px) {
-  .cta-mid { padding: 44px 0 52px; }
-  .cta-mid__inner { padding: 0 24px; }
-  .cta-mid__line { font-size: 1.3rem; }
-}
-
-
-/* ============================================================
    COMPONENT — STICKY MOBILE BOOK BAR
    Below 768px the hero CTA scrolls away and never comes back until
    the footer, ~5000px of persuasion later. This keeps "Book Your
@@ -2810,8 +3101,6 @@ body.has-modal { overflow: hidden; }
     bottom: 0;
     z-index: 150;
     padding: 12px 20px calc(12px + env(safe-area-inset-bottom));
-    background: var(--color-cream);
-    border-top: 3px solid var(--color-dark);
     transition: transform 200ms ease;
   }
 
@@ -2829,4 +3118,176 @@ body.has-modal { overflow: hidden; }
   body {
     padding-bottom: 76px;
   }
+}
+
+
+/* ============================================================
+   COMPONENT — FAQ
+   Native <details> accordion (no JS) on a flat blush wash
+   between the testimonials (cream) and the teal footer. Each
+   row is a teal cut-out card — white text and white +/-
+   toggle, hard dark outline, flat offset shadow, zero blur.
+   The toggle is drawn from hard colour bars, never a font
+   glyph. Open/close height is animated in CSS via
+   ::details-content (see below).
+   ============================================================ */
+.faq {
+  background: var(--wash-blush);
+  padding: 80px 0 96px;
+}
+
+.faq__inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 var(--gutter-right);
+}
+
+.faq__head {
+  margin-bottom: 40px;
+}
+
+/* .headline-stack already carries margin-bottom: 28px */
+
+.faq__sub {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--color-dark);
+  font-style: italic;
+  letter-spacing: 0.02em;
+  max-width: 460px;
+}
+
+.faq__list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.faq__item {
+  background: var(--color-teal);
+  outline: var(--outline-thin);
+  outline-offset: -2.5px;
+  box-shadow: var(--shadow-sm);
+}
+
+.faq__q {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 18px 22px;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.3;
+  color: var(--color-white);
+  cursor: pointer;
+  list-style: none;
+}
+.faq__q::-webkit-details-marker { display: none; }
+
+/* +/- indicator, built from two hard white bars so it keeps
+   the zero-blur rule. Open state drops the vertical bar -> minus. */
+.faq__q::after {
+  content: '';
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  background:
+    linear-gradient(var(--color-white), var(--color-white)) center / 16px 3px no-repeat,
+    linear-gradient(var(--color-white), var(--color-white)) center / 3px 16px no-repeat;
+}
+.faq__item[open] .faq__q::after {
+  background:
+    linear-gradient(var(--color-white), var(--color-white)) center / 16px 3px no-repeat;
+}
+
+.faq__a {
+  padding: 0 22px 20px;
+}
+
+.faq__a p {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--color-white);
+}
+.faq__a p + p { margin-top: 12px; }
+
+.faq__a a {
+  color: var(--color-white);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
+}
+
+/* "Slide into our DMs" closer — a teal cutout in the same family as
+   the FAQ cards, but a link, so it gets the press-in hover. */
+.faq__dm {
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 22px;
+  background: var(--color-teal);
+  outline: var(--outline-thin);
+  outline-offset: -2.5px;
+  box-shadow: var(--shadow-sm);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.35;
+  color: var(--color-white);
+  text-decoration: none;
+  transition: box-shadow 80ms ease, transform 80ms ease;
+}
+
+.faq__dm:hover {
+  box-shadow: 1px 1px 0 var(--color-dark);
+  transform: translate(2px, 2px);
+}
+
+.faq__dm-icon {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-white);
+  border-radius: 50%;
+  outline: var(--outline-thin);
+  outline-offset: -2.5px;
+}
+
+.faq__dm-icon img {
+  width: 22px;
+  height: 22px;
+  display: block;
+}
+
+/* Open/close animation — CSS only, no script. Native <details>
+   snaps; ::details-content is the box the UA wraps the panel in,
+   and interpolate-size lets its block-size tween between 0 and
+   auto. content-visibility rides along discretely so the close
+   animates too. Chrome/Edge/Safari current + Firefox 139+; any
+   older engine ignores these rules and just toggles instantly. */
+.faq {
+  interpolate-size: allow-keywords;
+}
+.faq__item::details-content {
+  block-size: 0;
+  overflow: hidden;
+  transition: block-size 240ms ease, content-visibility 240ms allow-discrete;
+}
+.faq__item[open]::details-content {
+  block-size: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faq__item::details-content { transition: none; }
+}
+
+@media (max-width: 768px) {
+  .faq { padding: 56px 0 64px; }
+  .faq__inner { padding: 0 24px; }
+  .faq__q { font-size: 0.95rem; padding: 16px 18px; }
+  .faq__a { padding: 0 18px 18px; }
 }

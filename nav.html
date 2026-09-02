@@ -9,7 +9,7 @@
 <header class="site-header" id="site-header">
   <div class="site-header__inner">
     <a class="site-header__logo" href="/"><img src="/nsc-logo-black.avif" alt="NSC" class="site-header__logo-img"></a>
-    <nav class="site-header__nav" aria-label="Main">
+    <nav class="site-header__nav" id="site-header-nav" aria-label="Main">
       <a class="site-header__link" href="/">Home</a>
       <a class="site-header__link" href="/rankings">Rankings</a>
       <a class="site-header__link" href="/about">About</a>
@@ -17,5 +17,25 @@
       <a class="site-header__link js-beehiiv-newsletter" href="#">Newsletter</a>
     </nav>
     <button class="btn-primary btn-primary--sm site-header__cta" data-tally-open="zxDW8M" data-tally-layout="modal" data-tally-width="800" data-tally-emoji-text="🥳" data-tally-emoji-animation="none" data-tally-form-events-forwarding="1">Book Your Spot</button>
+
+    <!-- Right-side controls. Below 768px the header CTA is hidden (the
+         sticky book bar covers it) and this pair shows on the right:
+         a plain-ink Instagram glyph, then the hamburger — same "nav is
+         text, not a sticker" restraint, no fill or frame on either. -->
+    <div class="site-header__actions">
+      <a class="site-header__ig" href="https://www.instagram.com/nomad.summercamp" target="_blank" rel="noopener" aria-label="Message us on Instagram">
+        <svg class="site-header__ig-icon" viewBox="0 0 24 24" width="36" height="36" aria-hidden="true" focusable="false">
+          <path fill="currentColor" d="M12 4.16c2.56 0 2.87.01 3.88.06.94.04 1.44.2 1.78.33.45.17.77.38 1.1.71.34.34.55.66.72 1.1.13.35.29.85.33 1.79.05 1.01.06 1.32.06 3.88s-.01 2.87-.06 3.88c-.04.94-.2 1.44-.33 1.78-.17.45-.38.77-.71 1.1-.34.34-.66.55-1.1.72-.35.13-.85.29-1.79.33-1.01.05-1.32.06-3.88.06s-2.87-.01-3.88-.06c-.94-.04-1.44-.2-1.78-.33a2.96 2.96 0 0 1-1.1-.71 2.96 2.96 0 0 1-.72-1.1c-.13-.35-.29-.85-.33-1.79-.05-1.01-.06-1.32-.06-3.88s.01-2.87.06-3.88c.04-.94.2-1.44.33-1.78.17-.45.38-.77.71-1.1.34-.34.66-.55 1.1-.72.35-.13.85-.29 1.79-.33 1.01-.05 1.32-.06 3.88-.06M12 2.44c-2.6 0-2.93.01-3.95.06-1.02.05-1.72.21-2.33.45-.63.24-1.16.57-1.7 1.1-.53.54-.86 1.07-1.1 1.7-.24.61-.4 1.31-.45 2.33-.05 1.02-.06 1.35-.06 3.95s.01 2.93.06 3.95c.05 1.02.21 1.72.45 2.33.24.63.57 1.16 1.1 1.7.54.53 1.07.86 1.7 1.1.61.24 1.31.4 2.33.45 1.02.05 1.35.06 3.95.06s2.93-.01 3.95-.06c1.02-.05 1.72-.21 2.33-.45a4.7 4.7 0 0 0 1.7-1.1c.53-.54.86-1.07 1.1-1.7.24-.61.4-1.31.45-2.33.05-1.02.06-1.35.06-3.95s-.01-2.93-.06-3.95c-.05-1.02-.21-1.72-.45-2.33a4.7 4.7 0 0 0-1.1-1.7 4.7 4.7 0 0 0-1.7-1.1c-.61-.24-1.31-.4-2.33-.45-1.02-.05-1.35-.06-3.95-.06Zm0 4.65a4.91 4.91 0 1 0 0 9.82 4.91 4.91 0 0 0 0-9.82Zm0 8.1a3.19 3.19 0 1 1 0-6.38 3.19 3.19 0 0 1 0 6.38Zm6.25-8.29a1.15 1.15 0 1 1-2.3 0 1.15 1.15 0 0 1 2.3 0Z"/>
+        </svg>
+      </a>
+      <button class="site-header__menu-toggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="site-header-nav">
+        <svg class="site-header__menu-icon site-header__menu-icon--bars" viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" focusable="false">
+          <path d="M3 6h18M3 12h18M3 18h18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+        <svg class="site-header__menu-icon site-header__menu-icon--x" viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" focusable="false">
+          <path d="M5 5 19 19M19 5 5 19" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
   </div>
 </header>

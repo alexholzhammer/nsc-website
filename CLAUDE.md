@@ -75,6 +75,14 @@ Clean URLs, matching the main nomadsummercamp.com site: `/`, `/rankings`, `/abou
 
 Because pages are no longer all at the root, **every asset path is root-relative** (`/css/style.css`, `/hero.jpeg`, `/data/campers.json`). Never use a relative path — it will break on any page in a subdirectory. This assumes the site is served from a domain root (as it is via `CNAME`), not from a `user.github.io/repo/` subpath.
 
+### The `<head>` is per-page — keep the shared block in sync
+
+There is **no shared `<head>`**. Unlike the nav and footer, `<head>` content can't be a JS-injected fragment: the stylesheet, Google Fonts + `preconnect`, favicon/manifest links and the Tally `embed.js` must be in the initial HTML so the browser fetches them on first parse, and `<title>` / `<meta name="description">` / the `og:` tags must be crawler-visible without JS. `components.js` injects into `<body>` after load — too late and wrong place for any of that.
+
+So the same head block is **copied verbatim into all 7 pages**: `index.html`, `about/`, `rankings/`, `past-camps/`, `imprint/`, `privacy/`, `terms/` (each `index.html`). The shared lines are: the three Google Fonts `<link>`s, `<link rel="stylesheet" href="/css/style.css">`, the favicon set (`favicon-16x16.png`, `favicon-32x32.png`, `favicon.ico`, `apple-touch-icon.png`, `/site.webmanifest`), `<script src="/components.js" defer>`, and `<script async src="https://tally.so/widgets/embed.js">`. Per-page only: `<title>`, `<meta name="description">`, `og:title`, `og:description`.
+
+**Any change to a shared `<head>` line must be applied to all 7 pages** — do the edit as a find-and-replace on the exact string and confirm it landed in every file. Keep the block byte-identical so that stays a one-shot replace. (If the site ever grows past ~15 pages, move to GitHub Pages' built-in Jekyll includes instead.)
+
 ### Site header
 
 The header lives in **`nav.html`** as a fragment, and `components.js` injects it. Each page carries only:
