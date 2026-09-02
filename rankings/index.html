@@ -223,6 +223,8 @@
       display: flex;
       align-items: center;
       gap: 6px;
+      min-width: 0;
+      overflow-wrap: break-word;
     }
 
     .ranking-row__badges {
@@ -257,6 +259,45 @@
     }
 
     .hidden { display: none !important; }
+
+    /* ── Responsive ─────────────────────────────────────── */
+    @media (max-width: 1100px) {
+      .ranking-hero    { padding-left: 60px; padding-right: 48px; }
+      .ranking-section { padding-left: 60px; padding-right: 48px; }
+    }
+
+    @media (max-width: 768px) {
+      .ranking-hero    { padding: 48px 24px 40px; }
+      .ranking-section { padding: 0 24px 64px; }
+
+      /* Fixed-width stat columns (5rem/6rem) plus the 155px gutter
+         were sized for desktop and never shrank, so rows ran wider
+         than the viewport and the Wins/Points columns fell off the
+         right edge. Size the stat columns to their own (short)
+         numeric content instead of a fixed rem guess — points can
+         run to 5 digits, so a fixed width either clips it or wastes
+         space on single-digit camps/wins — and let the name column
+         take whatever's left. */
+      .ranking-header,
+      .ranking-row {
+        grid-template-columns: auto 1fr auto auto auto;
+        gap: 8px;
+      }
+
+      .ranking-header { padding: 0 10px 8px; }
+      .ranking-row    { padding: 10px 10px; }
+
+      .ranking-row__rank { font-size: 1.15rem; }
+      .ranking-row__stat { font-size: 1rem; }
+
+      .ranking-row__name {
+        font-size: 0.82rem;
+        gap: 4px;
+        flex-wrap: wrap;
+      }
+
+      .badge-sticker img { width: 18px; height: 18px; }
+    }
 
   </style>
 </head>
