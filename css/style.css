@@ -911,7 +911,8 @@ h1 { font-size: inherit; font-weight: inherit; }
                    which let long copy push the column past its track */
 }
 
-.hero__content .badge {
+.hero__content > .badge,
+.hero__content > .info-tag {
   margin-bottom: 20px;
 }
 
