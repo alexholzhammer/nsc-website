@@ -273,19 +273,25 @@
       /* Fixed-width stat columns (5rem/6rem) plus the 155px gutter
          were sized for desktop and never shrank, so rows ran wider
          than the viewport and the Wins/Points columns fell off the
-         right edge. Size the stat columns to their own (short)
-         numeric content instead of a fixed rem guess — points can
-         run to 5 digits, so a fixed width either clips it or wastes
-         space on single-digit camps/wins — and let the name column
-         take whatever's left. */
+         right edge.
+
+         The header and every row are separate grid elements, so
+         `auto` columns size independently per element — each row
+         sizes its columns off its own digits, and the header sizes
+         off its label text, so nothing lines up between them. Use
+         one shared fixed template instead: Camps/Wins are always a
+         single digit (there are only 6 camps total) so a narrow
+         column comfortably fits both the number and the "CAMPS"/
+         "WINS" label; Points can run to 5 digits (max in the data
+         is 14,020) so it gets more room. */
       .ranking-header,
       .ranking-row {
-        grid-template-columns: auto 1fr auto auto auto;
-        gap: 8px;
+        grid-template-columns: 1.6rem 1fr 2.3rem 2.3rem 4rem;
+        gap: 6px;
       }
 
       .ranking-header { padding: 0 10px 8px; }
-      .ranking-row    { padding: 10px 10px; }
+      .ranking-row    { padding: 10px; }
 
       .ranking-row__rank { font-size: 1.15rem; }
       .ranking-row__stat { font-size: 1rem; }
