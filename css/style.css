@@ -1735,16 +1735,19 @@ h1 { font-size: inherit; font-weight: inherit; }
 .included__checklist {
   position: absolute;
   top: 22%;
-  left: 14%;
-  right: 8%;
   bottom: 16%;
+  /* Shrink-wrapped and centred on the paper (which is centred in the
+     image), so the list block sits in the middle while its items stay
+     left-aligned to each other and read as a list. */
+  left: 50%;
+  transform: translateX(-50%);
   list-style: none;
   padding: 0;
   margin: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   gap: 10px;
 }
 
