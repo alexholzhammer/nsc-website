@@ -81,6 +81,8 @@ There is **no shared `<head>`**. Unlike the nav and footer, `<head>` content can
 
 So the same head block is **copied verbatim into all 7 pages**: `index.html`, `about/`, `rankings/`, `past-camps/`, `imprint/`, `privacy/`, `terms/` (each `index.html`). The shared lines are: the three Google Fonts `<link>`s, `<link rel="stylesheet" href="/css/style.css">`, the favicon set (`favicon-16x16.png`, `favicon-32x32.png`, `favicon.ico`, `apple-touch-icon.png`, `/site.webmanifest`), `<script src="/components.js" defer>`, and `<script async src="https://tally.so/widgets/embed.js">`. Per-page only: `<title>`, `<meta name="description">`, `og:title`, `og:description`.
 
+**Google Tag Manager (`GTM-WB3WKB2G`)** is also copied verbatim into all 7 pages: the `<script>` snippet as the first thing inside `<head>`, and the `<noscript><iframe>` fallback as the first thing inside `<body>` (above `#nav-placeholder`). It is deliberately *not* in `nav.html`/`footer.html` — those are JS-injected, so the noscript fallback would never exist when JS is off, and GTM should fire on first parse.
+
 **Any change to a shared `<head>` line must be applied to all 7 pages** — do the edit as a find-and-replace on the exact string and confirm it landed in every file. Keep the block byte-identical so that stays a one-shot replace. (If the site ever grows past ~15 pages, move to GitHub Pages' built-in Jekyll includes instead.)
 
 ### Site header
