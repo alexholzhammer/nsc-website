@@ -191,11 +191,61 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       border: 0;
     }
 
+    /* ── Instagram camp: same two columns, the post sits centred in the media column ── */
+    .pc-camp--social { grid-template-columns: 1fr 1fr; }
+    .pc-camp__social {
+      min-width: 0;            /* let the grid track shrink below Instagram's 326px min */
+      width: 100%;
+      max-width: 440px;
+      justify-self: center;
+    }
+    /* Instagram ships its card with inline styles (soft shadow, radius, margin,
+       min-width: 326px). Override them so the post is a hard-shadow cutout like
+       every other object on the page, and never wider than its column. */
+    .pc-camp__social .instagram-media {
+      background: var(--color-white) !important;
+      border: 0 !important;
+      border-radius: 0 !important;
+      box-shadow: var(--shadow-xl) !important;
+      outline: var(--outline-thick);
+      margin: 0 !important;
+      min-width: 0 !important;
+      max-width: 100% !important;
+      width: 100% !important;
+    }
+    /* Placeholder / no-JS fallback: reserves roughly a portrait post's height so
+       the swap to the iframe barely moves the page. */
+    blockquote.pc-ig { aspect-ratio: 4 / 5.6; }  /* blockquote only: Instagram sizes its own iframe */
+    .pc-ig__fallback {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      padding: 24px;
+      text-align: center;
+      text-decoration: none;
+      color: var(--color-dark);
+      background: repeating-linear-gradient(45deg, var(--color-cream) 0 14px, var(--color-white) 14px 28px);
+    }
+    .pc-ig__fallback-title {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+    }
+    .pc-ig__fallback-cta {
+      font-family: var(--font-handwritten);
+      font-weight: 700;
+      font-size: 1.1rem;
+      text-decoration: underline;
+    }
+
     @media (max-width: 1100px) {
       .pc-camp--video {
         grid-template-columns: 1fr;
       }
       .pc-camp--video .pc-camp__desc { margin-bottom: 32px; }
+      .pc-camp--video .pc-camp__cta { margin-bottom: 32px; }  /* keep the CTA off the stacked video */
     }
 
     /* ── Camp 5 CTA ── */
@@ -252,43 +302,68 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </section>
 
-  <!-- Camp 1: Bädäss -->
-  <section class="pc-camp">
-    <div><span class="info-tag info-tag--orange pc-camp__num">Camp 1</span></div>
-    <h2 class="sticker sticker--teal pc-camp__name">Camp Bädäss</h2>
-    <div class="pc-camp__meta">
-      <span class="info-tag info-tag--teal">2023 · Bad Aussee, Austria</span>
-      <span class="info-tag info-tag--pink">20 Campers</span>
+  <!-- Camp 6: Allora (Instagram post) — newest first, so it leads the list -->
+  <section class="pc-camp pc-camp--video pc-camp--social">
+    <div class="pc-camp__text">
+      <div><span class="info-tag info-tag--orange pc-camp__num">Camp 6 · Most Recent</span></div>
+      <h2 class="sticker sticker--pink pc-camp__name">Camp Allora</h2>
+      <div class="pc-camp__meta">
+        <span class="info-tag info-tag--teal">2026 · Tuscany, Italy</span>
+        <span class="info-tag info-tag--pink">21 Campers</span>
+      </div>
+      <p class="pc-camp__desc">Camp packed its bags for Tuscany. 21 Campers, four teams, and team names that sound like a nonna's fever dream: Magia Melone, Grandma's Red Sauce, Fast &amp; Furious Fusilli and the eventual champions, Bones for Nonnas. Allora&hellip; we'll let the post do the talking.</p>
     </div>
-    <p class="pc-camp__desc">The OG. The one that started it all. Nobody knew what to expect. Everybody left wanting to do it again. Also, someone ate a slug. We don't talk about it.</p>
-    <div class="pc-camp__grid">
-      <div class="pc-tile"><img src="/camp-baedaess-1.webp" alt="Camp Bädäss"></div>
-      <div class="pc-tile"><img src="/camp-baedaess-2.webp" alt="Camp Bädäss"></div>
-      <div class="pc-tile"><img src="/camp-baedaess-3.webp" alt="Camp Bädäss"></div>
-      <div class="pc-tile pc-tile--hidden"><img src="/camp-baedaess-4.webp" alt="Camp Bädäss"></div>
-      <div class="pc-tile pc-tile--hidden"><img src="/camp-baedaess-5.webp" alt="Camp Bädäss"></div>
-      <div class="pc-tile pc-tile--hidden"><img src="/camp-baedaess-6.webp" alt="Camp Bädäss"></div>
-      <div class="pc-tile pc-tile--hidden"><img src="/camp-baedaess-7.webp" alt="Camp Bädäss"></div>
-      <div class="pc-tile pc-tile--hidden"><img src="/camp-baedaess-8.webp" alt="Camp Bädäss"></div>
-      <div class="pc-tile pc-tile--hidden"><img src="/camp-baedaess-9.webp" alt="Camp Bädäss"></div>
+    <div class="pc-camp__social">
+      <!-- Instagram's official embed. The blockquote is the no-JS fallback
+           (a plain link to the post); /embed.js swaps it for an iframe.
+           The script is loaded once, only as this section nears the viewport. -->
+      <blockquote class="instagram-media pc-ig" data-instgrm-permalink="https://www.instagram.com/p/DbGe2uwqAFr/" data-instgrm-version="14">
+        <a class="pc-ig__fallback" href="https://www.instagram.com/p/DbGe2uwqAFr/" target="_blank" rel="noopener">
+          <img src="/instagram.svg" alt="" aria-hidden="true" width="40" height="40">
+          <span class="pc-ig__fallback-title">Camp Allora on Instagram</span>
+          <span class="pc-ig__fallback-cta">View this post on Instagram →</span>
+        </a>
+      </blockquote>
     </div>
-    <button class="pc-camp__show-more">Show more photos ↓</button>
   </section>
 
-  <!-- Camp 2: Jandala (video) -->
+  <!-- Camp 5: Big Daddy (video + CTA) -->
   <section class="pc-camp pc-camp--video">
     <div class="pc-camp__text">
-      <div><span class="info-tag info-tag--orange pc-camp__num">Camp 2</span></div>
-      <h2 class="sticker sticker--orange pc-camp__name">Camp Jandala</h2>
+      <div><span class="info-tag info-tag--orange pc-camp__num">Camp 5</span></div>
+      <h2 class="sticker sticker--orange pc-camp__name">Camp Big Daddy</h2>
       <div class="pc-camp__meta">
-        <span class="info-tag info-tag--teal">2024 · Novi Sad, Serbia</span>
-        <span class="info-tag info-tag--pink">26 Campers</span>
+        <span class="info-tag info-tag--teal">2026 · Cape Town, South Africa</span>
+        <span class="info-tag info-tag--pink">56 Campers</span>
       </div>
-      <p class="pc-camp__desc">Bigger, wilder, and somehow even more Camp. A location straight out of a coming-of-age movie, perched above the Danube with a backdrop that made every activity feel cinematic. The group was growing and so was the chaos.</p>
+      <p class="pc-camp__desc">Our biggest camp yet. And the one that proved this thing has no ceiling. 56 Campers from across the world, a private lake, a beach, and three days of pure magic. Camp Big Daddy set the bar so high we had no choice but to come back. Which is exactly what we're doing in 2027.</p>
+      <a class="pc-camp__cta" href="/">Join us for Camp Big Daddy 2027 →</a>
     </div>
     <div class="pc-camp__video">
-      <iframe src="https://www.youtube.com/embed/fBdpiWri76U" title="Camp Jandala" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/j8RlL1rbtu0" title="Camp Big Daddy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
+  </section>
+
+  <!-- Camp 4: Chateau -->
+  <section class="pc-camp">
+    <div><span class="info-tag info-tag--orange pc-camp__num">Camp 4</span></div>
+    <h2 class="sticker sticker--teal pc-camp__name">Camp Chateau</h2>
+    <div class="pc-camp__meta">
+      <span class="info-tag info-tag--teal">2025 · Normandy, France</span>
+      <span class="info-tag info-tag--pink">22 Campers</span>
+    </div>
+    <p class="pc-camp__desc">We had a Camp in an actual castle! Chateau Coliving in Normandy opened its gates and we filled it with Camp games, Camp chaos, and the return of the Bad Vibes Ghost, who apparently followed us from Mexico.</p>
+    <div class="pc-camp__grid">
+      <div class="pc-tile"><img src="/camp-chateau-1.webp" alt="Camp Chateau"></div>
+      <div class="pc-tile"><img src="/camp-chateau-2.webp" alt="Camp Chateau"></div>
+      <div class="pc-tile"><img src="/camp-chateau-3.webp" alt="Camp Chateau"></div>
+      <div class="pc-tile pc-tile--hidden"><img src="/camp-chateau-4.webp" alt="Camp Chateau"></div>
+      <div class="pc-tile pc-tile--hidden"><img src="/camp-chateau-5.webp" alt="Camp Chateau"></div>
+      <div class="pc-tile pc-tile--hidden"><img src="/camp-chateau-6.webp" alt="Camp Chateau"></div>
+      <div class="pc-tile pc-tile--hidden"><img src="/camp-chateau-7.webp" alt="Camp Chateau"></div>
+      <div class="pc-tile pc-tile--hidden"><img src="/camp-chateau-8.webp" alt="Camp Chateau"></div>
+    </div>
+    <button class="pc-camp__show-more">Show more photos ↓</button>
   </section>
 
   <!-- Camp 3: Chido -->
@@ -314,43 +389,43 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <button class="pc-camp__show-more">Show more photos ↓</button>
   </section>
 
-  <!-- Camp 4: Chateau -->
-  <section class="pc-camp">
-    <div><span class="info-tag info-tag--orange pc-camp__num">Camp 4</span></div>
-    <h2 class="sticker sticker--teal pc-camp__name">Camp Chateau</h2>
-    <div class="pc-camp__meta">
-      <span class="info-tag info-tag--teal">2025 · Normandy, France</span>
-      <span class="info-tag info-tag--pink">22 Campers</span>
-    </div>
-    <p class="pc-camp__desc">We had a Camp in an actual castle! Chateau Coliving in Normandy opened its gates and we filled it with Camp games, Camp chaos, and the return of the Bad Vibes Ghost, who apparently followed us from Mexico.</p>
-    <div class="pc-camp__grid">
-      <div class="pc-tile"><img src="/camp-chateau-1.webp" alt="Camp Chateau"></div>
-      <div class="pc-tile"><img src="/camp-chateau-2.webp" alt="Camp Chateau"></div>
-      <div class="pc-tile"><img src="/camp-chateau-3.webp" alt="Camp Chateau"></div>
-      <div class="pc-tile pc-tile--hidden"><img src="/camp-chateau-4.webp" alt="Camp Chateau"></div>
-      <div class="pc-tile pc-tile--hidden"><img src="/camp-chateau-5.webp" alt="Camp Chateau"></div>
-      <div class="pc-tile pc-tile--hidden"><img src="/camp-chateau-6.webp" alt="Camp Chateau"></div>
-      <div class="pc-tile pc-tile--hidden"><img src="/camp-chateau-7.webp" alt="Camp Chateau"></div>
-      <div class="pc-tile pc-tile--hidden"><img src="/camp-chateau-8.webp" alt="Camp Chateau"></div>
-    </div>
-    <button class="pc-camp__show-more">Show more photos ↓</button>
-  </section>
-
-  <!-- Camp 5: Big Daddy (video + CTA) -->
+  <!-- Camp 2: Jandala (video) -->
   <section class="pc-camp pc-camp--video">
     <div class="pc-camp__text">
-      <div><span class="info-tag info-tag--orange pc-camp__num">Camp 5 · Most Recent</span></div>
-      <h2 class="sticker sticker--orange pc-camp__name">Camp Big Daddy</h2>
+      <div><span class="info-tag info-tag--orange pc-camp__num">Camp 2</span></div>
+      <h2 class="sticker sticker--orange pc-camp__name">Camp Jandala</h2>
       <div class="pc-camp__meta">
-        <span class="info-tag info-tag--teal">2026 · Cape Town, South Africa</span>
-        <span class="info-tag info-tag--pink">56 Campers</span>
+        <span class="info-tag info-tag--teal">2024 · Novi Sad, Serbia</span>
+        <span class="info-tag info-tag--pink">26 Campers</span>
       </div>
-      <p class="pc-camp__desc">Our biggest camp yet. And the one that proved this thing has no ceiling. 56 Campers from across the world, a private lake, a beach, and three days of pure magic. Camp Big Daddy set the bar so high we had no choice but to come back. Which is exactly what we're doing in 2027.</p>
-      <a class="pc-camp__cta" href="/">Join us for Camp Big Daddy 2027 →</a>
+      <p class="pc-camp__desc">Bigger, wilder, and somehow even more Camp. A location straight out of a coming-of-age movie, perched above the Danube with a backdrop that made every activity feel cinematic. The group was growing and so was the chaos.</p>
     </div>
     <div class="pc-camp__video">
-      <iframe src="https://www.youtube.com/embed/j8RlL1rbtu0" title="Camp Big Daddy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/fBdpiWri76U" title="Camp Jandala" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
+  </section>
+
+  <!-- Camp 1: Bädäss -->
+  <section class="pc-camp">
+    <div><span class="info-tag info-tag--orange pc-camp__num">Camp 1</span></div>
+    <h2 class="sticker sticker--teal pc-camp__name">Camp Bädäss</h2>
+    <div class="pc-camp__meta">
+      <span class="info-tag info-tag--teal">2023 · Bad Aussee, Austria</span>
+      <span class="info-tag info-tag--pink">20 Campers</span>
+    </div>
+    <p class="pc-camp__desc">The OG. The one that started it all. Nobody knew what to expect. Everybody left wanting to do it again. Also, someone ate a slug. We don't talk about it.</p>
+    <div class="pc-camp__grid">
+      <div class="pc-tile"><img src="/camp-baedaess-1.webp" alt="Camp Bädäss"></div>
+      <div class="pc-tile"><img src="/camp-baedaess-2.webp" alt="Camp Bädäss"></div>
+      <div class="pc-tile"><img src="/camp-baedaess-3.webp" alt="Camp Bädäss"></div>
+      <div class="pc-tile pc-tile--hidden"><img src="/camp-baedaess-4.webp" alt="Camp Bädäss"></div>
+      <div class="pc-tile pc-tile--hidden"><img src="/camp-baedaess-5.webp" alt="Camp Bädäss"></div>
+      <div class="pc-tile pc-tile--hidden"><img src="/camp-baedaess-6.webp" alt="Camp Bädäss"></div>
+      <div class="pc-tile pc-tile--hidden"><img src="/camp-baedaess-7.webp" alt="Camp Bädäss"></div>
+      <div class="pc-tile pc-tile--hidden"><img src="/camp-baedaess-8.webp" alt="Camp Bädäss"></div>
+      <div class="pc-tile pc-tile--hidden"><img src="/camp-baedaess-9.webp" alt="Camp Bädäss"></div>
+    </div>
+    <button class="pc-camp__show-more">Show more photos ↓</button>
   </section>
 
   <script>
@@ -364,6 +439,29 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         }
       });
     });
+
+    /* Instagram embed: load Instagram's embed.js once, only when the post
+       nears the viewport. Until then (or if the script is blocked) the
+       blockquote's plain link to the post stays visible. */
+    (function () {
+      const post = document.querySelector('.pc-camp__social .instagram-media');
+      if (!post) return;
+      let loaded = false;
+      function load() {
+        if (loaded) return;
+        loaded = true;
+        if (window.instgrm) { window.instgrm.Embeds.process(); return; }
+        const s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.instagram.com/embed.js';
+        document.body.appendChild(s);
+      }
+      if (!('IntersectionObserver' in window)) { load(); return; }
+      const io = new IntersectionObserver(entries => {
+        if (entries.some(e => e.isIntersecting)) { io.disconnect(); load(); }
+      }, { rootMargin: '600px 0px' });
+      io.observe(post);
+    })();
   </script>
 
   <div id="footer-placeholder"></div>
