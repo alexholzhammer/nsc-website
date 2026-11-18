@@ -4,9 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-This is the **main website for Nomad Summer Camp (NSC)**, currently in development. The repo is scoped to the Cape Town 2027 edition (Camp Big Daddy), but it's built to evolve into the permanent NSC web presence.
+This is the **main website for Nomad Summer Camp (NSC)**, live at nomadsummercamp.com. The GitHub repo is the source of truth: what's on `main` is what's live. Content is currently focused on the Cape Town 2027 edition (Camp Big Daddy), but the site is NSC's permanent web presence.
 
-**What NSC is:** An event series bringing digital nomads and remote workers together for an all-inclusive long-weekend camp experience. New location each time. NSC started in 2023 (Camp Bädäss, Austria). Camp Big Daddy (Cape Town) is becoming an annual edition — the first one was in 2026. Past camps: Austria, Serbia, Mexico, France, Cape Town. Founded and run by Ali, Alex, Julio, and Jeff.
+**What NSC is:** An event series bringing digital nomads and remote workers together for an all-inclusive long-weekend camp experience. New location each time. NSC started in 2023 (Camp Bädäss, Austria). Camp Big Daddy (Cape Town) is becoming an annual edition — the first one was in 2026. Past camps: Austria, Serbia, Mexico, France, Cape Town, Tuscany. Founded and run by Ali, Alex, Julio, and Jeff.
 
 **What people love most about it — in order of importance:**
 1. **Worry-free** — everything is handled (accommodation, all food, all drinks, all activities). They just show up and participate.
@@ -20,7 +20,7 @@ This is the **main website for Nomad Summer Camp (NSC)**, currently in developme
 
 **Capitalization:** Camp, Camper, and Counselor are always capitalized.
 
-**Camp lore (context, not content):** The official NSC mascot is Jeff — a rubber chicken who shows up at every camp. Camp lore also includes the bad vibes ghost (chased away at camp) and Nubbel (a character borrowed from Cologne Carnival).
+**Camp lore (background only, don't work it into copy unless asked):** Jeff, the official NSC mascot, a rubber chicken who shows up at every Camp. The Bad Vibes Ghost, chased away at some Camps. Nubbel, a figure borrowed from Cologne Carnival, shows up at some Camps and Campers know him. That's the full list.
 
 ## Running locally
 
@@ -58,11 +58,11 @@ Seven pages, one shared stylesheet:
 |------|---------|
 | `index.html` | Main landing page (`/`) — hero, quotes, schedule, venue tour, accommodation, camper testimonials |
 | `rankings/index.html` | All-time camper leaderboard (`/rankings`); fetches and aggregates `data/campers.json` client-side |
-| `about/index.html` | About page (`/about`) — "Meet your Counselors" story + a four-card crew grid (Ali, Alex, Julio, Jeff) + a CTA. Copy imported from the live nomadsummercamp.com/about; built with our own components. Photos are placeholders. |
-| `past-camps/index.html` | **Placeholder** (`/past-camps`) — header + "still being built". Replace with the real page. |
+| `about/index.html` | About page (`/about`) — "Meet your Counselors" story + a four-card crew grid (Ali, Alex, Julio, Jeff) + a CTA. Copy imported from the live nomadsummercamp.com/about; built with our own components. Real Counselor photos (`counselor-*.webp`). |
+| `past-camps/index.html` | Past Camps (`/past-camps`) — one section per edition, newest first (Allora → Bädäss), with photos. |
 | `imprint/index.html` | Legal disclosure page (`/imprint`) — company details, contact, disclaimer. Linked from the footer. Responsible person: Alexander Holzhammer. One `<!-- TODO -->` left: the Texas SOS registration / filing number. |
-| `privacy/index.html` | Privacy policy (`/privacy`) — covers Tally, Stripe, Beehiiv, GA4, YouTube/Google Fonts, GitHub Pages hosting. Linked from the footer. Written for the intended end-state (GA4, Beehiiv, consent banner not wired up yet); `<!-- TODO -->` for retention periods and the cookie-settings control. Not legal advice — needs a review. |
-| `terms/index.html` | Terms &amp; Conditions (`/terms`) — website use + Camp booking (bookings, deposit/payment via Stripe, cancellations, conduct, liability, photo consent, Texas governing law). Linked from the footer. Business specifics are filled in: $99 deposit + balance both due 12 Dec 2026, full refund on/before that date and none after, 18+, travel insurance required. Not legal advice — needs a review. |
+| `privacy/index.html` | Privacy policy (`/privacy`) — covers Tally, Stripe, Beehiiv, GA4, YouTube/Google Fonts, GitHub Pages hosting. Linked from the footer. Written for the intended end-state (GTM is live on all pages; no consent banner yet); `<!-- TODO -->` for retention periods and the cookie-settings control. Not legal advice — needs a review. |
+| `terms/index.html` | Terms &amp; Conditions (`/terms`) — website use + Camp booking (bookings, deposit/payment via Stripe, cancellations, conduct, liability, photo consent, Texas governing law). Linked from the footer. Not legal advice — needs a review. |
 | `nav.html` | The shared site header, as an HTML fragment. **Edit the nav here — nowhere else.** |
 | `footer.html` | The shared site footer, as an HTML fragment. **Edit the footer here — nowhere else.** |
 | `components.js` | Fetches `nav.html` / `footer.html` and swaps them into their placeholder divs |
@@ -102,6 +102,14 @@ The active link is set at runtime by comparing `location.pathname` against each 
 
 On desktop (≥1101px) the header is a fixed 80px bar that collapses to 50px once the page is scrolled — `components.js` toggles `.site-header--scrolled` from a scroll listener; the height and `200ms` transition live in `style.css`. Tablet/mobile keep the header's natural height.
 
+Visual spec — sticky, cream, hard 3px dark bottom rule, no shadow. Left: `NSC` wordmark. Middle: four sub-page links plus a "Newsletter" link that opens the beehiiv popup. Right: the yellow `.btn-primary--sm` CTA on the same Tally form as the hero button.
+
+Two deliberate constraints:
+- **Nav links are plain text, never tags or stickers.** Made into pills the bar becomes a sticker sheet competing with the hero, and yellow stops being the one colour that means "click this". Only two things in the bar carry weight: the wordmark and the CTA.
+- **The bar has no shadow.** It is the top edge of the paper, not an object on top of it — and a sticky shadow would drag across all nine sections on scroll.
+
+Below 768px the nav links are hidden and only the wordmark and CTA remain. There is no hamburger menu, by choice: a drawer is more machinery than a four-link site needs, and it is not part of the design vocabulary.
+
 ### Newsletter (beehiiv popup)
 
 The header "Newsletter" link and the footer "Sign up for our newsletter" ghost button both carry the class **`.js-beehiiv-newsletter`** and `href="#"`. They open **`#nsc-newsletter-overlay`** — a plain full-screen overlay defined at the bottom of `footer.html` that wraps a beehiiv **embed** iframe (`https://subscribe-forms.beehiiv.com/113948f3-d7ae-48e5-b5d3-c490cb43e535`, class `beehiiv-embed`). The iframe is in the markup from the start, so it loads with the page and opening the popup is a pure class toggle (`.nsc-nl-overlay--open`) — instant. `components.js` wires the triggers, the close button, backdrop-click and Esc once **both fragments have settled** (the triggers are in `nav.html`, the overlay is in `footer.html`), and appends `subscribe-forms.beehiiv.com/embed.js`, which just watches `.beehiiv-embed` iframes and resizes them. Styles: `COMPONENT — NEWSLETTER POPUP` in `style.css`. Same approach as the live nomadsummercamp.com site.
@@ -115,14 +123,6 @@ Same mechanism as the header. The footer lives in **`footer.html`** as a fragmen
 Visual spec — full teal colour field with the same 45° stripe as the quote sections, hard 3px dark rule on top, no shadow: the bottom edge of the paper. One row (`.site-footer__main`), three blocks left-to-right: the CTA stack (yellow Tally button with the newsletter ghost button under it), the company address + email, and the social links (Instagram, YouTube). Below that, a copyright + legal-stub bar. `.site-footer__newsletter` is a ghost twin of `.btn-primary` (outlined, not filled, so yellow stays the one "button" colour); it carries `.js-beehiiv-newsletter` and opens the beehiiv popup (see the Newsletter section above). The legal links all point to real pages: Privacy Policy → `/privacy`, Terms → `/terms`, Imprint → `/imprint`. Stacks to one column below 768px.
 
 `#footer-placeholder` gets a rough `min-height` in `style.css` so injection doesn't jump the page's scroll height; it sits below all content, so an exact match matters less than the header's.
-
-Visual spec — sticky, cream, hard 3px dark bottom rule, no shadow. Left: `NSC` wordmark. Middle: four sub-page links plus a "Newsletter" link that opens the beehiiv popup. Right: the yellow `.btn-primary--sm` CTA on the same Tally form as the hero button.
-
-Two deliberate constraints:
-- **Nav links are plain text, never tags or stickers.** Made into pills the bar becomes a sticker sheet competing with the hero, and yellow stops being the one colour that means "click this". Only two things in the bar carry weight: the wordmark and the CTA.
-- **The bar has no shadow.** It is the top edge of the paper, not an object on top of it — and a sticky shadow would drag across all nine sections on scroll.
-
-Below 768px the nav links are hidden and only the wordmark and CTA remain. There is no hamburger menu, by choice: a drawer is more machinery than a four-link site needs, and it is not part of the design vocabulary.
 
 JavaScript is inline at the bottom of each HTML file. The `js/` directory is currently empty.
 
@@ -168,9 +168,9 @@ New elements can be introduced where needed — they should feel like a physical
 
 **Responsive breakpoints:** 1100px (tablet), 768px (mobile). Layout shifts from CSS Grid to single-column; horizontal scroll strips stay as flex rows.
 
-## Photo placeholders
+## Photos
 
-Most photo slots (`polaroid__frame`, `sched-b2__photo`, `accom-a__photo`, `venue__ph--*`, etc.) are empty divs with colored CSS backgrounds. They are intentional placeholders awaiting real photos. Swap in `<img>` tags with `class="polaroid__img"` (or the relevant photo class) when real assets are ready.
+Photo slots (`polaroid__frame`, `sched-b2__photo`, etc.) hold real images (`<img class="polaroid__img">` or the relevant photo class). One schedule card on the landing page still has an empty placeholder div; swap in an `<img>` when the photo exists.
 
 ## Schedule layout
 
@@ -186,4 +186,4 @@ camps: [{
 }]
 ```
 
-`ranking.html` aggregates this client-side: for each camper, it sums `camps` attended, `wins`, and total `points` across all teams they appear in. Badge thresholds: duck-foot (3+ camps), bear-paw (5+ camps), bonfire (3+ wins).
+`rankings/index.html` aggregates this client-side: for each camper, it sums `camps` attended, `wins`, and total `points` across all teams they appear in. Badge thresholds: duck-foot (3+ camps), bear-paw (5+ camps), bonfire (3+ wins).
