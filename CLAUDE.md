@@ -16,6 +16,8 @@ This is the **main website for Nomad Summer Camp (NSC)**, live at nomadsummercam
 
 **Audience:** Digital nomads and remote workers looking for community and real human connection on the road. Includes both NSC alumni and first-timers who've never heard of it.
 
+**What the site has to do:** The homepage's job is to fill the next Camp (Feb 2027, Cape Town). "Book Your Spot" (Tally form `zxDW8M`) is the single loudest action; newsletter and Instagram are low-commitment fallbacks for visitors who aren't ready yet. Booking is an application, not a checkout: form → NSC gets in touch → short call → deposit. Camp capacity (what "sold out" means) isn't recorded anywhere, never invent it.
+
 **Tone:** Warm, irreverent, and genuinely fun — never corporate. Self-aware humor is on-brand. Copy should feel like it was written by someone who loves camp, not a marketing team.
 
 **Capitalization:** Camp, Camper, and Counselor are always capitalized.
